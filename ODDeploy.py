@@ -202,7 +202,6 @@ class ODCron:
 		
 		for x in db.select('deploys_status', what='task_id, status'):
 			job_list.append(x)
-		print(job_list)
 
 		return job_list
 
@@ -220,20 +219,21 @@ class ODDeployAdd:
     def POST(self):
       i = web.input()
       isDuplicate = db.select('od_deployer', where='username=\"' + i.username + '\" AND version=\"' + i.version + '\"', what="count(*) as count")[0]
-      print (isDuplicate)
+      deploy_config = []	
+      
       if isDuplicate.count:
 	      web.seeother('/')
-      #add a new build
       else:
-	      deploy_config = []	
+	      #add a new build
 	      if hasattr(i, "flavor1"): deploy_config.append(i.flavor1)
 	      if hasattr(i, "flavor2"): deploy_config.append(i.flavor2)
 	      if hasattr(i, "flavor3"): deploy_config.append(i.flavor3)
 	      if hasattr(i, "flavor4"): deploy_config.append(i.flavor4)
 	      if hasattr(i, "flavor5"): deploy_config.append(i.flavor5)
+	      if len(deploy_config) == 0 : deploy_config.append("Ent")
 
 	      deploy_config_new = "" ",".join(deploy_config)
-
+	      
 	      db.insert('od_deployer', username=i.username, version=i.version, webroot=i.webroot, status='Available', deploy_config=deploy_config_new)
 	      raise web.seeother("/")
 
