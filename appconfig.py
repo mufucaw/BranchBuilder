@@ -20,3 +20,4 @@ od_users = {    "betauser1": "Beta User1", \
 		"rzhou": "Ran Zhou", \
 		"phuang": "Paul Huang", \
 	}
+od_version = ['6.6.0']
