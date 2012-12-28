@@ -21,4 +21,4 @@ od_users = {
 		"rzhou": {"full_name": "Ran Zhou", "email": "rzhou@sugarcrm.com"} ,\
 		"phuang": {"full_name": "Paul Huang", "email": "phuang@sugarcrm.com"} ,\
 	}
-od_version = ['6.6.0', '6.6.1', '6.6.2', '6.7.0']
+od_version = ['6.5.9', '6.6.0', '6.6.1', '6.6.2', '6.7.0']
