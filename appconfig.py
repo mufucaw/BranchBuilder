@@ -1,4 +1,4 @@
-site_url='http://honey-g/BranchBuilder'
+site_url='http://localhost:3000'
 jenkins_url='http://honey-g:8080'
 od_users = {    
 		"anisevich": {"full_name": "Alex Nisevich", "email": "anisevich@sugarcrm.com"} ,\
@@ -22,3 +22,5 @@ od_users = {
 		"phuang": {"full_name": "Paul Huang", "email": "phuang@sugarcrm.com"} ,\
 	}
 od_version = ['6.5.9', '6.6.0', '6.6.1', '6.6.2', '6.7.0']
+ci_users = od_users
+ci_version = ['6.5.9', '6.6.0', '6.6.1', '6.6.2', '6.7.0']
