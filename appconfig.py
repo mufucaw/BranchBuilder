@@ -1,4 +1,4 @@
-site_url='http://honey-g:3000'
+site_url='http://honey-g'
 jenkins_url='http://honey-g:8080'
 od_users = {    
 		"anisevich": {"full_name": "Alex Nisevich", "email": "anisevich@sugarcrm.com"} ,\
