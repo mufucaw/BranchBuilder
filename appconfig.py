@@ -1,5 +1,5 @@
 site_url='http://localhost:3000'
-jenkins_url='http://localhost:8080'
+jenkins_url='http://honey-g:8080'
 od_users = {    
 		"anisevich": {"full_name": "Alex Nisevich", "email": "anisevich@sugarcrm.com"} ,\
 		"betauser1": {"full_name": "Beta User1", "email": "quality-assurance@sugarcrm.com"} ,\
