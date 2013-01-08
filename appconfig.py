@@ -5,6 +5,7 @@ od_users = {
 		"betauser1": {"full_name": "Beta User1", "email": "quality-assurance@sugarcrm.com"} ,\
 		"betauser2": {"full_name": "Beta User2", "email": "quality-assurance@sugarcrm.com"} ,\
 		"cfox": {"full_name": "Chinghua Fox", "email": "cfox@sugarcrm.com"} ,\
+		"cyan": {"full_name": "Carmen Yan", "email": "cyan@sugarcrm.com"} ,\
 		"dclunie": {"full_name": "David Clunie", "email": "dclunie@sugarcrm.com"} ,\
 		"dsafar": {"full_name": "David Safar", "email": "dsafar@sugarcrm.com"} ,\
 		"egan": {"full_name": "Emily Gan", "email": "egan@sugarcrm.com"} ,\
