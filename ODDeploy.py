@@ -294,6 +294,8 @@ class ODCron:
         if lowest_deploy:
             if lowest_deploy["status"] == 'Running':
                 selectedDeploys = db.select('od_deployer', where="id=" + str(lowest_deploy["task_id"]))
+		username = ""
+		jobName = ""
                 for m in selectedDeploys:
                     username = m.username
                     jobName = "od_" + username
