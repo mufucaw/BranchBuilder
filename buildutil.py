@@ -26,7 +26,6 @@ class JobBuilder:
 		else:
 			self.j.enable_job(self.jobName)
 			self.j.build_job(self.jobName, params)
-	
 
 class TaskBuilder:
 
@@ -62,10 +61,25 @@ class TaskBuilder:
 		buildUtil = BuildUtil()
 		self.jobName = buildUtil.get_job_name(repos=params['repos'])
 
-	def get_build_status(self, **params):
+	def get_build_status(self, jobName):
 		#job_info = self.j.get_job_info(self.jobName)
 		#return build_status
-		pass
+		color_status = {"aborted":"Aborted",  "red": "Failed", "blue": "Succcess"}
+		if jobName == "":
+			print "Have to specify job name"
+			return False
+		else:
+			if self.j.job_exists(jobName):
+				#Job exist in the job list
+				job_info = self.j.get_job_info(jobName)
+
+				if color_status.has_key(job_info['color']):
+					return color_status[job_info['color']]
+				else:
+					return 'Running'
+			else:
+				print "Have to specify a validate job name"
+				return False
 
 	def get_job_name(self):
 		return self.jobName
