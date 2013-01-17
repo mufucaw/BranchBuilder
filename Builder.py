@@ -42,7 +42,7 @@ class Index:
 		#self.update_status()
 		#builds = db.select('builds', order="last_build_date DESC", where="repos is not null")
 		builds = db.query("select a.task_id, a.branch, a.repos, a.version, a.author, a.last_build_date, \
-						ifnull(b.status, \"Available\") as status \
+						ifnull(b.status, a.status) as status \
 					from builds as a \
 					left join  builds_status as b \
 					on a.task_id=b.task_id \
@@ -232,6 +232,13 @@ class BuildCron:
 		#		return {"task_id":selectBuildTask.task_id, "status": selectBuildTask.status}
 		#else:
 		#	return False
+	def update_task_status_as_lastBuild(task_id, jobName):
+		j = self.taskBuilder.j
+		job_status = j.get_build_status(jobName)
+		if job_status == False or job_status == 'Succcess':
+			job_status = 'Available'
+		db.update('builds', where="task_id=" + str(task_id), status=job_status)
+
 
 	def run_cron(self):
 		lowest_build = self.get_lowest_build()
@@ -247,6 +254,7 @@ class BuildCron:
 				else:
 					#update build_status and remove the running flag
 					db.delete('builds_status', where='task_id=' + str(lowest_build["task_id"]))
+					self.update_task_status_as_lastBuild(str(lowest_build['task_id']), jobName)
 
 			elif lowest_build["status"] == 'InQueue':
 				#Assume Jenkins is avaliable for building
