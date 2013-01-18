@@ -155,7 +155,7 @@ class RunDeploy:
       builder.run_job(username=username, \
                 version=version, \
                 webroot=webroot, \
-                deploy_config=deploy_config, \
+                flavor=deploy_config, \
                 deploy_timestamp=deploy_timestamp)      
 
 class CIDeploy:

@@ -23,6 +23,6 @@ od_users = {
 		"rzhou": {"full_name": "Ran Zhou", "email": "rzhou@sugarcrm.com"} ,\
 		"phuang": {"full_name": "Paul Huang", "email": "phuang@sugarcrm.com"} ,\
 	}
-od_version = ['6.5.9', '6.6.0', '6.6.1', '6.6.2', '6.7.0']
+od_version = ['6.5.9', '6.5.10', '6.6.0', '6.6.1', '6.6.2','6.6.3', '6.7.0']
 ci_users = od_users
 ci_version = ['6.7.0']

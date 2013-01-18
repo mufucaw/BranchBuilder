@@ -171,6 +171,7 @@ $(document).ready(function(){
 						task_id_list.push(data[x].task_id.toString());
 						task_status_list.push(data[x].status.toString());
 					}
+					var hasRunningTask = false;
 					$('input[name="rebuild"]').each(function(i, domEle){
 						var task_id =$(domEle).attr("id").split("-")[1]; 
 						if (task_id_list.indexOf(task_id) != -1){
@@ -181,10 +182,10 @@ $(document).ready(function(){
 							
 							//Disable the edit button
 							$('#editList-' + task_id).attr("disabled", "disabled");
+							hasRunningTask = true;
 							
 						}else{
-							
-							window.location.reload()
+							//window.location.reload()
 							/*
 							$(domEle).removeAttr('disabled');						
 							//$('#build_status_' + task_id).text('Available');						
@@ -197,6 +198,10 @@ $(document).ready(function(){
 							*/
 						}
 					});
+					if (task_id_list.length == 0 &&  hasRunningTask == true){
+						window.location.reload()
+					}
+					
 				}
 			);
 
