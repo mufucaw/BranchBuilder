@@ -184,7 +184,7 @@ class GetBuild:
 
 class BuildCron:
 	def __init__(self):
-		self.taskBuilder = TaskBuilder('http://honey-g:8080')
+		self.taskBuilder = TaskBuilder(appconfig.jenkins_url)
 
 	def check_queue(self):
 		#Check queue jobs
@@ -193,7 +193,7 @@ class BuildCron:
 		return j.get_queue_info()
 
 	def is_building_job(self, jobName):
-		if jobName in self.get_building_job():
+		if str(jobName) in self.get_building_job():
 			return True
 		else:
 			return False
@@ -232,13 +232,15 @@ class BuildCron:
 		#		return {"task_id":selectBuildTask.task_id, "status": selectBuildTask.status}
 		#else:
 		#	return False
-	def update_task_status_as_lastBuild(task_id, jobName):
-		j = self.taskBuilder.j
+
+	def update_task_status_as_lastBuild(self, task_id, jobName):
+		j = self.taskBuilder
 		job_status = j.get_build_status(jobName)
+
 		if job_status == False or job_status == 'Succcess':
 			job_status = 'Available'
-		db.update('builds', where="task_id=" + str(task_id), status=job_status)
 
+		db.update('builds', where="task_id=" + str(task_id), status=job_status)
 
 	def run_cron(self):
 		lowest_build = self.get_lowest_build()
@@ -253,8 +255,8 @@ class BuildCron:
 					pass
 				else:
 					#update build_status and remove the running flag
-					db.delete('builds_status', where='task_id=' + str(lowest_build["task_id"]))
 					self.update_task_status_as_lastBuild(str(lowest_build['task_id']), jobName)
+					db.delete('builds_status', where='task_id=' + str(lowest_build["task_id"]))
 
 			elif lowest_build["status"] == 'InQueue':
 				#Assume Jenkins is avaliable for building

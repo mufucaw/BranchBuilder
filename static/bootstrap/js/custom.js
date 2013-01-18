@@ -4,7 +4,7 @@ $(document).ready(function(){
 
 		$('#package-help-info').popover({'title': 'Package info', 'content': 'Package can be "ult,ent,corp,pro,com"'});
 		$('td[name="list_status"]').each(function (i, domEle){
-			if ($(domEle).text() != "Available"){
+			if ($(domEle).text() == "Running"){
 				var task_id = $(domEle).attr("id").split("_");
 				$("#buildList-" + task_id[2]).attr("disabled", "disabled");
 				$('#editList-' + task_id[2]).attr("disabled", "disabled");
@@ -183,19 +183,23 @@ $(document).ready(function(){
 							$('#editList-' + task_id).attr("disabled", "disabled");
 							
 						}else{
+							
+							window.location.reload()
+							/*
 							$(domEle).removeAttr('disabled');						
-							$('#build_status_' + task_id).text('Available');						
+							//$('#build_status_' + task_id).text('Available');						
 							$('#build_status_' + task_id).attr('class', 'Available');						
 							//Remove disabled attr for edit button
 							$('#editList-' + task_id).removeAttr("disabled");
 							
 							//Remove disabled attr for remove button
 							$('#buildListRemove-' + task_id).removeAttr("disabled");
+							*/
 						}
 					});
 				}
 			);
 
-		}, 5000);
+		}, 10000);
 		
 	});
