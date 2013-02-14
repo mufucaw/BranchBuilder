@@ -48,8 +48,8 @@ $var site_url: $site_url
 			<td>
 
 			$ build_list = []
-			$ sugar_site_url = ""
 			$for flavor in ci_deploy.deploy_config.split(','):
+				$ sugar_site_url = ""
 				$if ci_deploy.last_deploy_date and ci_deploy.status == 'Available' :
 					$ last_deploy_date = ci_deploy.last_deploy_date.replace('-', '')
 					$ last_deploy_date = last_deploy_date.replace(':', '')

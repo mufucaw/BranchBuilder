@@ -127,6 +127,7 @@ $var site_url: $site_url
 
 			$ build_list = []
 			$for flavor in od_deploy.deploy_config.split(','):
+				$ sugar_site_url = ""
 				$if od_deploy.last_deploy_date and od_deploy.status == 'Available' :
 					$ last_deploy_date = od_deploy.last_deploy_date.replace('-', '')
 					$ last_deploy_date = last_deploy_date.replace(':', '')
@@ -142,8 +143,8 @@ $var site_url: $site_url
 								$if od_deploy.version != actual_version or flavor.lower() != actual_flavor.lower():
 									$ flavor = flavor + '(u)'
 								$break
-
-						<a href="${sugar_site_url}" target="_blank" >${flavor.strip()}</a>
+				$if sugar_site_url:
+					<a href="${sugar_site_url}" target="_blank" >${flavor.strip()}</a>
 				$else:
 					${flavor.strip()} 
 			</td>
