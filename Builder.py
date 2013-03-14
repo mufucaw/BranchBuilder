@@ -10,6 +10,7 @@ from  buildutil import *
 import BuildConfig
 import ODDeploy
 import CIDeploy
+import Nomad
 import appconfig
 
 render = web.template.render('template/', base='layout')
@@ -27,6 +28,7 @@ urls = (
 	'/buildconfig', BuildConfig.app_BuildConfig,
 	'/ODDeploy', ODDeploy.app_ODDeploy,
 	'/CIDeploy', CIDeploy.app_CIDeploy,
+	'/Nomad', Nomad.app_Nomad,
 )
 
 web.config.smtp_server = 'localhost'
@@ -248,9 +250,12 @@ class BuildCron:
 
 		if lowest_build:
 			if lowest_build["status"] == 'Running':
-				selectRepos = db.select('builds', where='task_id=' + str(lowest_build['task_id']), what='repos')
+				selectRepos = db.select('builds', where='task_id=' + str(lowest_build['task_id']), what="repos")
 				buildUtil = BuildUtil()
-				jobName = buildUtil.get_job_name(repos=selectRepos[0]["repos"])
+				jobName = ""
+				for m in selectRepos:
+					jobName = buildUtil.get_job_name(repos=m["repos"])
+
 				if self.is_building_job(jobName):
 					pass
 				else:
@@ -299,6 +304,12 @@ class FullView:
 		builds = db.select('builds', where="task_id =" +  i.task_id)
 
 		return render.view(builds)
+
+class Fixing:
+	def GET(self):
+		i = web.input()
+
+		return render.fixing(appconfig.site_url)
 
 class SendMailToAdmin:
 	def POST(self):
