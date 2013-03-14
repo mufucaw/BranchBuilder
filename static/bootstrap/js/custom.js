@@ -164,8 +164,14 @@ $(document).ready(function(){
 		});
 	
 		setInterval(function(){
+			var requestURL = "";
+			if ( window.location.pathname.substr(-1) == "/" ) {
+				requestURL = "./cron";
+			} else {
+				requestURL = window.location.pathname + "/cron";
+			}
 			$.get(
-				'/BranchBuilder/cron',
+				requestURL,
 				function(data){
 					var task_id_list = [];
 					var task_status_list = [];

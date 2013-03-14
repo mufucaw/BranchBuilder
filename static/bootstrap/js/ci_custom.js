@@ -78,8 +78,14 @@ $(document).ready(function(){
 		});
 		
 		setInterval(function(){
+			var requestURL = "";
+			if ( window.location.pathname.substr(-1) == "/" ) {
+				requestURL = "./cicron";
+			} else {
+				requestURL = window.location.pathname + "/cicron";
+			}
 			$.get(
-				'./cicron',
+				requestURL,
 				function(data){
 
 					var task_id_list = [];

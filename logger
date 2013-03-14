@@ -230,3 +230,76 @@
 2013-01-15 15:40:12 [Delete Action:]63,https://github.com/dszczesny/Mango.git,662_659_merge,6.6.2,Deepali Szczesny,ent,
 2013-01-15 15:40:44 [Add Action:],git@github.com:dszczesny/Mango.git,662_659_merge,6.6.2,Deepali Szczesny,ent,Available,0
 2013-01-17 10:49:13 [Add Action:],git@github.com:dtam/Mango.git,megaMenus,7.0.0,DTam,ent,Available,0
+2013-01-20 15:40:13 [Delete Action:]34,git@github.com:sugarcrm/Mango.git,6_5_5nn,6.5.5,Oliver Yang,ult,ent,corp,pro,com,
+2013-01-22 10:55:13 [Add Action:],git@github.com:smalyshev/Mango.git,6_6_2,6.6.2,Randy Li,ent,Available,0
+2013-01-22 10:55:32 [Delete Action:]65,git@github.com:smalyshev/Mango.git,6_6_2,6.6.2,Randy Li,ent,
+2013-01-22 11:11:33 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7_pony,7.0.0,Tim Wolf,ent,Available,0
+2013-01-22 11:27:22 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Tim Wolf,ent,Available,0
+2013-01-22 11:27:41 [Delete Action:]65,git@github.com:sugarcrm/Mango.git,sugar7_pony,7.0.0,Tim Wolf,ent,
+2013-01-22 12:14:04 [Delete Action:]66,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Tim Wolf,ent,
+2013-01-22 15:45:36 [Before Update Action:]52,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Randy Li,ult,
+2013-01-22 15:45:36 [After Update Action:]52,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Jackie Chen,ent
+2013-01-23 15:18:24 [Add Action:],git@github.com:sugarcrm/Mango.git,6.5.9swdev,6.5.9,Chan Tran,ent,Available,0
+2013-01-23 15:22:54 [Delete Action:]65,git@github.com:sugarcrm/Mango.git,6.5.9swdev,6.5.9,Chan Tran,ent,
+2013-01-23 15:26:02 [Add Action:],git@github.com:sugarcrm/SodaIceBox.git,6.5.9swdev,6.5.9,Chan Tran,ent,Available,0
+2013-01-23 15:28:04 [Delete Action:]65,git@github.com:sugarcrm/SodaIceBox.git,6.5.9swdev,6.5.9,Chan Tran,ent,
+2013-01-29 09:35:24 [Delete Action:]61,git@github.com:sparsley/Mango.git,sugar7-importvcard,7.0.0,Steven Parsley,ent,
+2013-01-31 10:42:05 [Delete Action:]56,git@github.com:sugarcrm/Mango.git,sugar7_convert_lead,7.0.0,Tim Wolf,ent,
+2013-02-04 10:59:10 [Add Action:],git@github.com:izhutaev-sugarcrm/Mango.git,bug59615,6.7.0,Chan Tran,ent,Available,0
+2013-02-04 18:37:49 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7-sfa-stable,7.0.0,Gabriel Rael,ent,Available,0
+2013-02-05 11:22:43 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Randy Lee,ent,Available,0
+2013-02-12 09:11:48 [Delete Action:]27,git@github.com:sugarcrm/Mango.git,toffee_whiskey_ghetto_search,6.7.0,Gino Relampagos,ent,
+2013-02-19 15:41:39 [Delete Action:]52,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Jackie Chen,ent,
+2013-02-20 15:45:21 [Add Action:],git@github.com:malyshev/Mango.git,MINSK-2,7.0.0,Jenny Gonsalves,ent,Available,0
+2013-02-20 15:51:07 [Add Action:],git@github.com:akucherenko/Mango.git,MINSK-3,7.0.0,Jenny Gonsalves,ent,Available,0
+2013-02-20 16:00:30 [Delete Action:]47,git@github.com:smalyshev/Mango.git,6_6_2,6.6.2,MTS,ent,
+2013-02-20 16:00:40 [Delete Action:]14,git@github.com:sugarcrm/Mango.git,6_5_1_tour,6.5.3,mjamil,ent,
+2013-02-20 16:00:44 [Delete Action:]19,git@github.com:sugarcrm/Mango.git,6_5_4,6.5.4,mjamil,ent,
+2013-02-20 16:00:47 [Delete Action:]8,git@github.com:synolia/Mango.git,toffee_pdfmanager,6.6.0,Ran Zhou,ult,ent,corp,pro,com,
+2013-02-20 16:00:53 [Delete Action:]21,git@github.com:sugarcrm/Mango.git,toffee_portal_tour,6.6.0,Lam Huynh,ent,
+2013-02-20 16:00:55 [Delete Action:]36,git@github.com:lamhuynh/Mango.git,toffee_portal_tour_v2,6.6.0,Lam Huynh,ent,
+2013-02-20 16:01:02 [Delete Action:]48,git@github.com:sugarcrm/Mango.git,6_5_9,6.5.9,Mazen Louis,ent,
+2013-02-20 16:01:07 [Delete Action:]46,git@github.com:smalyshev/Mango.git,6_5_9,6.5.9,Stas Malyshev,ent,
+2013-02-20 16:01:09 [Delete Action:]45,git@github.com:smalyshev/Mango.git,6_4_6,6.4.6,Stas Malyshev,ent,
+2013-02-20 16:01:13 [Delete Action:]51,git@github.com:sugarcrm/Mango.git,65_Joneses.Smarty-2.6.27,6.5.9,Chan Tran,ent,
+2013-02-20 16:01:17 [Delete Action:]32,git@github.com:sugarcrm/Mango.git,nutmeg,6.7.0,Collin Lee,ent,
+2013-02-20 16:01:20 [Delete Action:]17,git@github.com:sugarcrm/Mango.git,toffee,6.6.0,Lam Huynh,ent,ult,corp,pro,com,
+2013-02-20 16:01:23 [Delete Action:]44,git@github.com:lamhuynh/Mango.git,nutmeg_tour,6.7.0,Lam Huynh,ent,
+2013-02-20 16:01:33 [Delete Action:]12,git@github.com:sugarcrm/Mango.git,reports_visibility,6.6.0,Ran Zhou,ent,ult,pro,com,
+2013-02-20 16:01:38 [Delete Action:]20,git@github.com:sugarcrm/Mango.git,6_5_4m,6.5.4,Oliver Yang,ult,ent,corp,pro,com,
+2013-02-20 16:02:55 [Delete Action:]28,git@github.com:sugarcrm/Mango.git,file_loads_67,6.7.0,Stas Malyshev,ent,
+2013-02-20 16:02:58 [Delete Action:]24,git@github.com:sugarcrm/Mango.git,661_fake,6.6.1,Stas Malyshev,ult,ent,pro,
+2013-02-20 16:03:01 [Delete Action:]25,git@github.com:smalyshev/Mango.git,dce_be_gone_67,6.7.0,Stas Malyshev,ent,
+2013-02-20 16:03:05 [Delete Action:]23,git@github.com:sugarcrm/Mango.git,file_loads,6.6.0,Stas Malyshev,ent,
+2013-02-20 16:03:18 [Delete Action:]50,git@github.com:sugarcrm/Mango.git,orange,6.8.0,Helen Jiang,ent,
+2013-02-20 16:03:30 [Delete Action:]39,git@github.com:smalyshev/Mango.git,nutmeg_pre_fl,6.7.0,Stas Malyshev,ent,
+2013-02-25 17:10:32 [Add Action:],git@github.com:RobertGonzalez/Mango.git,nutmeg_metadata_cache_sections_unrevert,6.7.0,Robert Gonzalez,ent,Available,0
+2013-02-26 13:28:45 [Add Action:],git@github.com:RobertGonzalez/Mango.git,nutmeg_metadata_cache_sections_unrevert,6.7.0,Chan Tran,ent,Available,0
+2013-02-28 12:34:40 [Delete Action:]60,git@github.com:mmarum-sugarcrm/Mango.git,sidecar_662_to_nutmeg,6.7.0,Matt Marum,ent,
+2013-03-01 12:53:05 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7_dashboards,7.0,Justin Park,ent,Available,0
+2013-03-01 13:13:54 [Before Update Action:]72,git@github.com:sugarcrm/Mango.git,sugar7_dashboards,7.0,Justin Park,ent,
+2013-03-01 13:13:54 [After Update Action:]72,git@github.com:sugarcrm/Mango.git,sugar7_dashboards,7.0.0,Justin Park,ent
+2013-03-01 16:06:47 [Add Action:],git@github.com:sugarcrm/Mango.git,nutmeg_metadata_cache_sections_unrevert,6.7.0,Robert Gonzalez,ent,Available,0
+2013-03-01 16:44:53 [Add Action:],git@github.com:sugarcrm/Mango.git,6_6_2,6.6.2,Paul,ent,Available,0
+2013-03-04 14:31:23 [Before Update Action:]66,git@github.com:sugarcrm/Mango.git,sugar7-sfa-stable,7.0.0,Gabriel Rael,ent,
+2013-03-04 14:31:23 [After Update Action:]66,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Gabriel Rael,ent,pro
+2013-03-07 14:48:09 [Delete Action:]71,git@github.com:RobertGonzalez/Mango.git,nutmeg_metadata_cache_sections_unrevert,6.7.0,Chan Tran,ent,
+2013-03-07 14:48:57 [Add Action:],git@github.com:RobertGonzalez/Mango.git,nutmeg_metadata_cache_sections_unrevert,6.7.0,Chan Tran,ent,Available,0
+2013-03-08 14:24:31 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Paul,ent,Available,0
+2013-03-13 11:15:30 [Delete Action:]67,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Randy Lee,ent,
+2013-03-13 16:58:16 [Delete Action:]66,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Gabriel Rael,ent,pro,
+2013-03-13 17:21:00 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Riley,ent,Available,0
+2013-03-13 17:21:30 [Delete Action:]77,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Riley,ent,
+2013-03-14 08:47:24 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Riley,ent,Available,0
+2013-03-14 08:47:37 [Delete Action:]77,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Riley,ent,
+2013-03-14 08:53:02 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Riley,ent,Available,0
+2013-03-14 08:56:58 [Delete Action:]77,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Riley,ent,
+2013-03-14 08:57:20 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Riley,ent,Available,0
+2013-03-14 10:00:02 [Delete Action:]77,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Riley,ent,
+2013-03-14 10:00:23 [Before Update Action:]76,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Paul,ent,
+2013-03-14 10:00:23 [After Update Action:]76,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Paul,ent
+2013-03-14 10:03:39 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Paul2,ent,Available,0
+2013-03-14 10:03:50 [Delete Action:]76,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Paul,ent,
+2013-03-14 10:09:42 [Delete Action:]77,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Paul2,ent,
+2013-03-14 10:11:01 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Paul,ent,Available,0
+2013-03-14 10:34:25 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Eric,ent,Available,0

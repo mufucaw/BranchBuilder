@@ -47,8 +47,8 @@
 ssh eyang@qatest-web1.sjc.sugarcrm.pvt "cd ~/deployer; php ~/deployer/main.php \
 -e $username \
 -r $webroot \
--s qatest.sugarcrm.pvt \
--d  /var/www/qatest/qatest.sugarcrm.pvt/www \
+-s sugar123.me \
+-d /var/www/sugar123/sugar123.me/www \
 -v $version \
 -f \"$deploy_config\" \
 -t $deploy_timestamp \

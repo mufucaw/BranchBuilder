@@ -11,9 +11,10 @@ od_users = {
 		"egan": {"full_name": "Emily Gan", "email": "egan@sugarcrm.com"} ,\
 		"eyang": {"full_name": "Eric Yang", "email": "eyang@sugarcrm.com"} ,\
 		"franklin": {"full_name": "Fanklin Liu", "email": "franklin@sugarcrm.com"} ,\
+		"jimmy": {"full_name": "Jimmy Chen", "email": "jchen@sugarcrm.com"} ,\
 		"gpatterson": {"full_name": "Geno Patterson", "email": "gpatterson@sugarcrm.com"} ,\
 		"grelampagos": {"full_name": "Gino Relampagos", "email": "gpatterson@sugarcrm.com"} ,\
-		"jchen": {"full_name": "Jackie Chen", "email": "jchen@sugarcrm.com"} ,\
+		"jchen": {"full_name": "Jackie Chen", "email": "chenj@sugarcrm.com"} ,\
 		"jcho": {"full_name": "Jessica Cho", "email": "jcho@sugarcrm.com"} ,\
 		"jxia": {"full_name": "Jennifer Xia", "email": "jxia@sugarcrm.com"} ,\
 		"mlouis": {"full_name": "Mazen Louis", "email": "mlouis@sugarcrm.com"} ,\
@@ -23,6 +24,13 @@ od_users = {
 		"rzhou": {"full_name": "Ran Zhou", "email": "rzhou@sugarcrm.com"} ,\
 		"phuang": {"full_name": "Paul Huang", "email": "phuang@sugarcrm.com"} ,\
 	}
-od_version = ['6.5.9', '6.5.10', '6.6.0', '6.6.1', '6.6.2','6.6.3', '6.7.0']
-ci_users = od_users
+od_users["tester"] =  {"full_name": "QA Tester", "email": "oyang@sugarcrm.com"}
+od_version = ['6.5.9', '6.5.10', '6.5.11', '6.5.12', '6.6.0', '6.6.1', '6.6.2','6.6.3', '6.7.0']
+ci_users = dict(od_users)
 ci_version = ['6.7.0']
+
+nomad_users = {
+		"builder": {"full_name": "Branch Builder", "email": "build@sugarcrm.com"} , \
+	}
+nomad_version = ['6.7.0']
+nomad_flavors = ['Ult', 'Ent', 'Crop', 'Pro']
