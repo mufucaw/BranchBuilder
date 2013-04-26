@@ -1,5 +1,4 @@
-2012-07-17 11:24:46 [Before Update Action:]9,sfsfs,sfsf,sfsf,fsfs,ent,Available
-2012-07-17 11:24:46 [After Update Action:]9,sfsfssfsfsf,sfsfsfsf,sfsfsfsf,fsfssfsfsf,entsfsfsf,Available
-2012-07-17 11:24:51 [Delete Action:]9,sfsfssfsfsf,sfsfsfsf,sfsfsfsf,fsfssfsfsf,entsfsfsf,Available
-2012-07-17 14:14:22 [Add Action:],git@github.com:sugarcrm/Mango.git,6_4_5,6.4.5,Ryan B,ent,Available
-2012-07-17 14:21:46 [Delete Action:]9,git@github.com:sugarcrm/Mango.git,6_4_5,6.4.5,Ryan B,ent,Running
+2013-04-26 11:28:31 [Before Update Action:]9,git@github.com:bbradley-sugarcrm/Mango.git,master,6.7.0,Caw,git@github.com:sugarcrm/styleguide.git,master_6.7.0,git@github.com:sugarcrm/sidecar.git,jasons_branch,ent,Available
+2013-04-26 11:28:31 [After Update Action:]9,git@github.com:bbradley-sugarcrm/Mango.git,master,6.7.0,Caw,git@github.com:sugarcrm/styleguide.git,master_6.7.0,git@github.com:sugarcrm/sidecar.git,master,ent,Available
+2013-04-26 11:31:31 [Add Action:],git@github.com:bbradley-sugarcrm/Mango.git,master,6.7.0,Caw,git@github.com:sugarcrm/styleguide.git,master_6.7.0,git@github.com:sugarcrm/sidecar.git,master,ent,Available
+2013-04-26 11:31:41 [Delete Action:]10,git@github.com:bbradley-sugarcrm/Mango.git,master,6.7.0,Caw,git@github.com:sugarcrm/styleguide.git,master_6.7.0,git@github.com:sugarcrm/sidecar.git,master,ent,Available

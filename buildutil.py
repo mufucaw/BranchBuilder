@@ -62,7 +62,7 @@ class BuildUtil:
     return 'Build' + '_' + self.get_md5(params['repos'])
 
   # checks for default styleguide params, if present adds _version to branch name
-  def determine_styleguide_branch(params):
+  def determine_styleguide_branch(self, params):
     if params.styleguide_repo == "git@github.com:sugarcrm/styleguide.git" and params.styleguide_branch == "master":
       return "%s_%s" % (params.styleguide_branch, params.version)
     else:

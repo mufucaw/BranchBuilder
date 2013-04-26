@@ -18,183 +18,207 @@ $def with (builds)
 <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-  <a class="brand" href="/" >BranchBuilder</a>
-  <ul class="nav" >
-    <li class="active">
-      <a href="/" >Home</a>
-    </li>
-  </ul>
+	<a class="brand" href="/" >BranchBuilder</a>
+	<ul class="nav" >
+		<li class="active">
+			<a href="/" >Home</a>
+		</li>
+	</ul>
     </div>
   </div>
 </div>
 <div id="container" class="container">
-  <form class="well form-inline" method="post" action ="add" id="addBuildForm">
-    <input type="text" id="add-repos" class="required" name="repos" placeholder="Repository URL"/>
-    <input type="text" id="add-branch" class="required" name="branch" placeholder="Branch" />
-    <input type="text" id="add-version" class="required" name="version" placeholder="Mapped Version" />
-    <input type="text" id="add-author" class="required" name="author" placeholder="Author" />
-    <button type="submit" class="btn btn-primary">Add</button>
+	<form class="well form-inline" method="post" action ="add" id="addBuildForm">
+		<input type="text" id="add-repos" class="required" name="repos" placeholder="Repository URL"/>
+		<input type="text" id="add-branch" class="required" name="branch" placeholder="Branch" />
+		<input type="text" id="add-version" class="required" name="version" placeholder="Mapped Version" />
+		<input type="text" id="add-author" class="required" name="author" placeholder="Author" />
+		<button type="submit" class="btn btn-primary">Add</button>
     <br />
     <input type="text" id="add-styleguide-repo" class="required" name="styleguide_repo" placeholder="Styleguide Repository URL" value="git@github.com:sugarcrm/styleguide.git" />
     <input type="text" id="add-styleguide-branch" class="required" name="styleguide_branch" placeholder="Styleguide Branch" value="master" />
     <input type="text" id="add-sidecar-repo" class="required" name="sidecar_repo" placeholder="Styleguide Repository URL" value="git@github.com:sugarcrm/sidecar.git" />
     <input type="text" id="add-sidecar-branch" class="required" name="sidecar_branch" placeholder="Styleguide Branch" value="master" />
-  </form>
-  <div class="row">
-    <div class="span3 offset10">
-      <strong>Jobs Server: </strong><a href="http://honey-g:8080" target="_blank">Jenkins</a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span3 offset10">
-      <strong>Contact Admin: </strong><a data-toggle="modal" href="#popupViewMail" name="mailToAdmin" id="mailToAdmin">Oliver Yang</a>
-    </div>
-  </div>
-  <form class="well form-horizontal" method="post" action="update">
-      <fieldset>
-        $for build in builds:
-          <div class="control-group">
-            <label class="control-label" for="popView-repos">Repository URL:</label>
-            <div class="controls">
-              <input type="text" class="required" id="popView-repos" name="repos" value=$build.repos />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="popView-branch">Branch:</label>
-            <div class="controls">
-              <input type="text" id="popView-branch"  class="required" name="branch" value=$build.branch />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="popView-version">Mapped Version:</label>
-            <div class="controls">
-              <input type="text" id="popView-version" class="required" name="version" value=$build.version />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="popView-package_list">Packages:</label>
-            <div class="controls">
-              <input type="text" id="popView-package_list" class="required" name="package_list" value=$build.package_list /><a href="#" id="package-help-info"><i class="icon-info-sign"></i></a>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="popView-author">Author:</label>
-            <div class="controls">
-              <input type="text" id="popView-author" class="required" name="author" value=$build.author />
-            </div>
-          </div>
-          <div class="control-group" id="popView-control-status">
-            <label class="control-label" for="popView-status">Status:</label>
-            <div class="controls">
-              <input type="text" readonly="readonly" id="popView-status" class="required" name="author" value=$build.status /><a id="popView-edit-status" href="#">edit</a>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="popView-author">Build options:</label>
-            <div class="controls">
-              <textarea type="text" id="popView-author" class="required" name="author" ></textarea>
-            </div>
-          </div>
-    </fieldset>
-  </form>
+	</form>
+	<div class="row">
+		<div class="span3 offset10">
+			<strong>Jobs Server: </strong><a href="http://honey-g:8080" target="_blank">Jenkins</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span3 offset10">
+			<strong>Contact Admin: </strong><a data-toggle="modal" href="#popupViewMail" name="mailToAdmin" id="mailToAdmin">Oliver Yang</a>
+		</div>
+	</div>
+	<form class="well form-horizontal" method="post" action="update">
+			<fieldset>
+				$for build in builds:
+					<div class="control-group">
+						<label class="control-label" for="popView-repos">Repository URL:</label>
+						<div class="controls">
+							<input type="text" class="required" id="popView-repos" name="repos" value=$build.repos />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-branch">Branch:</label>
+						<div class="controls">
+							<input type="text" id="popView-branch"  class="required" name="branch" value=$build.branch />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-version">Mapped Version:</label>
+						<div class="controls">
+							<input type="text" id="popView-version" class="required" name="version" value=$build.version />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-package_list">Packages:</label>
+						<div class="controls">
+							<input type="text" id="popView-package_list" class="required" name="package_list" value=$build.package_list /><a href="#" id="package-help-info"><i class="icon-info-sign"></i></a>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-author">Author:</label>
+						<div class="controls">
+							<input type="text" id="popView-author" class="required" name="author" value=$build.author />
+						</div>
+					</div>
+					<div class="control-group" id="popView-control-status">
+						<label class="control-label" for="popView-status">Status:</label>
+						<div class="controls">
+							<input type="text" readonly="readonly" id="popView-status" class="required" name="author" value=$build.status /><a id="popView-edit-status" href="#">edit</a>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-author">Build options:</label>
+						<div class="controls">
+							<textarea type="text" id="popView-author" class="required" name="author" ></textarea>
+						</div>
+					</div>
+		</fieldset>
+	</form>
 
 </div>
-  <div class="modal hide fade" id="popupViewBuild" >
-    <div class="modal-header">
-      <a class="close" data-dismiss="modal" >x</a>
-      <h3 id="popView-title">Loading build task, please wait or refresh current page!</h3>
-      <input type="hidden" id="popView-selectAction" value="" />
-      <input type="hidden" id="popView-selectBuildID" value="" />
-    </div>
-    <div class="modal-body">
-      <form class="well form-horizontal" method="post" action ="add" id="popView-actionBuildForm">
-        <fieldset>
-          <div class="control-group">
-            <label class="control-label" for="popView-repos">Repository URL:</label>
-            <div class="controls">
-              <input type="text" class="required" id="popView-repos" name="repos" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="popView-branch">Branch:</label>
-            <div class="controls">
-              <input type="text" id="popView-branch"  class="required" name="branch" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="popView-version">Mapped Version:</label>
-            <div class="controls">
-              <input type="text" id="popView-version" class="required" name="version" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="popView-package_list">Packages:</label>
-            <div class="controls">
-              <input type="text" id="popView-package_list" class="required" name="package_list" /><a href="#" id="package-help-info"><i class="icon-info-sign"></i></a>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="popView-author">Author:</label>
-            <div class="controls">
-              <input type="text" id="popView-author" class="required" name="author" />
-            </div>
-          </div>
-          <div class="control-group" id="popView-control-status">
-            <label class="control-label" for="popView-status">Status:</label>
-            <div class="controls">
-              <input type="text" readonly="readonly" id="popView-status" class="required" name="author" /><a id="popView-edit-status" href="#">edit</a>
-            </div>
-          </div>
-        </fieldset>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <a class="btn" href="#" data-dismiss="modal">Cancel</a>
-      <a class="btn btn-primary" id="popView-Save" href="#">Save</a>
-    </div>
-  </div>    
-  <div class="modal hide fade" id="popupViewMail" >
-    <div class="modal-header">
-      <a class="close" data-dismiss="modal" >x</a>
-      <h3 id="popView-title">Send email to admin!</h3>
-      <input type="hidden" id="popView-selectAction" value="" />
-      <input type="hidden" id="popView-selectBuildID" value="" />
-    </div>
-    <div class="modal-body">
-      <form class="well form-horizontal" method="post" action ="sendmail" id="popView-sendMailForm">
-        <fieldset>
-          <div class="control-group">
-            <label class="control-label" for="popView-MailTo">To: </label>
-            <div class="controls">
-              <input readonly="readonly" type="text" class="required" id="popView-MailTo" name="to" value="oyang@sugarcrm.com" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="popView-MailFrom">From: </label>
-            <div class="controls">
-              <input type="text" class="required email" id="popView-MailFrom" name="from_address" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="popView-MailSubject">Subject: </label>
-            <div class="controls">
-              <input type="text" id="popView-MailSubject"  class="required" name="subject" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="popView-MailMessage">Message: </label>
-            <div class="controls">
-              <textarea id="popView-MailMessage" rows="9" cols="30"  class="required input-xlarge" name="message" ></textarea>
-            </div>
-          </div>
-        </fieldset>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <a class="btn" href="#" data-dismiss="modal">Cancel</a>
-      <a class="btn btn-primary" id="popView-Send" href="#">Send</a>
-    </div>
-  </div>
+	<div class="modal hide fade" id="popupViewBuild" >
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal" >x</a>
+			<h3 id="popView-title">Loading build task, please wait or refresh current page!</h3>
+			<input type="hidden" id="popView-selectAction" value="" />
+			<input type="hidden" id="popView-selectBuildID" value="" />
+		</div>
+		<div class="modal-body">
+			<form class="well form-horizontal" method="post" action ="add" id="popView-actionBuildForm">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="popView-repos">Repository URL:</label>
+						<div class="controls">
+							<input type="text" class="required" id="popView-repos" name="repos" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-branch">Branch:</label>
+						<div class="controls">
+							<input type="text" id="popView-branch"  class="required" name="branch" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-version">Mapped Version:</label>
+						<div class="controls">
+							<input type="text" id="popView-version" class="required" name="version" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-package_list">Packages:</label>
+						<div class="controls">
+							<input type="text" id="popView-package_list" class="required" name="package_list" /><a href="#" id="package-help-info"><i class="icon-info-sign"></i></a>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-author">Author:</label>
+						<div class="controls">
+							<input type="text" id="popView-author" class="required" name="author" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-styleguide_repo">Styleguide Repository:</label>
+						<div class="controls">
+							<input type="text" id="popView-styleguide_repo" class="required" name="styleguide_repo" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-styleguide_branch">Styleguide Branch:</label>
+						<div class="controls">
+							<input type="text" id="popView-styleguide_branch" class="required" name="styleguide_branch" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-sidecar_repo">Sidecar Repository:</label>
+						<div class="controls">
+							<input type="text" id="popView-sidecar_repo" class="required" name="sidecar_repo" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-sidecar_branch">Sidecar Branch:</label>
+						<div class="controls">
+							<input type="text" id="popView-sidecar_branch" class="required" name="sidecar_branch" />
+						</div>
+					</div>
+					<div class="control-group" id="popView-control-status">
+						<label class="control-label" for="popView-status">Status:</label>
+						<div class="controls">
+							<input type="text" readonly="readonly" id="popView-status" class="required" name="author" /><a id="popView-edit-status" href="#">edit</a>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a class="btn" href="#" data-dismiss="modal">Cancel</a>
+			<a class="btn btn-primary" id="popView-Save" href="#">Save</a>
+		</div>
+	</div>		
+	<div class="modal hide fade" id="popupViewMail" >
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal" >x</a>
+			<h3 id="popView-title">Send email to admin!</h3>
+			<input type="hidden" id="popView-selectAction" value="" />
+			<input type="hidden" id="popView-selectBuildID" value="" />
+		</div>
+		<div class="modal-body">
+			<form class="well form-horizontal" method="post" action ="sendmail" id="popView-sendMailForm">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="popView-MailTo">To: </label>
+						<div class="controls">
+							<input readonly="readonly" type="text" class="required" id="popView-MailTo" name="to" value="oyang@sugarcrm.com" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-MailFrom">From: </label>
+						<div class="controls">
+							<input type="text" class="required email" id="popView-MailFrom" name="from_address" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-MailSubject">Subject: </label>
+						<div class="controls">
+							<input type="text" id="popView-MailSubject"  class="required" name="subject" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-MailMessage">Message: </label>
+						<div class="controls">
+							<textarea id="popView-MailMessage" rows="9" cols="30"  class="required input-xlarge" name="message" ></textarea>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a class="btn" href="#" data-dismiss="modal">Cancel</a>
+			<a class="btn btn-primary" id="popView-Send" href="#">Send</a>
+		</div>
+	</div>
     <script src="/static/bootstrap/js/jquery.min.js"></script>
     <script src="/static/bootstrap/js/jquery.validate.min.js"></script>
     <script src="/static/bootstrap/js/validate.js"></script>
