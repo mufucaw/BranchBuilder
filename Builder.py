@@ -10,18 +10,18 @@ from  buildutil import *
 
 render = web.template.render('template/')
 urls = (
-	'/', 'Index',
-	'/add', 'Add',
-	'/build', 'Build',
-	#'/runbuild', 'RunBuild',
-	'/getbuild', 'GetBuild',
-	'/updatebuild', 'UpdateBuild',
-	'/remove', 'Remove',
-	'/sendmail', 'SendMailToAdmin',
-	'/cron', 'BuildCron',
-	'/fullview', 'FullView',
-	'/logger', 'Logger',
-	'/buildconfig', 'Build.app_BuildConfig',
+  '/', 'Index',
+  '/add', 'Add',
+  '/build', 'Build',
+  #'/runbuild', 'RunBuild',
+  '/getbuild', 'GetBuild',
+  '/updatebuild', 'UpdateBuild',
+  '/remove', 'Remove',
+  '/sendmail', 'SendMailToAdmin',
+  '/cron', 'BuildCron',
+  '/fullview', 'FullView',
+  '/logger', 'Logger',
+  '/buildconfig', 'Build.app_BuildConfig',
 )
 
 web.config.smtp_server = 'localhost'
@@ -32,252 +32,262 @@ web.config.smtp_port = 25
 web.config.debug = True
 app = web.application(urls, globals())
 
-
 db = web.database(dbn='sqlite', db='branchBuilder')
 
 class Index:
-	def GET(self):
-		self.update_status()
-		builds = db.select('builds', order="last_build_date DESC", where="repos is not null")
-		
-		return render.index(builds)
+  def GET(self):
+    self.update_status()
+    builds = db.select('builds', order="last_build_date DESC", where="repos is not null")
+    return render.index(builds)
 
-	def update_status(self):
-		builds_status = db.select('builds_status')
-	       
-		for build_status in builds_status:
-			db.update('builds', where="task_id=" + str(build_status.task_id), status=build_status.status)
+  def update_status(self):
+    builds_status = db.select('builds_status')
 
-	def get_job_name(self, string):
-		buildUtil = BuildUtil()
-		return buildUtil.get_job_name(repos=string)
-			
+    for build_status in builds_status:
+      db.update('builds', where="task_id=" + str(build_status.task_id), status=build_status.status)
+
+  def get_job_name(self, string):
+    buildUtil = BuildUtil()
+    return buildUtil.get_job_name(repos=string)
+
 class Add:
-	def POST(self):
-		i = web.input()
+  def POST(self):
+    i = web.input()
 
-		#TODO
-		#check duplicate
-		#if found duplicate then build
-		isDuplicate = False
-		if isDuplicate:
-			pass
-		#else add a new build
-		else:
-			n = db.insert('builds',  repos=i.repos, branch=i.branch, version=i.version, author=i.author,
-						last_build_number=1000, 
-						last_build_date="", 
-						start_time="", 
-						status="Available", 
-						package_list="ent")
+    #TODO
+    #check duplicate
+    #if found duplicate then build
+    isDuplicate = False
+    if isDuplicate:
+      pass
+    #else add a new build
+    else:
+      buildUtil = BuildUtil()
+      styleguide_branch = buildUtil.determine_styleguide_branch(i)
+      n = db.insert('builds',  repos=i.repos, branch=i.branch, version=i.version, author=i.author,
+            styleguide_repo=i.styleguide_repo, styleguide_branch=styleguide_branch,
+            sidecar_repo=i.sidecar_repo, sidecar_branch=i.sidecar_branch,
+            last_build_number=1000, 
+            last_build_date="",
+            start_time="",
+            status="Available",
+            package_list="ent")
 
-			date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+      date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-			f = open("logger", "a")
-			f.write(date_now + " [Add Action:]"  +  "," + i.repos + "," + i.branch + "," + i.version + "," + i.author + "," + "ent" + "," + "Available" + "\n")
-			f.close()
+      f = open("logger", "a")
+      f.write(date_now + " [Add Action:]"  +  "," + i.repos + "," + i.branch + "," + i.version + "," + i.author + "," +
+      i.styleguide_repo + "," + i.styleguide_branch + "," + i.sidecar_repo + "," + i.sidecar_branch + "," + "ent" + "," + "Available" + "\n")
+      f.close()
 
-			raise web.seeother('/')
+      raise web.seeother('/')
 
 class Remove:
-	def GET(self):
-		i = web.input()
-		date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+  def GET(self):
+    i = web.input()
+    date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-		f = open("logger", "a")
-		for m in db.select('builds', where="task_id =" +  i.task_id):
-			f.write(date_now + " [Delete Action:]" + str(m.task_id) + "," + m.repos + "," + m.branch + "," + m.version + "," + m.author + "," + m.package_list + "," + m.status + "\n")
-		f.close()
+    f = open("logger", "a")
+    for m in db.select('builds', where="task_id =" +  i.task_id):
+      f.write(date_now + " [Delete Action:]" + str(m.task_id) + "," + m.repos + "," + m.branch + "," + m.version + "," + m.author + "," +
+      m.styleguide_repo + "," + m.styleguide_branch + "," + m.sidecar_repo + "," + m.sidecar_branch + "," + m.package_list + "," + m.status + "\n")
+    f.close()
 
-		n = db.delete('builds', where="task_id =" +  i.task_id)
-		raise web.seeother('/')
+    n = db.delete('builds', where="task_id =" +  i.task_id)
+    raise web.seeother('/')
 
 class RunBuild:
-	def run(self, task_id):
-		#i = web.input()
-		i = {"task_id": task_id}
-		selectedBuilds = db.select('builds', where="task_id=" + i["task_id"])
+  def run(self, task_id):
+    #i = web.input()
+    i = {"task_id": task_id}
+    selectedBuilds = db.select('builds', where="task_id=" + i["task_id"])
 
-		date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-		if selectedBuilds:
-			db.update('builds', where="task_id=" + i["task_id"], last_build_date=date_now, status="Running")			
+    date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    if selectedBuilds:
+      db.update('builds', where="task_id=" + i["task_id"], last_build_date=date_now, status="Running")
 
-		taskBuilder =TaskBuilder('http://localhost:8080')
+    taskBuilder = TaskBuilder('http://localhost:8080')
 
-		for build in  selectedBuilds:
-			taskBuilder.add_build( repos=build.repos, branch=build.branch, version=build.version, package_list=build.package_list)
+    for build in selectedBuilds:
+      taskBuilder.add_build(repos=build.repos, branch=build.branch, version=build.version, styleguide_repo=build.styleguide_repo,
+        styleguide_branch=build.styleguide_branch, sidecar_repo=build.sidecar_repo, sidecar_branch=build.sidecar_branch, package_list=build.package_list)
 
-		#raise web.seeother('/')
+    #raise web.seeother('/')
 
 class Build:
-	def GET(self):
+  def GET(self):
 
-		i = web.input()
-		selectedBuilds = db.select('builds', where="task_id=" + i.task_id)
+    i = web.input()
+    selectedBuilds = db.select('builds', where="task_id=" + i.task_id)
 
-		date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-		if selectedBuilds:
-			builds_status = db.select('builds_status')
+    date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    if selectedBuilds:
+      builds_status = db.select('builds_status')
 
-			if builds_status:
-				db.update('builds', where="task_id=" + i.task_id, last_build_date=date_now, status="InQueue")			
-				max_priority_records = db.query('select max(priority) as priority from builds_status')
-				new_max_priority = max_priority_records[0].priority + 1
-					
-				db.insert('builds_status', task_id=int(i.task_id), priority=new_max_priority, status="InQueue")
-			else:
-				db.update('builds', where="task_id=" + i.task_id, last_build_date=date_now, status="Running")			
-				db.insert('builds_status',  
-							task_id=int(i.task_id), 
-							status="Running", 
-							priority=1)
-				RunBuild().run(i.task_id)
-				#app.request('/runbuild', method="GET", task_id=i.task_id )
-			
-		raise web.seeother('/')
+      if builds_status:
+        db.update('builds', where="task_id=" + i.task_id, last_build_date=date_now, status="InQueue")
+        max_priority_records = db.query('select max(priority) as priority from builds_status')
+        new_max_priority = max_priority_records[0].priority + 1
+        db.insert('builds_status', task_id=int(i.task_id), priority=new_max_priority, status="InQueue")
+      else:
+        db.update('builds', where="task_id=" + i.task_id, last_build_date=date_now, status="Running")
+        db.insert('builds_status',
+              task_id=int(i.task_id),
+              status="Running",
+              priority=1)
+        RunBuild().run(i.task_id)
+        #app.request('/runbuild', method="GET", task_id=i.task_id )
+    raise web.seeother('/')
 
 class UpdateBuild:
-	def POST(self):
-		i = web.input()
-		#m = db.select('builds', where="task_id =" +  i.task_id)
-		#m = [{"task_id": k.task_id, "repos": k.repos, "branch": k.branch, "version": k.version, "author": k.author, "package_list": k.package_list, "status": k.status }]
-		
-		date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-		#Before update
-		f = open("logger", "w+")
-		for m in db.select('builds', where="task_id =" +  i.task_id):
-			f.write(date_now + " [Before Update Action:]" + str(m.task_id) + "," + m.repos + "," + m.branch + "," + m.version + "," + m.author + "," + m.package_list + "," + m.status + "\n")
-		
-		selectedBuilds = db.select('builds', where="task_id=" + i.task_id)
-		if selectedBuilds:
-			db.update('builds', where="task_id=" + i.task_id, repos=i.repos, branch=i.branch, version=i.version, author=i.author, package_list=i.package_list, status=i.status)
+  def POST(self):
+    i = web.input()
+    #m = db.select('builds', where="task_id =" +  i.task_id)
+    #m = [{"task_id": k.task_id, "repos": k.repos, "branch": k.branch, "version": k.version, "author": k.author, "package_list": k.package_list, "status": k.status }]
 
-			#After update
-			for k in db.select('builds', where="task_id =" +  i.task_id):
-				f.write(date_now + " [After Update Action:]" + str(k.task_id) + "," + k.repos + "," + k.branch + "," + k.version + "," + k.author + "," + k.package_list + "," + k.status + "\n")
+    date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    #Before update
+    f = open("logger", "w+")
+    for m in db.select('builds', where="task_id =" +  i.task_id):
+      f.write(date_now + " [Before Update Action:]" + str(m.task_id) + "," + m.repos + "," + m.branch + "," + m.version + "," + m.author + "," + m.styleguide_repo + "," +
+        m.styleguide_branch + "," + m.sidecar_repo + "," + m.sidecar_branch + "," + m.package_list + "," + m.status + "\n")
 
-		f.close()
-		#End logger
+    selectedBuilds = db.select('builds', where="task_id=" + i.task_id)
+    if selectedBuilds:
+      buildUtil = BuildUtil()
+      styleguide_branch = buildUtil.determine_styleguide_branch(i)
+      db.update('builds', where="task_id=" + i.task_id, repos=i.repos, branch=i.branch, version=i.version, author=i.author,
+        styleguide_repo=i.styleguide_repo, styleguide_branch=styleguide_branch, sidecar_repo=i.sidecar_repo, sidecar_branch=i.sidecar_branch,
+        package_list=i.package_list, status=i.status)
 
-		raise web.seeother('/')
+      #After update
+      for k in db.select('builds', where="task_id =" +  i.task_id):
+        f.write(date_now + " [After Update Action:]" + str(k.task_id) + "," + k.repos + "," + k.branch + "," + k.version + "," + k.author + "," + k.styleguide_repo + "," +
+          k.styleguide_branch + "," + k.sidecar_repo + "," + k.sidecar_branch + "," + k.package_list + "," + k.status + "\n")
+
+    f.close()
+    #End logger
+
+    raise web.seeother('/')
 
 class GetBuild:
-	def GET(self):
-		from datetime import datetime
+  def GET(self):
+    from datetime import datetime
 
-		i = web.input()
-		selectedBuilds = db.select('builds', where="task_id=" + i.task_id)
+    i = web.input()
+    selectedBuilds = db.select('builds', where="task_id=" + i.task_id)
 
-		if selectedBuilds:
-			for x in  selectedBuilds:
-				buildString = json.JSONEncoder().encode({"repos": x.repos, "branch": x.branch, "version": x.version, "author": x.author, "package_list": x.package_list, "status": x.status})
-			return buildString
+    if selectedBuilds:
+      for x in  selectedBuilds:
+        buildString = json.JSONEncoder().encode({"repos": x.repos, "branch": x.branch, "version": x.version, "author": x.author, "styleguide_repo": x.styleguide_repo,
+          "styleguide_branch": x.styleguide_branch, "sidecar_repo": x.sidecar_repo, "sidecar_branch": x.sidecar_branch, "package_list": x.package_list, "status": x.status})
+      return buildString
 
 class BuildCron:
-	def __init__(self):
-		self.taskBuilder = TaskBuilder('http://honey-g:8080')
+  def __init__(self):
+    self.taskBuilder = TaskBuilder('http://honey-g:8080')
 
-	def check_queue(self):
-		#Check queue jobs
-		j = self.taskBuilder.j
+  def check_queue(self):
+    #Check queue jobs
+    j = self.taskBuilder.j
 
-		return j.get_queue_info()
+    return j.get_queue_info()
 
-	def check_building_job(self):
-		#Check building job
+  def check_building_job(self):
+    #Check building job
 
-		j = self.taskBuilder.j
-		job_list = j.get_jobs()
-		running_job = []
+    j = self.taskBuilder.j
+    job_list = j.get_jobs()
+    running_job = []
 
-		for job in job_list:
-			if re.search('anime', job['color']):
-				running_job.append(job)
+    for job in job_list:
+      if re.search('anime', job['color']):
+        running_job.append(job)
 
-		return running_job
+    return running_job
 
-	def get_lowest_build(self):
-		min_build_priorities = db.query('select min(priority) as priority from builds_status')
-		min_build_priority = min_build_priorities[0].priority
+  def get_lowest_build(self):
+    min_build_priorities = db.query('select min(priority) as priority from builds_status')
+    min_build_priority = min_build_priorities[0].priority
 
-		if min_build_priority:
-			selectedBuildTasks = db.select('builds_status', where='priority=' + str(min_build_priority))
-			for selectBuildTask in selectedBuildTasks:
-				return {"task_id":selectBuildTask.task_id, "status": selectBuildTask.status}
-		else:
-			return False
+    if min_build_priority:
+      selectedBuildTasks = db.select('builds_status', where='priority=' + str(min_build_priority))
+      for selectBuildTask in selectedBuildTasks:
+        return {"task_id":selectBuildTask.task_id, "status": selectBuildTask.status}
+    else:
+      return False
 
-	def run_cron(self):
-		lowest_build = self.get_lowest_build()
-		job_list = []
+  def run_cron(self):
+    lowest_build = self.get_lowest_build()
+    job_list = []
 
-		if lowest_build:
-			if lowest_build["status"] == 'Running':
-				if self.check_building_job():
-					pass
-					#print 'hello'
-				else:
-					#update build_status and remove the running flag
-					db.delete('builds_status', where='task_id=' + str(lowest_build["task_id"]))
+    if lowest_build:
+      if lowest_build["status"] == 'Running':
+        if self.check_building_job():
+          pass
+          #print 'hello'
+        else:
+          #update build_status and remove the running flag
+          db.delete('builds_status', where='task_id=' + str(lowest_build["task_id"]))
 
-					#update builds table
-					db.update('builds', where='task_id=' + str(lowest_build["task_id"]), status='Available')
-			elif lowest_build["status"] == 'InQueue':
-				#Assume Jenkins is avaliable for building
-				RunBuild().run(lowest_build["task_id"])
-				db.update('builds_status', where='task_id=' + str(lowest_build["task_id"]), status='Running')
+          #update builds table
+          db.update('builds', where='task_id=' + str(lowest_build["task_id"]), status='Available')
+      elif lowest_build["status"] == 'InQueue':
+        #Assume Jenkins is avaliable for building
+        RunBuild().run(lowest_build["task_id"])
+        db.update('builds_status', where='task_id=' + str(lowest_build["task_id"]), status='Running')
 
-			else:
-				#print 'false with invalid status'
-				pass
-		else:
-			#print 'false from lowest build'
-			pass
-		
-		for x in db.select('builds_status', what='task_id, status'):
-			job_list.append(x)
+      else:
+        #print 'false with invalid status'
+        pass
+    else:
+      #print 'false from lowest build'
+      pass
+    
+    for x in db.select('builds_status', what='task_id, status'):
+      job_list.append(x)
 
-		return job_list
-			
-	
-	def GET(self):
-		job_list = []
-		new_builds_status = self.run_cron()
-		web.header('Content-type', 'application/json')
-		if new_builds_status:
-			for build_status in new_builds_status:
-				job_list.append({"task_id": build_status.task_id, "status": build_status.status})
+    return job_list
+      
+  
+  def GET(self):
+    job_list = []
+    new_builds_status = self.run_cron()
+    web.header('Content-type', 'application/json')
+    if new_builds_status:
+      for build_status in new_builds_status:
+        job_list.append({"task_id": build_status.task_id, "status": build_status.status})
 
-			return json.JSONEncoder().encode(job_list)
-		else:
-			return '{}'
+      return json.JSONEncoder().encode(job_list)
+    else:
+      return '{}'
 class FullView:
-	def POST(self):
-		i = web.input()
-		builds = db.select('builds', where="task_id =" +  i.task_id)
+  def POST(self):
+    i = web.input()
+    builds = db.select('builds', where="task_id =" +  i.task_id)
 
-		return render.view(builds)
+    return render.view(builds)
 
 
-	def GET(self):
-		i = web.input()
-		builds = db.select('builds', where="task_id =" +  i.task_id)
+  def GET(self):
+    i = web.input()
+    builds = db.select('builds', where="task_id =" +  i.task_id)
 
-		return render.view(builds)
+    return render.view(builds)
 
 class SendMailToAdmin:
-	def POST(self):
-		i = web.input()
-		web.sendmail(i.from_address, 'oyang@sugarcrm.com', 'BranchBuilder - ' + i.subject, i.message)
+  def POST(self):
+    i = web.input()
+    web.sendmail(i.from_address, 'oyang@sugarcrm.com', 'BranchBuilder - ' + i.subject, i.message)
 
 class Logger:
-	def GET(self):
-		web.header('Content-type', 'text/plain')
-		f = open("logger", "r")
-		return f.read()
-		
-		
+  def GET(self):
+    web.header('Content-type', 'text/plain')
+    f = open("logger", "r")
+    return f.read()
+    
+    
 
 
 if __name__ == '__main__':
-	app.run()
+  app.run()

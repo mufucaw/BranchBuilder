@@ -22,14 +22,16 @@ class TaskBuilder:
 		else:
 			self.j.create_job(self.jobName, self.newConfig)
 			self.do_build(**params)
-	
+
 	def do_build(self, **params):
 		self.set_job_name(**params)
 		self.set_new_config(**params)
 
 		self.j.enable_job(self.jobName)
-		self.j.build_job(self.jobName, {'branch': params['branch'], 'version': params['version'], 'package_list': params['package_list']})
-	
+		self.j.build_job(self.jobName, {'branch': params['branch'], 'version': params['version'], 'styleguide_repo': params['styleguide_repo'],
+      'styleguide_branch': params['styleguide_branch'], 'sidecar_repo': params['sidecar_repo'], 'sidecar_branch': params['sidecar_branch'],
+      'package_list': params['package_list']})
+
 	def set_job_name(self,**params):
 		buildUtil = BuildUtil()
 		self.jobName = buildUtil.get_job_name(repos=params['repos'])
@@ -58,4 +60,10 @@ class BuildUtil:
 
 	def get_job_name(self, **params):
 		return 'Build' + '_' + self.get_md5(params['repos'])
-		
+
+  # checks for default styleguide params, if present adds _version to branch name
+  def determine_styleguide_branch(params):
+    if params.styleguide_repo == "git@github.com:sugarcrm/styleguide.git" and params.styleguide_branch == "master":
+      return "%s_%s" % (params.styleguide_branch, params.version)
+    else:
+      return params.styleguide_branch
