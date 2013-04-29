@@ -303,3 +303,118 @@
 2013-03-14 10:09:42 [Delete Action:]77,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Paul2,ent,
 2013-03-14 10:11:01 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Paul,ent,Available,0
 2013-03-14 10:34:25 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Eric,ent,Available,0
+2013-03-15 15:25:26 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Riley,ent,Available,0
+2013-03-18 17:55:07 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7_filter_api_performance,7.0.0,bbradley,ent,Available,0
+2013-03-22 10:23:19 [Delete Action:]77,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Eric,ent,
+2013-03-25 17:01:42 [Before Update Action:]79,git@github.com:sugarcrm/Mango.git,sugar7_filter_api_performance,7.0.0,bbradley,ent,
+2013-03-25 17:01:42 [After Update Action:]79,git@github.com:sugarcrm/Mango.git,sugar7_filter_api_performance,7.0.0,bbradley,ent
+2013-03-26 14:54:18 [Add Action:],git@github.com:sugarcrm/Mango.git,nutmeg,6.7.0,Deepali,ent,Available,0
+2013-03-27 08:51:59 [Add Action:],git@github.com:lamhuynh/Mango.git,sugar7_dashlets,7.0.0,Lam Huynh,ent,Available,0
+2013-03-27 10:28:53 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7_short_session,7.0.0,Paul,ent,Available,0
+2013-03-27 10:30:47 [Delete Action:]82,git@github.com:sugarcrm/Mango.git,sugar7_short_session,7.0.0,Paul,ent,
+2013-03-27 10:31:04 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7_short_session,7.0.0,Paul,ent,Available,0
+2013-03-27 10:31:41 [Delete Action:]82,git@github.com:sugarcrm/Mango.git,sugar7_short_session,7.0.0,Paul,ent,
+2013-03-27 10:32:00 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7_short_session,7.0.0,Paul,ent,Available,0
+2013-03-27 10:33:06 [Delete Action:]82,git@github.com:sugarcrm/Mango.git,sugar7_short_session,7.0.0,Paul,ent,
+2013-03-27 10:34:11 [Before Update Action:]76,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Paul,ent,
+2013-03-27 10:34:11 [After Update Action:]76,git@github.com:sugarcrm/Mango.git,sugar7_short_session,7.0.0,Paul,pro, ent
+2013-03-27 14:29:37 [Before Update Action:]76,git@github.com:sugarcrm/Mango.git,sugar7_short_session,7.0.0,Paul,pro, ent,
+2013-03-27 14:29:37 [After Update Action:]76,git@github.com:sugarcrm/Mango.git,sugar7_short_session,7.0.0,Paul,ent
+2013-03-27 15:02:45 [Before Update Action:]78,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Riley,ent,
+2013-03-27 15:02:45 [After Update Action:]78,git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Riley,ent,pro
+2013-03-27 15:51:36 [Before Update Action:]76,git@github.com:sugarcrm/Mango.git,sugar7_short_session,7.0.0,Paul,ent,
+2013-03-27 15:51:36 [After Update Action:]76,git@github.com:smalyshev/Mango.git,sugar7_short_session,7.0.0,Paul,ent
+2013-03-28 10:25:23 [Add Action:],git@github.com:sugarcrm/Mango.git,sugarcon_demo,7.0.0,Paul-keynoteBuild,ent,Available,0
+2013-03-30 23:01:15 [Before Update Action:]82,git@github.com:sugarcrm/Mango.git,sugarcon_demo,7.0.0,Paul-keynoteBuild,ent,
+2013-03-30 23:01:15 [After Update Action:]82,git@github.com:sugarcrm/Mango.git,sugarcon_demo,7.0.0,PH,ent
+2013-03-30 23:06:33 [Add Action:],git@github.com:sugarcrm/Mango.git,sugarcon_demo,7.0.0,Paul,ent,Available,0
+2013-03-30 23:06:56 [Delete Action:]82,git@github.com:sugarcrm/Mango.git,sugarcon_demo,7.0.0,PH,ent,
+2013-04-03 11:25:28 [Delete Action:]42,git@github.com:smalyshev/Mango.git,toffee,6.6.0,Stas Malyshev,ent,
+2013-04-03 11:25:34 [Delete Action:]41,git@github.com:smalyshev/Mango.git,nutmeg_toffe_merge,6.7.0,Stas Malyshev,ent,
+2013-04-03 11:25:45 [Delete Action:]40,git@github.com:smalyshev/Mango.git,nutmeg_post_fl,6.7.0,Stas Malyshev,ent,
+2013-04-03 11:25:48 [Delete Action:]38,git@github.com:justinpark/Mango.git,sugar7_massupdate,7.0.0,Justin Park,ent,
+2013-04-03 11:26:46 [Delete Action:]18,git@github.com:dtam/Mango.git,bug54750,6.6.6,DTam,ent,
+2013-04-03 11:26:49 [Delete Action:]35,git@github.com:lamhuynh/Mango.git,toffee_updated_tour,6.6.0,Lam Huynh,ent,
+2013-04-03 11:26:51 [Delete Action:]54,git@github.com:lamhuynh/Mango.git,sugar7_themes,7.0.0,Lam Huynh,ent,
+2013-04-03 11:28:28 [Delete Action:]59,git@github.com:axyjo/Mango.git,summer,7.0.0,Akshay,ent,
+2013-04-03 11:28:30 [Delete Action:]55,git@github.com:smalyshev/Mango.git,nutmeg_s3,6.7.0,Stas Malyshev,ent,
+2013-04-04 13:37:29 [Before Update Action:]65,git@github.com:izhutaev-sugarcrm/Mango.git,bug59615,6.7.0,Chan Tran,ent,
+2013-04-04 13:37:29 [After Update Action:]65,git@github.com:axyjo-sugarcrm/Mango.git,BUBBLES,7.0.0,Jenny Gonsalves,pro
+2013-04-04 13:41:50 [Before Update Action:]65,git@github.com:axyjo-sugarcrm/Mango.git,BUBBLES,7.0.0,Jenny Gonsalves,pro,
+2013-04-04 13:41:50 [After Update Action:]65,git@github.com:axyjo/Mango.git,BUBBLES,7.0.0,Jenny Gonsalves,pro
+2013-04-04 13:47:58 [Before Update Action:]65,git@github.com:axyjo/Mango.git,BUBBLES,7.0.0,Jenny Gonsalves,pro,
+2013-04-04 13:47:58 [After Update Action:]65,git@github.com:axyjo/Mango.git,BUBBLES,7.0.0,Jenny Gonsalves,pro
+2013-04-04 21:05:05 [Before Update Action:]65,git@github.com:axyjo/Mango.git,BUBBLES,7.0.0,Jenny Gonsalves,pro,
+2013-04-04 21:05:05 [After Update Action:]65,git@github.com:dwheeler/Mango.git, sugar7_interactions_tweaks,7.0.0,Jenny Gonsalves,pro
+2013-04-04 21:10:56 [Before Update Action:]65,git@github.com:dwheeler/Mango.git, sugar7_interactions_tweaks,7.0.0,Jenny Gonsalves,pro,
+2013-04-04 21:10:56 [After Update Action:]65,git@github.com:dwheeler/Mango.git,sugar7_interactions_tweaks,7.0.0,Jenny Gonsalves,pro
+2013-04-05 14:39:38 [Add Action:],git@github.com:sugarcrm/Mango.git,sugarcon_demo,7.0.0,DTam,ent,Available,0
+2013-04-05 14:40:45 [Add Action:],git@github.com:sugarcrm/Mango.git,Sugarcon_Keynote,7.0.0,David Tam,ent,Available,0
+2013-04-05 14:40:53 [Delete Action:]84,git@github.com:sugarcrm/Mango.git,sugarcon_demo,7.0.0,DTam,ent,
+2013-04-05 14:46:05 [Before Update Action:]85,git@github.com:sugarcrm/Mango.git,Sugarcon_Keynote,7.0.0,David Tam,ent,
+2013-04-05 14:46:05 [After Update Action:]85,git@github.com:sugarcrm/Mango.git,sugarcon_demo,7.0.0,David Tam,ent
+2013-04-05 19:32:10 [Delete Action:]58,git@github.com:alias-mac/Mango.git,sugar7_bwc,7.0.0,Filipe Guerra,ent,
+2013-04-08 10:10:22 [Add Action:],git@github.com:fightin-goats/Mango.git,master,7.0.0,The Fightin' Goats,ent,Available,0
+2013-04-08 11:13:18 [Before Update Action:]86,git@github.com:fightin-goats/Mango.git,master,7.0.0,The Fightin' Goats,ent,
+2013-04-08 11:13:18 [After Update Action:]86,git@github.com:fightin-goats/Mango.git,master,7.0.0,The Fightin' Goats,ent,pro
+2013-04-09 17:41:18 [Before Update Action:]86,git@github.com:fightin-goats/Mango.git,master,7.0.0,The Fightin' Goats,ent,pro,
+2013-04-09 17:41:18 [After Update Action:]86,git@github.com:fightin-goats/Mango.git,master,7.0.0,The Fightin Goats,ent,pro
+2013-04-11 09:45:58 [Before Update Action:]86,git@github.com:fightin-goats/Mango.git,master,7.0.0,The Fightin Goats,ent,pro,
+2013-04-11 09:45:58 [After Update Action:]86,git@github.com:fightin-goats/Mango.git,fighting_goats,7.0.0,The Fightin Goats,ent,pro
+2013-04-11 09:53:00 [Before Update Action:]86,git@github.com:fightin-goats/Mango.git,fighting_goats,7.0.0,The Fightin Goats,ent,pro,
+2013-04-11 09:53:00 [After Update Action:]86,git@github.com:fightin-goats/Mango.git,master,7.0.0,The Fightin Goats,ent,pro
+2013-04-15 10:11:52 [Add Action:],git@github.com:domo-sugarcrm/Mango.git,master,7.0.0,Domos,ent,Available,0
+2013-04-15 10:42:59 [Add Action:],git@github.com:domo-sugarcrm/Mango.git,domo_staging,7.0.0,Domos,ent,Available,0
+2013-04-15 11:08:07 [Delete Action:]87,git@github.com:domo-sugarcrm/Mango.git,master,7.0.0,Domos,ent,
+2013-04-16 09:17:22 [Add Action:],git@github.com:sugarcrm/Mango.git,nutmeg,6.7.1,Tim Wolf,ent,Available,0
+2013-04-16 14:39:26 [Delete Action:]83,git@github.com:sugarcrm/Mango.git,sugarcon_demo,7.0.0,Paul,ent,
+2013-04-16 14:40:04 [Delete Action:]74,git@github.com:sugarcrm/Mango.git,6_6_2,6.6.2,Paul,ent,
+2013-04-16 14:40:20 [Delete Action:]63,git@github.com:dszczesny/Mango.git,662_659_merge,6.6.2,Deepali Szczesny,ent,
+2013-04-17 06:44:20 [Delete Action:]57,git@github.com:sugarcrm/Mango.git,sugar7_pony_staging,7.0.0,Tim Wolf,ent,
+2013-04-17 06:46:51 [Add Action:],git@github.com:ponyexpress/Mango.git,PonyExpress Master,7.0.0,The Pony Express,ent,Available,0
+2013-04-17 06:49:00 [Before Update Action:]86,git@github.com:fightin-goats/Mango.git,master,7.0.0,The Fightin Goats,ent,pro,
+2013-04-17 06:49:00 [After Update Action:]86,git@github.com:fightin-goats/Mango.git,The Fighting Goats master,7.0.0,The Fightin Goats,ent,pro
+2013-04-17 06:49:11 [Before Update Action:]86,git@github.com:fightin-goats/Mango.git,The Fighting Goats master,7.0.0,The Fightin Goats,ent,pro,
+2013-04-17 06:49:11 [After Update Action:]86,git@github.com:fightin-goats/Mango.git,The Fighting Goats Master,7.0.0,The Fightin Goats,ent,pro
+2013-04-17 06:50:53 [Before Update Action:]86,git@github.com:fightin-goats/Mango.git,The Fighting Goats Master,7.0.0,The Fightin Goats,ent,pro,
+2013-04-17 06:50:53 [After Update Action:]86,git@github.com:fightin-goats/Mango.git,master,7.0.0,The Fightin Goats,ent,pro
+2013-04-17 06:51:10 [Before Update Action:]90,git@github.com:ponyexpress/Mango.git,PonyExpress Master,7.0.0,The Pony Express,ent,
+2013-04-17 06:51:10 [After Update Action:]90,git@github.com:ponyexpress/Mango.git,master,7.0.0,The Pony Express,ent
+2013-04-17 11:39:42 [Before Update Action:]90,git@github.com:ponyexpress/Mango.git,master,7.0.0,The Pony Express,ent,
+2013-04-17 11:39:42 [After Update Action:]90,git@github.com:ponyexpress/Mango.git,master,7.0.0,The Pony Express,ent,pro
+2013-04-17 11:40:07 [Before Update Action:]90,git@github.com:ponyexpress/Mango.git,master,7.0.0,The Pony Express,ent,pro,
+2013-04-17 11:40:07 [After Update Action:]90,git@github.com:ponyexpress/Mango.git,master,7.0.0,The Pony Express,ent,pro
+2013-04-17 13:42:36 [Add Action:],git@github.com:sugar-lincoln/Mango.git,master,7.0.0,Lincoln,ent,Available,0
+2013-04-17 14:25:16 [Add Action:],git@github.com/sugarcrm/Mango,Bug62513,6.7.0,Ran,ent,Available,0
+2013-04-17 14:35:17 [Before Update Action:]92,git@github.com/sugarcrm/Mango,Bug62513,6.7.0,Ran,ent,
+2013-04-17 14:35:17 [After Update Action:]92,git@github.com:sugarcrm/Mango,Bug62513,6.7.0,Ran,ent
+2013-04-17 15:08:17 [Add Action:],git@github.com:sugarcrm/Mango.git,Bug62513,6.7.0,Chan Tran,ent,Available,0
+2013-04-17 15:22:22 [Delete Action:]92,git@github.com:sugarcrm/Mango,Bug62513,6.7.0,Ran,ent,
+2013-04-17 16:47:14 [Add Action:],git@github.com:burritos/Mango.git,master,7.0.0,Burritos,ent,Available,0
+2013-04-17 16:51:27 [Delete Action:]94,git@github.com:burritos/Mango.git,master,7.0.0,Burritos,ent,
+2013-04-17 16:52:06 [Add Action:],git@github.com:burritos/Mango.git,master,7.0.0,The Burritos,ent,Available,0
+2013-04-17 16:58:46 [Add Action:],git@github.com:sugar-lincoln/Mango.git,master,7.0.0,Lincoln,ent,Available,0
+2013-04-17 22:11:14 [Delete Action:]91,git@github.com:sugar-lincoln/Mango.git,master,7.0.0,Lincoln,ent,
+2013-04-18 08:25:16 [Add Action:],git@github.com:sugar-lincoln/Mango.git,master,7.0.0,Chan Tran,ent,Available,0
+2013-04-18 08:25:27 [Delete Action:]95,git@github.com:sugar-lincoln/Mango.git,master,7.0.0,Lincoln,ent,
+2013-04-18 09:28:59 [Before Update Action:]90,git@github.com:ponyexpress/Mango.git,master,7.0.0,The Pony Express,ent,pro,
+2013-04-18 09:28:59 [After Update Action:]90,git@github.com:ponyexpress/Mango.git,master,7.0.0,The Pony Express,ent,pro
+2013-04-18 16:52:36 [Before Update Action:]96,git@github.com:sugar-lincoln/Mango.git,master,7.0.0,Chan Tran,ent,
+2013-04-18 16:52:36 [After Update Action:]96,git@github.com:sugar-lincoln/Mango.git,master,7.0.0,Lincoln,ent
+2013-04-18 17:43:31 [Add Action:],git@github.com:smalyshev/Mango.git,upgrade2,7.0.0,Stas Malyshev,ent,Available,0
+2013-04-18 17:43:42 [Before Update Action:]97,git@github.com:smalyshev/Mango.git,upgrade2,7.0.0,Stas Malyshev,ent,
+2013-04-18 17:43:42 [After Update Action:]97,git@github.com:smalyshev/Mango.git,upgrade2,7.0.0,Stas Malyshev,ent
+2013-04-19 11:59:30 [Before Update Action:]97,git@github.com:smalyshev/Mango.git,upgrade2,7.0.0,Stas Malyshev,ent,
+2013-04-19 11:59:30 [After Update Action:]97,git@github.com:smalyshev/Mango.git,upgrade2,7.0.0,Stas Malyshev,ent
+2013-04-19 14:28:56 [Before Update Action:]97,git@github.com:smalyshev/Mango.git,upgrade2,7.0.0,Stas Malyshev,ent,
+2013-04-19 14:28:56 [After Update Action:]97,git@github.com:smalyshev/Mango.git,upgrade2,7.0.0,Stas Malyshev,ent
+2013-04-19 14:41:49 [Before Update Action:]89,git@github.com:sugarcrm/Mango.git,nutmeg,6.7.1,Tim Wolf,ent,
+2013-04-19 14:41:49 [After Update Action:]89,git@github.com:sugarcrm/Mango.git,nutmeg,6.7.1,Tim Wolf,ent
+2013-04-19 14:57:38 [Before Update Action:]89,git@github.com:sugarcrm/Mango.git,nutmeg,6.7.1,Tim Wolf,ent,
+2013-04-19 14:57:38 [After Update Action:]89,git@github.com:sugarcrm/Mango.git,nutmeg,6.7.1,Tim Wolf,ent
+2013-04-19 15:09:39 [Before Update Action:]97,git@github.com:smalyshev/Mango.git,upgrade2,7.0.0,Stas Malyshev,ent,
+2013-04-19 15:09:39 [After Update Action:]97,git@github.com:smalyshev/Mango.git,upgrade2,7.0.0,Stas Malyshev,ent
+2013-04-22 13:23:28 [Add Action:],git@github.com:sugarcrm/Mango.git,sugar7,7.0.0,Mazen Louis,ent,Available,0
+2013-04-22 14:23:58 [Before Update Action:]97,git@github.com:smalyshev/Mango.git,upgrade2,7.0.0,Stas Malyshev,ent,
+2013-04-22 14:23:58 [After Update Action:]97,git@github.com:smalyshev/Mango.git,upgrade2,7.0.0,Stas Malyshev,ent
+2013-04-29 11:29:40 [Add Action:],git@github.com:sugarcrm/Mango.git,master,7.0.0,Carmen-Domo,ent,Available,0

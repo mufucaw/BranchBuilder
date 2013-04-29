@@ -2,13 +2,30 @@ $def with (builds, site_url)
 
 $var cssfiles: /static/bootstrap/css/bootstrap.css /static/bootstrap/css/custom.css
 $var site_url: $site_url
-	<form class="well form-inline" method="post" action ="add" id="addBuildForm">
-		<input type="text" id="add-repos" class="required github" name="repos" placeholder="Git Repository URI"/>
-		<input type="text" id="add-branch" class="required" name="branch" placeholder="Branch" />
-		<input type="text" id="add-version" class="required version" name="version" placeholder="Mapped Version" />
-		<input type="text" id="add-author" class="required" name="author" placeholder="Author" />
-		<button type="submit" class="btn btn-primary">Add</button>
-	</form>
+$code:
+	def generate_user_name(full_name):
+		full_name = full_name.replace(".", "")
+		full_name = full_name.replace("#", "")
+		full_name = full_name.replace("_", "")
+		full_name = full_name.replace("-", "")
+		if full_name == "":
+			return ""
+		else:
+			full_name_list = full_name.split(" ")	
+			if len(full_name_list) > 1:
+				user_name = full_name_list[0][0] + full_name_list[-1]
+			else:
+				user_name = full_name_list[0]
+
+		return user_name[0:16].lower()
+
+<form class="well form-inline" method="post" action ="add" id="addBuildForm">
+	<input type="text" id="add-repos" class="required github" name="repos" placeholder="Git Repository URI"/>
+	<input type="text" id="add-branch" class="required" name="branch" placeholder="Branch" />
+	<input type="text" id="add-version" class="required version" name="version" placeholder="Mapped Version" />
+	<input type="text" id="add-author" class="required" name="author" placeholder="Author" />
+	<button type="submit" class="btn btn-primary">Add</button>
+</form>
 	<div class="alert">
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<strong>Notice!</strong> Build will start without --latin=1 option, so only English language  will be applied!.
@@ -29,7 +46,7 @@ $var site_url: $site_url
 	<tbody>
 	$for build in builds:
 		<tr id="t$build.task_id">
-			<td><a href="../build${build.branch}">$build.branch</a></td>
+			<td><a href="../build${generate_user_name(build.author)}${build.branch}">$build.branch</a></td>
 			<td>$build.version</td>
 			<td><a href="../public/builds/${build.branch}/latest">$build.last_build_date</a></td>
 			<td name="list_status" class="${build.status}" id="build_status_${build.task_id}">$build.status</td>

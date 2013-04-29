@@ -26,6 +26,11 @@
           <description></description>
           <defaultValue>0</defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>author</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -65,6 +70,7 @@
     <includedRegions></includedRegions>
     <scmName></scmName>
   </scm>
+  <scmCheckoutRetryCount>3</scmCheckoutRetryCount>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -94,7 +100,7 @@ if [ &quot;$upgrade_package&quot; = &quot;1&quot; ]; then
   wget http://honey-g/BranchBuilder/buildconfig/buildconfig_get?version=$version -O build_config.json
   chmod 777 build_config.json
 fi
-./build_sugar_30.php --version $version --branch $branch  --deploy --packages $package_list --upgrades $upgrade_package
+./build_sugar_30.php --version $version --branch $branch  --deploy --packages &quot;$package_list&quot; --upgrades $upgrade_package --author &quot;$author&quot;
 
 rm -rf /dev/shm/sugarbuild-$version
 

@@ -55,7 +55,8 @@ class TaskBuilder:
 		self.set_new_config(**params)
 
 		self.j.enable_job(self.jobName)
-		self.j.build_job(self.jobName, {'branch': params['branch'], 'version': params['version'], 'package_list': params['package_list'], 'upgrade_package': params['upgrade_package']})
+		self.j.build_job(self.jobName, {'branch': params['branch'], 'version': params['version'], 'package_list': params['package_list'], 'upgrade_package': params['upgrade_package'], \
+				'author': params['author']})
 	
 	def set_job_name(self,**params):
 		buildUtil = BuildUtil()

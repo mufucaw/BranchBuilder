@@ -43,7 +43,7 @@ class Index:
 	def GET(self):
 		#self.update_status()
 		#builds = db.select('builds', order="last_build_date DESC", where="repos is not null")
-		builds = db.query("select a.task_id, a.branch, a.repos, a.version, a.author, a.last_build_date, \
+		builds = db.query("select a.task_id, a.author, a.branch, a.repos, a.version, a.author, a.last_build_date, \
 						ifnull(b.status, a.status) as status \
 					from builds as a \
 					left join  builds_status as b \
@@ -120,7 +120,8 @@ class RunBuild:
 		taskBuilder =TaskBuilder('http://localhost:8080')
 
 		for build in  selectedBuilds:
-			taskBuilder.add_build( repos=build.repos, branch=build.branch, version=build.version, package_list=build.package_list, upgrade_package=build.upgrade_package)
+			taskBuilder.add_build( repos=build.repos, branch=build.branch, version=build.version, package_list=build.package_list, upgrade_package=build.upgrade_package, \
+				author=build.author)
 
 		#raise web.seeother('/')
 
