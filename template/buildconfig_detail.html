@@ -1,0 +1,70 @@
+$def with (build_config, site_url)
+$var cssfiles: /static/bootstrap/css/bootstrap.css /static/codemirror/lib/codemirror.css /static/bootstrap/css/custom.css
+$var site_url: $site_url
+
+	<textarea id="code_area"  name="code_mirror" >${build_config["build_config_content"]}</textarea>
+	<div class="well inline-form">
+		<a id="buildconfig_cancel"  class="btn pull-right" href="./">Cancel</a>
+		<button id="buildconfig_update"  class="btn btn-primary pull-right">Edit</button>
+		<input type="hidden" id="buildconfig_id" class="required pull-right" name="id" value=${build_config["id"]} />
+		<input readonly="readonly" type="text" id="buildconfig_author" class="required pull-right" name="author" placeholder="Author" value='${build_config["author"]}' />
+		<input readonly="readonly" type="text" id="buildconfig_version" class="required pull-right" name="version" placeholder="Mapped Version" value='${build_config["version"]}' />
+	</div>
+</div>
+	<div class="modal hide fade" id="popupViewMail" >
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal" >x</a>
+			<h3 id="popView-title">Send email to admin!</h3>
+			<input type="hidden" id="popView-selectAction" value="" />
+			<input type="hidden" id="popView-selectBuildID" value="" />
+		</div>
+		<div class="modal-body">
+			<form class="well form-horizontal" method="post" action ="sendmail" id="popView-sendMailForm">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="popView-MailTo">To: </label>
+						<div class="controls">
+							<input readonly="readonly" type="text" class="required" id="popView-MailTo" name="to" value="oyang@sugarcrm.com" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-MailFrom">From: </label>
+						<div class="controls">
+							<input type="text" class="required email" id="popView-MailFrom" name="from_address" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-MailSubject">Subject: </label>
+						<div class="controls">
+							<input type="text" id="popView-MailSubject"  class="required" name="subject" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-MailMessage">Message: </label>
+						<div class="controls">
+							<textarea id="popView-MailMessage" rows="9" cols="30"  class="required input-xlarge" name="message" ></textarea>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a class="btn" href="#" data-dismiss="modal">Cancel</a>
+			<a class="btn btn-primary" id="popView-Send" href="#">Send</a>
+		</div>
+	</div>
+    <script src="/static/bootstrap/js/jquery.min.js"></script>
+    <script src="/static/bootstrap/js/jquery.validate.min.js"></script>
+    <script src="/static/bootstrap/js/validate.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-popover.js"></script>
+     <script src="/static/codemirror/lib/codemirror.js"></script>
+    <script src="/static/codemirror/mode/xml/xml.js"></script>
+    <script src="/static/codemirror/mode/javascript/javascript.js"></script>
+    <script src="/static/codemirror/mode/clike/clike.js"></script>
+    <script src="/static/codemirror/mode/css/css.js"></script>
+    <script src="/static/codemirror/mode/php/php.js"></script>
+    <script src="/static/buildconfig/buildconfig_update.js"></script>
+
+    <script src="/static/bootstrap/js/custom.js"></script>

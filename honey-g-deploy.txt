@@ -1,0 +1,27 @@
+1. Take a snapshot of the honey-g VM
+2. Ensure that no builds are running
+3. sudo service apache2 stop
+4. Stop jenkins server via UI
+5. cd /var/www
+6. cp -R BranchBuilder BranchBuilder.bak
+7. cd BranchBuilder
+8. sqlite3 branchBuilder
+9. ALTER TABLE builds ADD COLUMN styleguide_repo TEXT;
+10. ALTER TABLE builds ADD COLUMN styleguide_branch TEXT;
+11. ALTER TABLE builds ADD COLUMN sidecar_repo TEXT;
+12. ALTER TABLE builds ADD COLUMN sidecar_branch TEXT;
+13. UPDATE builds SET styleguide_repo="git@github.com:sugarcrm/styleguide.git";
+14. UPDATE builds SET sidecar_repo="git@github.com:sugarcrm/sidecar.git";
+15. UPDATE builds SET sidecar_branch="master";
+16. UPDATE builds SET styleguide_branch="master_6_7_0" WHERE version="6.7.0";
+17. UPDATE builds SET styleguide_branch="master_6_7_1" WHERE version="6.7.1";
+18. UPDATE builds SET styleguide_branch="master_7_0" WHERE version="7.0.0";
+19. git clone git@github.com:bbradley-sugarcrm/BranchBuilder.git
+20. chown -R build:www-data BranchBuilder
+21. chmod -R 775 BranchBuilder
+22. ruby convert-existing-jobs.rb --jobs_dir /home/build/Jenkins/jobs --pattern ^Build\_ --mock
+23. ruby convert-existing-jobs.rb --jobs_dir /home/build/Jenkins/jobs --pattern ^Build\_ --backup
+24. Start jenkins server
+25. sudo service apache2 start
+26. Generate an existing build, ensure it works
+27. Add a new build and generate it, ensure it works

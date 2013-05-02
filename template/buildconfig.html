@@ -1,0 +1,114 @@
+$def with (build_configs, site_url)
+$var cssfiles: /static/bootstrap/css/bootstrap.css /static/bootstrap/css/custom.css
+$var site_url: $site_url
+
+	<form class="well form-inline" method="post" action ="${site_url}/buildconfig/buildconfig_add" id="addBuildForm">
+		<input type="text" id="add-version" class="required" name="version" placeholder="Mapped Version" />
+		<input type="text" id="add-author" class="required" name="author" placeholder="Author" />
+		<button id="footer_save "  type="submit" class="btn btn-primary">Add</button>
+	</form>
+
+	<table class="table table-condensed">
+	<thead>
+		<tr>
+		<th>Version</th>
+		<th>Author</th>
+		<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+	$for build_config in build_configs:
+		<tr id="t$build_config.id">
+			<td><a href="./buildconfig_update?id=$build_config.id">$build_config.version</td>
+			<td>$build_config.author</td>
+			<td>
+			<!--
+			<a data-toggle="modal" name="editBuildConfig" class="btn" data-target="#popupViewBuild" id="editList-$build_config.id" >Edit</a>
+			<a data-toggle="modal" name="duplicateBuildConfig" class="btn" data-target="#popupViewBuild" id="dupList-$build_config.id" >Duplicate</a>
+			-->
+			<a class="btn btn-danger" name="remove" href="./buildconfig_remove?id=$build_config.id">Remove</a>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+
+</div>
+
+
+	<div class="modal hide fade" id="popupViewBuild" >
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal" >x</a>
+			<h3 id="popView-title">Loading build task, please wait or refresh current page!</h3>
+			<input type="hidden" id="popView-selectAction" value="" />
+			<input type="hidden" id="popView-selectBuildID" value="" />
+		</div>
+		<div class="modal-body">
+			<form class="well form-horizontal" method="post" action ="add" id="popView-actionBuildConfigForm">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="popView-version">Mapped Version:</label>
+						<div class="controls">
+							<input type="text" id="popView-version" class="required" name="version" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-author">Author:</label>
+						<div class="controls">
+							<input type="text" id="popView-author" class="required" name="author" />
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a class="btn" href="#" data-dismiss="modal">Cancel</a>
+			<a class="btn btn-primary" id="popView-Save" href="#">Save</a>
+		</div>
+	</div>		
+	<div class="modal hide fade" id="popupViewMail" >
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal" >x</a>
+			<h3 id="popView-title">Send email to admin!</h3>
+			<input type="hidden" id="popView-selectAction" value="" />
+			<input type="hidden" id="popView-selectBuildID" value="" />
+		</div>
+		<div class="modal-body">
+			<form class="well form-horizontal" method="post" action ="sendmail" id="popView-sendMailForm">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="popView-MailTo">To: </label>
+						<div class="controls">
+							<input readonly="readonly" type="text" class="required" id="popView-MailTo" name="to" value="oyang@sugarcrm.com" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-MailFrom">From: </label>
+						<div class="controls">
+							<input type="text" class="required email" id="popView-MailFrom" name="from_address" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-MailSubject">Subject: </label>
+						<div class="controls">
+							<input type="text" id="popView-MailSubject"  class="required" name="subject" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-MailMessage">Message: </label>
+						<div class="controls">
+							<textarea id="popView-MailMessage" rows="9" cols="30"  class="required input-xlarge" name="message" ></textarea>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a class="btn" href="#" data-dismiss="modal">Cancel</a>
+			<a class="btn btn-primary" id="popView-Send" href="#">Send</a>
+		</div>
+	    <script src="/static/bootstrap/js/jquery.min.js"></script>
+	    <script src="/static/bootstrap/js/jquery.validate.min.js"></script>
+	    <script src="/static/bootstrap/js/validate.js"></script>
+	    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+	    <script src="/static/bootstrap/js/bootstrap-tooltip.js"></script>
+	    <script src="/static/bootstrap/js/bootstrap-popover.js"></script>
