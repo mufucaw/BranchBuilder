@@ -52,7 +52,6 @@ opts = GetoptLong.new(
 
 # define updated shell command to replace existing command
 @updated_shell_command = <<-UPDATED_SHELL_COMMAND
-#CMD start
 rm -rf /dev/shm/sugarbuild-$version
 
 #remove the submodule files
@@ -79,16 +78,13 @@ cp -r sugarportal /dev/shm/sugarbuild-$version/
 
 cd /home/build/sugarsvn/Mango/build_clean
 svn revert build_config.json
-if [ &quot;$upgrade_package&quot; = &quot;1&quot; ]; then
+if [ "$upgrade_package" = 1 ]; then
   wget http://honey-g/BranchBuilder/buildconfig/buildconfig_get?version=$version -O build_config.json
   chmod 777 build_config.json
 fi
-./build_sugar_30.php --version $version --branch $branch  --deploy --packages $package_list --upgrades $upgrade_package --author &quot;$author&quot;
+./build_sugar_30.php --version $version --branch $branch  --deploy --packages $package_list --upgrades $upgrade_package --author $author
 
 rm -rf /dev/shm/sugarbuild-$version
-#CMD end
-
-      
 UPDATED_SHELL_COMMAND
 
 # makes necessary changes to config.xml in a particular job directory
