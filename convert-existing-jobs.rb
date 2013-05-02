@@ -82,7 +82,7 @@ if [ "$upgrade_package" = 1 ]; then
   wget http://honey-g/BranchBuilder/buildconfig/buildconfig_get?version=$version -O build_config.json
   chmod 777 build_config.json
 fi
-./build_sugar_30.php --version $version --branch $branch  --deploy --packages $package_list --upgrades $upgrade_package --author $author
+./build_sugar_30.php --version $version --branch $branch  --deploy --packages $package_list --upgrades $upgrade_package --author "$author"
 
 rm -rf /dev/shm/sugarbuild-$version
 UPDATED_SHELL_COMMAND
