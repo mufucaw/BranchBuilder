@@ -1,3 +1,5 @@
+import re
+
 from jenkins import Jenkins
 from jinja2 import Template
 
@@ -115,7 +117,7 @@ class BuildUtil:
     # hardcoded defaults... The following if statement really should check the default values in the template file
     if styleguide_repo == "git@github.com:sugarcrm/styleguide.git" and styleguide_branch == "master":
       updated_branch = "%s_%s" % (styleguide_branch, version.replace(".", "_"))
-      updated_branch = updated_branch.replace("0_0", "0") # hack :(
+      updated_branch = re.sub(r"(.*)\_0$", r"\1", updated_branch)
       return updated_branch
     else:
       return styleguide_branch
