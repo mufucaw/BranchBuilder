@@ -1,46 +1,44 @@
-$def with (builds)
+$def with (builds, site_url)
 
-<!DOCTYPE html>
-<!-- saved from url=(0066)http://twitter.github.com/bootstrap/examples/starter-template.html -->
-<html lang="en">
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <title>Branch Builder</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+$var cssfiles: /static/bootstrap/css/bootstrap.css /static/bootstrap/css/custom.css
+$var site_url: $site_url
+$code:
+	def generate_user_name(full_name):
+		full_name = full_name.replace(".", "")
+		full_name = full_name.replace("#", "")
+		full_name = full_name.replace("_", "")
+		full_name = full_name.replace("-", "")
+		if full_name == "":
+			return ""
+		else:
+			full_name_list = full_name.split(" ")	
+			if len(full_name_list) > 1:
+				user_name = full_name_list[0][0] + full_name_list[-1]
+			else:
+				user_name = full_name_list[0]
 
-    <!-- Le styles -->
-    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="/static/bootstrap/css/custom.css" rel="stylesheet">
-</head>
-<body>
-<div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-	<a class="brand" href="/" >BranchBuilder</a>
-	<ul class="nav" >
-		<li class="active">
-			<a href="/" >Home</a>
-		</li>
-		<li >
-			<a href="http://honey-g:8080" target="_blank" >JobServer</a>
-		</li>
-		<li >
-			<a data-toggle="modal" href="#popupViewMail" name="mailToAdmin" id="mailToAdmin">Contact admin</a>
-		</li>
-	</ul>
-    </div>
-  </div>
-</div>
-<div id="container" class="container">
-	<form class="well form-inline" method="post" action ="add" id="addBuildForm">
-		<input type="text" id="add-repos" class="required" name="repos" placeholder="Repository URL"/>
-		<input type="text" id="add-branch" class="required" name="branch" placeholder="Branch" />
-		<input type="text" id="add-version" class="required" name="version" placeholder="Mapped Version" />
-		<input type="text" id="add-author" class="required" name="author" placeholder="Author" />
-		<button type="submit" class="btn btn-primary">Add</button>
-	</form>
+		return user_name[0:16].lower()
+
+<form class="well form-inline" method="post" action ="add" id="addBuildForm">
+	<input type="text" id="add-repos" class="required github" name="repos" placeholder="Git Repository URI"/>
+	<input type="text" id="add-branch" class="required" name="branch" placeholder="Branch" />
+	<input type="text" id="add-version" class="required version" name="version" placeholder="Mapped Version" />
+	<input type="text" id="add-author" class="required" name="author" placeholder="Author" />
+	<button type="submit" class="btn btn-primary">Add</button>
+  <br />
+	<input type="text" id="add-styleguide_repo" class="required SubmoduleInput" name="styleguide_repo" value="git@github.com:sugarcrm/styleguide.git" />
+	<input type="text" id="add-styleguide_branch" class="required SubmoduleInput" name="styleguide_branch" value="master" />
+	<input type="text" id="add-sidecar_repo" class="required SubmoduleInput" name="sidecar_repo" value="git@github.com:sugarcrm/sidecar.git" />
+	<input type="text" id="add-sidecar_branch" class="required SubmoduleInput" name="sidecar_branch" value="master" />
+</form>
+	<div class="alert">
+		<button type="button" class="close" data-dismiss="alert">×</button>
+		<strong>Notice!</strong> Build will start without --latin=1 option, so only English language  will be applied!.
+	</div>
+	<div class="alert">
+		<button type="button" class="close" data-dismiss="alert">×</button>
+		<strong>Notice!</strong> Now with the ability to specify styleguide and sidecar repositories and branches! Leave defaults if you don't need these fields or don't know what they are.
+	</div>
 
 	<table class="table table-condensed">
 	<thead>
@@ -49,7 +47,7 @@ $def with (builds)
 		<th>Version</th>
 		<th>Latest Build</th>
 		<th>Status</th>
-		<th>Repository URL</th>
+		<th>Repository URI</th>
 		<th>Author</th>
 		<th>Actions</th>
 		</tr>
@@ -57,17 +55,17 @@ $def with (builds)
 	<tbody>
 	$for build in builds:
 		<tr id="t$build.task_id">
-			<td><a href="../build${build.branch}">$build.branch</a></td>
+			<td><a href="../build${generate_user_name(build.author)}${build.branch}">$build.branch</a></td>
 			<td>$build.version</td>
 			<td><a href="../public/builds/${build.branch}/latest">$build.last_build_date</a></td>
-			<td name="list_status" id="build_status_${build.task_id}">$build.status</td>
+			<td name="list_status" class="${build.status}" id="build_status_${build.task_id}">$build.status</td>
 			<td>$build.repos</td>
 			<td>$build.author</td>
 			<td>
-			<a class="btn btn-success" name="rebuild" href="./build?task_id=$build.task_id">Build</a>
-			<a data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-$build.task_id" >Edit</a>
+			<input type="button" class="btn btn-success" name="rebuild" id="buildList-$build.task_id"  value="Build" >
+			<input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-$build.task_id" value="Edit" >
 			<a data-toggle="modal" name="duplicateBuild" class="btn" data-target="#popupViewBuild" id="dupList-$build.task_id" >Duplicate</a>
-			<a class="btn btn-danger" name="remove" href="./remove?task_id=$build.task_id">Remove</a>
+			<input type="button" class="btn btn-danger" name="removeBuild" id="buildListRemove-$build.task_id" value="Remove">
 			</td>
 		</tr>
 	</tbody>
@@ -108,15 +106,39 @@ $def with (builds)
 						</div>
 					</div>
 					<div class="control-group">
+						<label class="control-label" for="popView-upgrade_package">Upgrade Package:</label>
+						<div class="controls">
+							<input type="checkbox" id="popView-upgrade_package" name="upgrade_package" />
+						</div>
+					</div>
+					<div class="control-group">
 						<label class="control-label" for="popView-author">Author:</label>
 						<div class="controls">
 							<input type="text" id="popView-author" class="required" name="author" />
 						</div>
 					</div>
-					<div class="control-group" id="popView-control-status">
-						<label class="control-label" for="popView-status">Status:</label>
+					<div class="control-group">
+						<label class="control-label" for="popView-styleguide_repo">Styleguide Repository:</label>
 						<div class="controls">
-							<input type="text" readonly="readonly" id="popView-status" class="required" name="author" /><a id="popView-edit-status" href="#">edit</a>
+							<input type="text" id="popView-styleguide_repo" class="required" name="styleguide_repo" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-styleguide_repo">Styleguide Branch:</label>
+						<div class="controls">
+							<input type="text" id="popView-styleguide_branch" class="required" name="styleguide_branch" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-sidecar_repo">Sidecar Repository:</label>
+						<div class="controls">
+							<input type="text" id="popView-sidecar_repo" class="required" name="sidecar_repo" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-sidecar_branch">Sidecar Branch:</label>
+						<div class="controls">
+							<input type="text" id="popView-sidecar_branch" class="required" name="sidecar_branch" />
 						</div>
 					</div>
 				</fieldset>
@@ -176,4 +198,3 @@ $def with (builds)
     <script src="/static/bootstrap/js/bootstrap-tooltip.js"></script>
     <script src="/static/bootstrap/js/bootstrap-popover.js"></script>
     <script src="/static/bootstrap/js/custom.js"></script>
-</body></html>

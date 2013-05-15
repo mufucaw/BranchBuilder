@@ -21,6 +21,36 @@
           <description></description>
           <defaultValue>ent</defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>upgrade_package</name>
+          <description></description>
+          <defaultValue>0</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>author</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>styleguide_repo</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>styleguide_branch</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>sidecar_repo</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>sidecar_branch</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -38,7 +68,7 @@
         <name>$branch</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
-    <disableSubmodules>false</disableSubmodules>
+    <disableSubmodules>true</disableSubmodules>
     <recursiveSubmodules>false</recursiveSubmodules>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <authorOrCommitter>false</authorOrCommitter>
@@ -60,6 +90,7 @@
     <includedRegions></includedRegions>
     <scmName></scmName>
   </scm>
+  <scmCheckoutRetryCount>3</scmCheckoutRetryCount>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -71,14 +102,38 @@
       <command>
 rm -rf /dev/shm/sugarbuild-$version
 
+#remove the submodule files
+git ls-files --other --exclude-standard | xargs rm -rf
+
+# prep submodules
+cd sugarcrm
+rm -rf ./styleguide
+rm -rf ./sidecar
+
+# clone submodules
+git clone $styleguide_repo
+git clone $sidecar_repo
+
+# checkout submodules
+cd styleguide
+git checkout $styleguide_branch
+cd ../sidecar
+git checkout $sidecar_branch
+
+# yup
+cd ../..
 mkdir /dev/shm/sugarbuild-$version
 cp -r sugarcrm /dev/shm/sugarbuild-$version/
 cp -r build /dev/shm/sugarbuild-$version/
 cp -r sugarportal /dev/shm/sugarbuild-$version/
 
 cd /home/build/sugarsvn/Mango/build_clean
-./build_sugar_30.php --version $version --branch $branch --latin 1 --deploy --packages ent
-
+svn revert build_config.json
+if [ &quot;$upgrade_package&quot; = &quot;1&quot; ]; then
+  wget http://honey-g/BranchBuilder/buildconfig/buildconfig_get?version=$version -O build_config.json
+  chmod 777 build_config.json
+fi
+./build_sugar_30.php --version $version --branch $branch  --deploy --packages &quot;$package_list&quot; --upgrades $upgrade_package --author &quot;$author&quot;
 
 rm -rf /dev/shm/sugarbuild-$version
 
