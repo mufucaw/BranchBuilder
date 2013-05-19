@@ -57,7 +57,7 @@ $code:
 		<tr id="t$build.task_id">
 			<td><a href="../build${generate_user_name(build.author)}${build.branch}">$build.branch</a></td>
 			<td>$build.version</td>
-			<td><a href="../public/builds/${build.branch}/latest">$build.last_build_date</a></td>
+			<td><a href="../public/builds/${generate_user_name(build.author)}${build.branch}/latest">$build.last_build_date</a></td>
 			<td name="list_status" class="${build.status}" id="build_status_${build.task_id}">$build.status</td>
 			<td>$build.repos</td>
 			<td>$build.author</td>
@@ -114,13 +114,10 @@ $code:
 					<div class="control-group">
 						<label class="control-label" for="popView-author">Author:</label>
 						<div class="controls">
-							<input type="checkbox" id="popView-upgrade_package" name="upgrade_package" />
+							<input type="text" id="popView-author" class="required" name="author" />
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="popView-author">Author:</label>
-						<div class="controls">
-							<input type="text" id="popView-author" class="required" name="author" />
 						<label class="control-label" for="popView-styleguide_repo">Styleguide Repository:</label>
 						<div class="controls">
 							<input type="text" id="popView-styleguide_repo" class="required" name="styleguide_repo" />
