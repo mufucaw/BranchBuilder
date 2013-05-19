@@ -1,6 +1,6 @@
 site_url='http://honey-g/BranchBuilder'
 jenkins_url='http://honey-g:8080'
-od_users = {    
+od_users = {
 		"anisevich": {"full_name": "Alex Nisevich", "email": "anisevich@sugarcrm.com"} ,\
 		"betauser1": {"full_name": "Beta User1", "email": "quality-assurance@sugarcrm.com"} ,\
 		"betauser2": {"full_name": "Beta User2", "email": "quality-assurance@sugarcrm.com"} ,\
@@ -25,12 +25,12 @@ od_users = {
 		"phuang": {"full_name": "Paul Huang", "email": "phuang@sugarcrm.com"} ,\
 	}
 od_users["tester"] =  {"full_name": "QA Tester", "email": "oyang@sugarcrm.com"}
-od_version = ['6.5.9', '6.5.10', '6.5.11', '6.5.12', '6.6.0', '6.6.1', '6.6.2','6.6.3', '6.7.0']
+od_version = ['6.5.9', '6.5.10', '6.5.11', '6.5.12', '6.6.0', '6.6.1', '6.6.2','6.6.3', '6.7.0', '6.7.1']
 ci_users = dict(od_users)
-ci_version = ['6.7.0']
+ci_version = ['6.7.1']
 
 nomad_users = {
 		"builder": {"full_name": "Branch Builder", "email": "build@sugarcrm.com"} , \
 	}
-nomad_version = ['6.7.0']
+nomad_version = ['6.7.1']
 nomad_flavors = ['Ult', 'Ent', 'Crop', 'Pro']

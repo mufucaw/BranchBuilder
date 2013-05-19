@@ -31,6 +31,26 @@
           <description></description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>styleguide_repo</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>styleguide_branch</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>sidecar_repo</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>sidecar_branch</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -48,7 +68,7 @@
         <name>$branch</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
-    <disableSubmodules>false</disableSubmodules>
+    <disableSubmodules>true</disableSubmodules>
     <recursiveSubmodules>false</recursiveSubmodules>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <authorOrCommitter>false</authorOrCommitter>
@@ -85,10 +105,23 @@ rm -rf /dev/shm/sugarbuild-$version
 #remove the submodule files
 git ls-files --other --exclude-standard | xargs rm -rf
 
-#initial submodule if exists
-git submodule init
-git submodule update
+# prep submodules
+cd sugarcrm
+rm -rf ./styleguide
+rm -rf ./sidecar
 
+# clone submodules
+git clone $styleguide_repo
+git clone $sidecar_repo
+
+# checkout submodules
+cd styleguide
+git checkout $styleguide_branch
+cd ../sidecar
+git checkout $sidecar_branch
+
+# yup
+cd ../..
 mkdir /dev/shm/sugarbuild-$version
 cp -r sugarcrm /dev/shm/sugarbuild-$version/
 cp -r build /dev/shm/sugarbuild-$version/

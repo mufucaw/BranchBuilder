@@ -55,6 +55,10 @@ $(document).ready(function(){
 						$('#popView-branch').val(buildObj['branch']); 
 						$('#popView-version').val(buildObj['version']); 
 						$('#popView-author').val(buildObj['author']);
+						$('#popView-styleguide_repo').val(buildObj['styleguide_repo']);
+						$('#popView-styleguide_branch').val(buildObj['styleguide_branch']);
+						$('#popView-sidecar_repo').val(buildObj['sidecar_repo']);
+						$('#popView-sidecar_branch').val(buildObj['sidecar_branch']);
 						$('#popView-package_list').val(buildObj['package_list']);
 						$('#popView-upgrade_package').attr("checked", buildObj['upgrade_package'] ? true : false);
 						
@@ -67,7 +71,7 @@ $(document).ready(function(){
 						$('#popView-selectBuildID').val(task_id[1]);
 					}
 				);
-			});	
+			});
 		});
 
 		$('input[name="editBuild"]').each(function(i, domEle){
@@ -81,6 +85,10 @@ $(document).ready(function(){
 						$('#popView-branch').val(buildObj['branch']); 
 						$('#popView-version').val(buildObj['version']); 
 						$('#popView-author').val(buildObj['author']);
+						$('#popView-styleguide_repo').val(buildObj['styleguide_repo']);
+						$('#popView-styleguide_branch').val(buildObj['styleguide_branch']);
+						$('#popView-sidecar_repo').val(buildObj['sidecar_repo']);
+						$('#popView-sidecar_branch').val(buildObj['sidecar_branch']);
 						$('#popView-package_list').val(buildObj['package_list']);
 						$('#popView-upgrade_package').attr("checked", buildObj['upgrade_package'] ? true : false);
 
@@ -92,7 +100,7 @@ $(document).ready(function(){
 						$('#popView-selectBuildID').val(task_id[1]);
 					}
 				);
-			});	
+			});
 		});
 	
 		$('#popView-Save').click(function(){
@@ -111,6 +119,10 @@ $(document).ready(function(){
 					 "version": $('#popView-version').val(), 
 					 "package_list": $('#popView-package_list').val(),
 					 "author": $('#popView-author').val(),
+					 "styleguide_repo": $('#popView-styleguide_repo').val(),
+					 "styleguide_branch": $('#popView-styleguide_branch').val(),
+					 "sidecar_repo": $('#popView-sidecar_repo').val(),
+					 "sidecar_branch": $('#popView-sidecar_branch').val(),
 					 "upgrade_package": upgrade_package
 					 },
 
@@ -129,6 +141,10 @@ $(document).ready(function(){
 					 "version": $('#popView-version').val(), 
 					 "package_list": $('#popView-package_list').val(),
 					 "author": $('#popView-author').val(),
+					 "styleguide_repo": $('#popView-styleguide_repo').val(),
+					 "styleguide_branch": $('#popView-styleguide_branch').val(),
+					 "sidecar_repo": $('#popView-sidecar_repo').val(),
+					 "sidecar_branch": $('#popView-sidecar_branch').val(),
 					 "upgrade_package": upgrade_package
 					 },
 

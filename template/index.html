@@ -25,10 +25,19 @@ $code:
 	<input type="text" id="add-version" class="required version" name="version" placeholder="Mapped Version" />
 	<input type="text" id="add-author" class="required" name="author" placeholder="Author" />
 	<button type="submit" class="btn btn-primary">Add</button>
+  <br />
+	<input type="text" id="add-styleguide_repo" class="required SubmoduleInput" name="styleguide_repo" value="git@github.com:sugarcrm/styleguide.git" />
+	<input type="text" id="add-styleguide_branch" class="required SubmoduleInput" name="styleguide_branch" value="master" />
+	<input type="text" id="add-sidecar_repo" class="required SubmoduleInput" name="sidecar_repo" value="git@github.com:sugarcrm/sidecar.git" />
+	<input type="text" id="add-sidecar_branch" class="required SubmoduleInput" name="sidecar_branch" value="master" />
 </form>
 	<div class="alert">
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<strong>Notice!</strong> Build will start without --latin=1 option, so only English language  will be applied!.
+	</div>
+	<div class="alert">
+		<button type="button" class="close" data-dismiss="alert">×</button>
+		<strong>Notice!</strong> Now with the ability to specify styleguide and sidecar repositories and branches! Leave defaults if you don't need these fields or don't know what they are.
 	</div>
 
 	<table class="table table-condensed">
@@ -105,7 +114,34 @@ $code:
 					<div class="control-group">
 						<label class="control-label" for="popView-author">Author:</label>
 						<div class="controls">
+							<input type="checkbox" id="popView-upgrade_package" name="upgrade_package" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-author">Author:</label>
+						<div class="controls">
 							<input type="text" id="popView-author" class="required" name="author" />
+						<label class="control-label" for="popView-styleguide_repo">Styleguide Repository:</label>
+						<div class="controls">
+							<input type="text" id="popView-styleguide_repo" class="required" name="styleguide_repo" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-styleguide_repo">Styleguide Branch:</label>
+						<div class="controls">
+							<input type="text" id="popView-styleguide_branch" class="required" name="styleguide_branch" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-sidecar_repo">Sidecar Repository:</label>
+						<div class="controls">
+							<input type="text" id="popView-sidecar_repo" class="required" name="sidecar_repo" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-sidecar_branch">Sidecar Branch:</label>
+						<div class="controls">
+							<input type="text" id="popView-sidecar_branch" class="required" name="sidecar_branch" />
 						</div>
 					</div>
 				</fieldset>

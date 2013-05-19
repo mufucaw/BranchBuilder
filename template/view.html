@@ -34,6 +34,11 @@ $def with (builds)
 		<input type="text" id="add-version" class="required" name="version" placeholder="Mapped Version" />
 		<input type="text" id="add-author" class="required" name="author" placeholder="Author" />
 		<button type="submit" class="btn btn-primary">Add</button>
+    <br />
+    <input type="text" id="add-styleguide_repo" class="required SubmoduleInput" name="styleguide_repo" value="git@github.com:sugarcrm/styleguide.git" />
+    <input type="text" id="add-styleguide_branch" class="required SubmoduleInput" name="styleguide_branch" value="master" />
+    <input type="text" id="add-sidecar_repo" class="required SubmoduleInput" name="sidecar_repo" value="git@github.com:sugarcrm/sidecar.git" />
+    <input type="text" id="add-sidecar_branch" class="required SubmoduleInput" name="sidecar_branch" value="master" />
 	</form>
 	<div class="row">
 		<div class="span3 offset10">
@@ -132,6 +137,30 @@ $def with (builds)
 						<label class="control-label" for="popView-author">Author:</label>
 						<div class="controls">
 							<input type="text" id="popView-author" class="required" name="author" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-styleguide_repo">Styleguide Repository:</label>
+						<div class="controls">
+							<input type="text" id="popView-styleguide_repo" class="required" name="styleguide_repo" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-styleguide_repo">Styleguide Branch:</label>
+						<div class="controls">
+							<input type="text" id="popView-styleguide_branch" class="required" name="styleguide_branch" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-sidecar_repo">Sidecar Repository:</label>
+						<div class="controls">
+							<input type="text" id="popView-sidecar_repo" class="required" name="sidecar_repo" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-sidecar_branch">Sidecar Branch:</label>
+						<div class="controls">
+							<input type="text" id="popView-sidecar_branch" class="required" name="sidecar_branch" />
 						</div>
 					</div>
 					<div class="control-group" id="popView-control-status">
