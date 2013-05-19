@@ -61,6 +61,8 @@ $(document).ready(function(){
 						$('#popView-sidecar_branch').val(buildObj['sidecar_branch']);
 						$('#popView-package_list').val(buildObj['package_list']);
 						$('#popView-upgrade_package').attr("checked", buildObj['upgrade_package'] ? true : false);
+						$('#popView-latin').attr("checked", buildObj['latin'] ? true : false);
+						$('#popView-demo_data').attr("checked", buildObj['demo_data'] ? true : false);
 						
 						//Set selectAction as editBuild
 						$('#popView-selectAction').val('duplicateBuild');
@@ -91,6 +93,8 @@ $(document).ready(function(){
 						$('#popView-sidecar_branch').val(buildObj['sidecar_branch']);
 						$('#popView-package_list').val(buildObj['package_list']);
 						$('#popView-upgrade_package').attr("checked", buildObj['upgrade_package'] ? true : false);
+						$('#popView-latin').attr("checked", buildObj['latin'] ? true : false);
+						$('#popView-demo_data').attr("checked", buildObj['demo_data'] ? true : false);
 
 						//Set selectAction as editBuild
 						$('#popView-selectAction').val('editBuild');
@@ -110,6 +114,8 @@ $(document).ready(function(){
 			}
 
 			var upgrade_package = $('#popView-upgrade_package').attr('checked') ? 1 : 0;
+			var latin = $('#popView-latin').attr('checked') ? 1 : 0;
+			var demo_data = $('#popView-demo_data').attr('checked') ? 1 : 0;
 			if ($('#popView-selectAction').val() == 'duplicateBuild') {
 				$.post('/BranchBuilder/add', 
 
@@ -123,7 +129,9 @@ $(document).ready(function(){
 					 "styleguide_branch": $('#popView-styleguide_branch').val(),
 					 "sidecar_repo": $('#popView-sidecar_repo').val(),
 					 "sidecar_branch": $('#popView-sidecar_branch').val(),
-					 "upgrade_package": upgrade_package
+					 "upgrade_package": upgrade_package,
+					 "latin": latin,
+					 "demo_data": demo_data
 					 },
 
 					 function(data){
@@ -145,7 +153,9 @@ $(document).ready(function(){
 					 "styleguide_branch": $('#popView-styleguide_branch').val(),
 					 "sidecar_repo": $('#popView-sidecar_repo').val(),
 					 "sidecar_branch": $('#popView-sidecar_branch').val(),
-					 "upgrade_package": upgrade_package
+					 "upgrade_package": upgrade_package,
+					 "latin": latin,
+					 "demo_data": demo_data
 					 },
 
 					 function(data){

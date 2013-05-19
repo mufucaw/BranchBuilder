@@ -91,7 +91,9 @@ class Add:
             start_time="",
             status="Available",
             package_list="ent",
-            upgrade_package = upgrade_package)
+            upgrade_package = upgrade_package,
+            latin=0,
+            demo_data=1)
 
       date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
       f = open("logger", "a")
@@ -127,7 +129,7 @@ class RunBuild:
     for build in selectedBuilds:
       taskBuilder.add_build(repos=build.repos, branch=build.branch, version=build.version, author=build.author, styleguide_repo=build.styleguide_repo,
         styleguide_branch=build.styleguide_branch, sidecar_repo=build.sidecar_repo, sidecar_branch=build.sidecar_branch,
-        package_list=build.package_list, upgrade_package=build.upgrade_package)
+        package_list=build.package_list, upgrade_package=build.upgrade_package, latin=build.latin, demo_data=build.demo_data)
     #raise web.seeother('/')
 
 class Build:
@@ -163,7 +165,9 @@ class UpdateBuild:
     #Before update
     f = open("logger", "a")
     for m in db.select('builds', where="task_id =" +  i.task_id):
-      f.write(date_now + " [Before Update Action:]" + str(m.task_id) + "," + m.repos + "," + m.branch + "," + m.version + "," + m.author + "," + m.styleguide_repo + "," + m.styleguide_branch + "," + m.sidecar_repo + "," + m.sidecar_branch + "," + m.package_list + "," + "\n")
+      f.write(date_now + " [Before Update Action:]" + str(m.task_id) + "," + m.repos + "," + m.branch + "," + m.version + 
+        "," + m.author + "," + m.styleguide_repo + "," + m.styleguide_branch + "," + m.sidecar_repo + "," + m.sidecar_branch +  
+        "," + m.package_list + "," + str(m.latin) + "," + str(m.demo_data) + "," + "\n")
 
     selectedBuilds = db.select('builds', where="task_id=" + i.task_id)
 
@@ -174,11 +178,14 @@ class UpdateBuild:
     if selectedBuilds:
       db.update('builds', where="task_id=" + i.task_id, repos=i.repos, branch=i.branch, version=i.version, author=i.author,
         styleguide_repo=i.styleguide_repo, styleguide_branch=styleguide_branch, sidecar_repo=i.sidecar_repo,
-        sidecar_branch=i.sidecar_branch, package_list=i.package_list, upgrade_package=i.upgrade_package)
+        sidecar_branch=i.sidecar_branch, package_list=i.package_list, upgrade_package=i.upgrade_package, 
+        latin=i.latin, demo_data=i.demo_data)
 
       #After update
       for k in db.select('builds', where="task_id =" +  i.task_id):
-        f.write(date_now + " [After Update Action:]" + str(k.task_id) + "," + k.repos + "," + k.branch + "," + k.version + "," + k.author + "," + k.styleguide_repo + "," + k.styleguide_branch + "," + k.sidecar_repo + "," + k.sidecar_branch + "," + k.package_list + "\n")
+        f.write(date_now + " [After Update Action:]" + str(k.task_id) + "," + k.repos + "," + k.branch + "," + k.version + 
+            "," + k.author + "," + k.styleguide_repo + "," + k.styleguide_branch + "," + k.sidecar_repo + "," + k.sidecar_branch + 
+            "," + k.package_list + "," + str(k.latin) + "," + str(k.demo_data) + "\n")
 
     f.close()
     #End logger
@@ -194,6 +201,7 @@ class GetBuild:
     if selectedBuilds:
       for x in  selectedBuilds:
         buildString = json.JSONEncoder().encode({"repos": x.repos, "branch": x.branch, "version": x.version, "author": x.author,
+          "latin": x.latin, "demo_data": x.demo_data,
           "styleguide_repo": x.styleguide_repo, "styleguide_branch": x.styleguide_branch, "sidecar_repo": x.sidecar_repo,
           "sidecar_branch": x.sidecar_branch, "package_list": x.package_list, "upgrade_package": x.upgrade_package})
       web.header('Content-type', 'application/json')

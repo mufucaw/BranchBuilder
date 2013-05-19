@@ -60,7 +60,8 @@ class TaskBuilder:
     self.j.enable_job(self.jobName)
     self.j.build_job(self.jobName, {'branch': params['branch'], 'version': params['version'], 'author': params['author'], \
       'styleguide_repo': params['styleguide_repo'], 'styleguide_branch': params['styleguide_branch'], 'sidecar_repo': params['sidecar_repo'], \
-      'sidecar_branch': params['sidecar_branch'], 'package_list': params['package_list'], 'upgrade_package': params['upgrade_package']})
+      'sidecar_branch': params['sidecar_branch'], 'package_list': params['package_list'], 'upgrade_package': params['upgrade_package'], \
+      'latin': params['latin'], 'demo_data': params['demo_data']} )
   
   def set_job_name(self,**params):
     buildUtil = BuildUtil()
