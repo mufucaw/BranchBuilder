@@ -2,22 +2,6 @@ $def with (builds, site_url)
 
 $var cssfiles: /static/bootstrap/css/bootstrap.css /static/bootstrap/css/custom.css
 $var site_url: $site_url
-$code:
-	def generate_user_name(full_name):
-		full_name = full_name.replace(".", "")
-		full_name = full_name.replace("#", "")
-		full_name = full_name.replace("_", "")
-		full_name = full_name.replace("-", "")
-		if full_name == "":
-			return ""
-		else:
-			full_name_list = full_name.split(" ")	
-			if len(full_name_list) > 1:
-				user_name = full_name_list[0][0] + full_name_list[-1]
-			else:
-				user_name = full_name_list[0]
-
-		return user_name[0:16].lower()
 
 <form class="well form-inline" method="post" action ="add" id="addBuildForm">
 	<input type="text" id="add-repos" class="required github" name="repos" placeholder="Git Repository URI"/>
@@ -46,6 +30,7 @@ $code:
 		<th>Branch</th>
 		<th>Version</th>
 		<th>Latest Build</th>
+		<th>Build #</th>
 		<th>Status</th>
 		<th>Repository URI</th>
 		<th>Author</th>
@@ -55,9 +40,10 @@ $code:
 	<tbody>
 	$for build in builds:
 		<tr id="t$build.task_id">
-			<td><a href="../build${generate_user_name(build.author)}${build.branch}">$build.branch</a></td>
+			<td><a href="../build${build.username}${build.branch}">$build.branch</a></td>
 			<td>$build.version</td>
-			<td><a href="../public/builds/${generate_user_name(build.author)}${build.branch}/latest">$build.last_build_date</a></td>
+            <td><a href="../public/builds/${build.username}${build.branch}/latest">${build.last_build_date}</a></td>
+            <td>${build.build_number}</td>
 			<td name="list_status" class="${build.status}" id="build_status_${build.task_id}">$build.status</td>
 			<td>$build.repos</td>
 			<td>$build.author</td>

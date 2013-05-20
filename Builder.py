@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import os
 import web
 from jenkins import Jenkins
 
@@ -51,7 +52,17 @@ class Index:
       on a.task_id=b.task_id \
       order by b.status desc,a.last_build_date desc")
 
-    return render.index(builds, appconfig.site_url)
+    fix_builds = []
+    buildUtil = BuildUtil()
+    for build in builds:
+        build['username'] = buildUtil.generate_user_name(build['author'])
+        if os.path.exists("../public/builds/" + build['username'] + build['branch'] + "/latest"):
+            build['build_number'] = os.readlink("../public/builds/" + build['username'] + build['branch'] + "/latest")
+        else:
+            build['build_number'] = '1000'
+        fix_builds.append(build)
+
+    return render.index(fix_builds, appconfig.site_url)
 
   def update_status(self):
     builds_status = db.select('builds_status')
