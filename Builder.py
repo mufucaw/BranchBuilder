@@ -20,6 +20,7 @@ urls = (
   '/add', 'Add',
   '/build', 'Build',
   '/getbuild', 'GetBuild',
+  '/stopbuild', 'StopBuild',
   '/updatebuild', 'UpdateBuild',
   '/remove', 'Remove',
   '/sendmail', 'SendMailToAdmin',
@@ -217,6 +218,21 @@ class GetBuild:
           "sidecar_branch": x.sidecar_branch, "package_list": x.package_list, "upgrade_package": x.upgrade_package})
       web.header('Content-type', 'application/json')
       return buildString
+
+class StopBuild:
+  def GET(self):
+    i = web.input()
+    jobInQueue = db.query('select * from builds_status where task_id=' + i.task_id +  ' and status="InQueue"')
+    if len(jobInQueue.list()) > 0:
+      db.delete('builds_status', where="task_id=" + i.task_id)
+      web.seeother('/')
+
+    selectedBuilds = db.query('select repos from builds where task_id=' + i.task_id)
+    for x in selectedBuilds:
+      jobName = BuildUtil().get_job_name(repos=x.repos)
+      TaskBuilder(appconfig.jenkins_url).stop_jenkins_jobs(jobName)
+
+    web.seeother('/')
 
 class BuildCron:
   def __init__(self):

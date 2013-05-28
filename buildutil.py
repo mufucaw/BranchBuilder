@@ -1,4 +1,5 @@
 import re
+import urllib2
 
 from jenkins import Jenkins
 from jinja2 import Template
@@ -89,6 +90,31 @@ class TaskBuilder:
 
   def get_job_name(self):
     return self.jobName
+
+  def stop_jenkins_job(self, job_url):
+    """
+    1. stop one job
+    """
+    stop_job_url = job_url + 'lastBuild/stop'
+    try:
+      ss = urllib2.urlopen(stop_job_url, None, 30).read()
+      ss.close()
+    except:
+      return '{}'
+
+  def stop_jenkins_jobs(self, jobName):
+    """
+    1. find all the sub job
+    2. stop all the running sub job
+    3. stop current job
+    """
+    if self.j.job_exists(jobName):
+      for x in self.j.get_job_info(jobName)['downstreamProjects']:
+        if self.get_build_status(x['name']) == 'Running':
+          self.stop_jenkins_job(x['url'])
+      self.stop_jenkins_job(self.j.get_job_info(jobName)['url'])
+    else:
+      pass
 
 class BuildUtil:
   def __init__(self):
