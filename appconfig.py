@@ -1,5 +1,6 @@
 site_url='http://honey-g/BranchBuilder'
 jenkins_url='http://honey-g:8080'
+per_page = 20
 od_users = {
 		"anisevich": {"full_name": "Alex Nisevich", "email": "anisevich@sugarcrm.com"} ,\
 		"betauser1": {"full_name": "Beta User1", "email": "quality-assurance@sugarcrm.com"} ,\

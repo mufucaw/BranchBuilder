@@ -1,4 +1,4 @@
-$def with (builds, site_url)
+$def with (builds, site_url, pageNum, total_page)
 
 $var cssfiles: /static/bootstrap/css/bootstrap.css /static/bootstrap/css/custom.css
 $var site_url: $site_url
@@ -38,6 +38,17 @@ $var site_url: $site_url
 		</tr>
 	</thead>
 	<tbody>
+        <div class="pagination pagination-right">
+            <ul>
+                <li id="buildList-firstPage" class="active"><a id="buildList-firstPage-link" href="./?pageNum=1">&laquo;</a></li>
+                <li id="buildList-prePage" class="active"><a id="buildList-prePage-link" href="./?pageNum=${pageNum - 1}">&lt;</a></li>
+                <li class="disabled"><a href="#">$pageNum</a></li>
+                <input type="hidden" id="buildList-pageNum" value="${pageNum}" />
+                <input type="hidden" id="buildList-totalPage" value="${total_page}" />
+                <li id="buildList-nextPage" class="active"><a id="buildList-nextPage-link" href="./?pageNum=${pageNum + 1}">&gt;</a></li>
+                <li id="buildList-lastPage" class="active"><a id="buildList-lastPage-link" href="./?pageNum=${total_page}">&raquo;</a></li>
+            </ul>
+        </div>
 	$for build in builds:
 		<tr id="t$build.task_id">
 			<td><a href="../build${build.username}${build.branch}">$build.branch</a></td>

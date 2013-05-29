@@ -45,13 +45,26 @@ class Index:
   def GET(self):
     #self.update_status()
     #builds = db.select('builds', order="last_build_date DESC", where="repos is not null")
+    i = web.input()
+    if hasattr(i, 'pageLimit') and int(i.pageLimit) > 0:
+        pageLimit = int(i.pageLimit)
+    else:
+        pageLimit = appconfig.per_page
+
+    if hasattr(i, 'pageNum') and int(i.pageNum) > 0:
+        pageNum = int(i.pageNum)
+    else:
+        pageNum = 1
+    offset = (pageNum - 1) * appconfig.per_page
     builds = db.query("select a.task_id, a.author, a.branch, a.repos, a.version, a.author, \
       a.styleguide_repo, a.styleguide_branch, a.sidecar_repo, a.sidecar_branch, a.last_build_date, \
       ifnull(b.status, a.status) as status \
       from builds as a \
       left join  builds_status as b \
       on a.task_id=b.task_id \
-      order by b.status desc,a.last_build_date desc")
+      order by b.status desc,a.last_build_date desc \
+      limit " + str(pageLimit) + \
+      " offset " + str(offset))
 
     fix_builds = []
     buildUtil = BuildUtil()
@@ -63,7 +76,12 @@ class Index:
             build['build_number'] = '1000'
         fix_builds.append(build)
 
-    return render.index(fix_builds, appconfig.site_url)
+    total_records_count = db.query('select count(*) as count from builds')[0].count
+    plus_page = 0
+    if total_records_count % appconfig.per_page != 0:
+        plus_page =  1
+    total_page = total_records_count / appconfig.per_page + plus_page
+    return render.index(fix_builds, appconfig.site_url, pageNum, total_page)
 
   def update_status(self):
     builds_status = db.select('builds_status')
