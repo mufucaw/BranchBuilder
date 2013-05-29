@@ -239,5 +239,24 @@ $(document).ready(function(){
 			);
 
 		}, 10000);
+
+        if ($("#buildList-pageNum").attr("value") == $("#buildList-totalPage").attr("value")) {
+            $("#buildList-nextPage").removeClass("active");
+            $("#buildList-nextPage").addClass("disabled");
+            $("#buildList-nextPage-link").attr("href", "#");
+            $("#buildList-lastPage").removeClass("active");
+            $("#buildList-lastPage").addClass("disabled");
+            $("#buildList-lastPage-link").attr("href", "#");
+        }
+
+        if ($("#buildList-pageNum").attr("value") == 1) {
+            $("#buildList-prePage").removeClass("active");
+            $("#buildList-prePage").addClass("disabled");
+            $("#buildList-prePage-link").attr("href", "#");
+            $("#buildList-firstPage").removeClass("active");
+            $("#buildList-firstPage").addClass("disabled");
+            $("#buildList-firstPage-link").attr("href", "#");
+        }
+
 		
 	});
