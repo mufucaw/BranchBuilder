@@ -15,16 +15,6 @@ $var site_url: $site_url
 	<input type="text" id="add-sidecar_repo" class="required SubmoduleInput" name="sidecar_repo" value="git@github.com:sugarcrm/sidecar.git" />
 	<input type="text" id="add-sidecar_branch" class="required SubmoduleInput" name="sidecar_branch" value="master" />
 </form>
-	<!--
-	<div class="alert">
-		<button type="button" class="close" data-dismiss="alert">×</button>
-		<strong>Notice!</strong> Build will start without --latin=1 option, so only English language  will be applied!, you can update it on build edit page.
-	</div>
-	<div class="alert">
-		<button type="button" class="close" data-dismiss="alert">×</button>
-		<strong>Notice!</strong> Now with the ability to specify styleguide and sidecar repositories and branches! Leave defaults if you don't need these fields or don't know what they are.
-	</div>
-	-->
 
 	<table class="table table-condensed">
 	<thead>
@@ -44,7 +34,7 @@ $var site_url: $site_url
             <ul>
                 <li id="buildList-firstPage" class="active"><a id="buildList-firstPage-link" href="./?pageNum=1">&laquo;</a></li>
                 <li id="buildList-prePage" class="active"><a id="buildList-prePage-link" href="./?pageNum=${pageNum - 1}">&lt;</a></li>
-                <li class="disabled"><a href="#">$pageNum</a></li>
+                <li class="disabled"><a href="#">$pageNum of ${total_page}</a></li>
                 <input type="hidden" id="buildList-pageNum" value="${pageNum}" />
                 <input type="hidden" id="buildList-totalPage" value="${total_page}" />
                 <li id="buildList-nextPage" class="active"><a id="buildList-nextPage-link" href="./?pageNum=${pageNum + 1}">&gt;</a></li>
