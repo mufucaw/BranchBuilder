@@ -185,12 +185,12 @@ class RunBuild:
     # i = web.input()
 
         i = {'task_id': task_id}
-        selectedBuilds = db.select('builds', where='task_id='
-                                   + str(i['task_id']))
+        selectedBuilds = db.select('builds', where='task_id="'
+                                   + str(i['task_id']) + '"')
 
         date_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         if selectedBuilds:
-            db.update('builds', where='task_id=' + str(i['task_id']),
+            db.update('builds', where='task_id="' + str(i['task_id']) + '"',
                       last_build_date=date_now)
 
         taskBuilder = TaskBuilder('http://localhost:8080')
@@ -219,8 +219,8 @@ class Build:
     def GET(self):
 
         i = web.input()
-        selectedBuilds = db.select('builds', where='task_id='
-                                   + i.task_id, what='task_id')
+        selectedBuilds = db.select('builds', where='task_id="'
+                                   + str(i.task_id) + '"', what='task_id')
 
         if selectedBuilds:
             builds_status = db.select('builds_status')
@@ -317,8 +317,8 @@ class GetBuild:
     def GET(self):
         i = web.input()
         buildString = ''
-        selectedBuilds = db.select('builds', where='task_id='
-                                   + i.task_id)
+        selectedBuilds = db.select('builds', where='task_id="'
+                                   + str(i.task_id) + '"')
 
         if selectedBuilds:
             for x in selectedBuilds:
@@ -426,8 +426,8 @@ class BuildCron:
 
         if lowest_build:
             if lowest_build['status'] == 'Running':
-                selectRepos = db.select('builds', where='task_id='
-                        + str(lowest_build['task_id']), what='repos')
+                selectRepos = db.select('builds', where='task_id="'
+                        + str(lowest_build['task_id']) + '"', what='repos')
                 buildUtil = BuildUtil()
                 jobName = ''
                 for m in selectRepos:
@@ -444,8 +444,8 @@ class BuildCron:
             elif lowest_build['status'] == 'InQueue':
                 # Assume Jenkins is avaliable for building
                 RunBuild().run(lowest_build['task_id'])
-                db.update('builds_status', where='task_id='
-                          + str(lowest_build['task_id']),
+                db.update('builds_status', where='task_id="'
+                          + str(lowest_build['task_id']) + '"',
                           status='Running')
             else:
                 pass

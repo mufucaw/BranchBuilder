@@ -15,10 +15,10 @@ $(document).ready(function(){
                     <td>' + builds[index]["repos"] + '</td> \
                     <td>' + builds[index]["author"] + '</td> \
                     <td>' +  ' \
-                        <input type="button" class="btn btn-success" name="rebuild" id="buildList-' + builds.task_id + '"  value="Build" >  \
-                        <input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-' + builds.task_id + '" value="Edit" > \
-                        <a data-toggle="modal" name="duplicateBuild" class="btn" data-target="#popupViewBuild" id="dupList-' + builds.task_id + '" >Duplicate</a> \
-                        <input type="button" class="btn btn-danger" name="removeBuild" id="buildListRemove-' + builds.task_id + '" value="Remove"> \
+                        <input type="button" class="btn btn-success" name="rebuild" id="buildList-' + builds[index]["task_id"] + '"  value="Build" >  \
+                        <input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-' + builds[index]["task_id"] + '" value="Edit" > \
+                        <a data-toggle="modal" name="duplicateBuild" class="btn" data-target="#popupViewBuild" id="dupList-' + builds[index]["task_id"] + '" >Duplicate</a> \
+                        <input type="button" class="btn btn-danger" name="removeBuild" id="buildListRemove-' + builds[index]["task_id"] + '" value="Remove"> \
                     </td> \
                 </tr>';
 
@@ -146,6 +146,7 @@ $(document).ready(function(){
 		$('input[name="editBuild"]').each(function(i, domEle){
 			$(domEle).click(function(){
 				var task_id = $(domEle).attr("id").split("-");
+                console.log(task_id);
 				$.get('/BranchBuilder/getbuild',
 					{"task_id": task_id[1]},
 					function(data){
