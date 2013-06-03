@@ -22,13 +22,13 @@ class BranchBuilder:
             from builds_status_left_join_view 
             order by status desc, last_build_date desc
             limit {}
-            """.format(params["limit"])
+            offset {}
+            """.format(params["limit"], params["offset"])
         default_count_sql = """ 
             select count(*) as builds_count
             from builds_status_left_join_view 
             order by status desc, last_build_date desc
-            limit {}
-            """.format(params["limit"])
+            """
         query_sql = """
             select task_id, status, build_number, author, repos, version, branch, last_build_date 
             from builds_status_left_join_view 
@@ -54,6 +54,8 @@ class BranchBuilder:
             query_sql = default_sql 
             builds_count_sql = default_count_sql
 
+        web.debug(query_sql)
+        web.debug("offset is " +  str(params["offset"]))
         # Rebuild builds list
         builds_list = list(self.db.query(query_sql))
         for build_index in range(0, len(builds_list)):

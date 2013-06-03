@@ -2,6 +2,7 @@ import re
 import urllib2
 import os
 
+import web
 from jenkins import Jenkins
 from jinja2 import Template
 import appconfig
@@ -170,7 +171,7 @@ class BuildUtil:
   def get_build_number(self, build):
       build_number = ""
       build['username'] = self.generate_user_name(build['author'])
-      builds_dir = os.path.dirname(appconfig.builds_dir)
+      builds_dir = os.path.realpath(appconfig.builds_dir)
       if os.path.exists(builds_dir + "/" + build['username']
                         + build['branch'] + '/latest'):
           build_number = os.readlink(builds_dir + "/"
