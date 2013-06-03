@@ -40,7 +40,7 @@ urls = (
 
 web.config.smtp_server = 'localhost'
 web.config.smtp_port = 25
-web.config.debug = False
+web.config.debug = True
 app = web.application(urls, globals())
 
 db = web.database(dbn='sqlite', db='branchbuilder.sqlite3')
@@ -128,8 +128,10 @@ class Add:
             styleguide_branch = \
                 buildUtil.determine_styleguide_branch(i.styleguide_repo,
                     i.styleguide_branch, i.version)
+            task_id  = int(db.query("select max(rowid), task_id from builds")[0]["task_id"]) + 1
             n = db.insert(
                 'builds',
+                task_id = str(task_id),
                 repos=i.repos,
                 branch=i.branch,
                 version=i.version,
@@ -138,7 +140,7 @@ class Add:
                 styleguide_branch=styleguide_branch,
                 sidecar_repo=i.sidecar_repo,
                 sidecar_branch=i.sidecar_branch,
-                last_build_number=1000,
+                build_number=1000,
                 last_build_date='',
                 start_time='',
                 status='Available',
@@ -174,7 +176,7 @@ class Remove:
                     + m.sidecar_branch + ',' + m.package_list + '\n')
         f.close()
 
-        n = db.delete('builds', where='task_id =' + i.task_id)
+        n = db.delete('builds', where='task_id ="' + i.task_id + '"')
         raise web.seeother('/')
 
 
