@@ -30,7 +30,7 @@ create table if not exists builds_status(
     priority integer
 );
 create view if not exists builds_status_left_join_view as
-    select a.task_id, a.author, a.build_number, a.branch, a.repos, a.version, a.author, a.styleguide_repo, a.styleguide_branch,
+    select a.task_id, a.author, a.build_number, a.branch, a.repos, a.version, a.styleguide_repo, a.styleguide_branch,
         a.sidecar_repo, a.sidecar_branch, a.last_build_date, ifnull(b.status, a.status) as status
     from builds as a
     left join  builds_status as b
