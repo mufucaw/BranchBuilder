@@ -7,9 +7,9 @@ $(document).ready(function(){
             for(var index = 0; index < builds.length; index ++) {
                 renderBody += ' \
                 <tr> \
-                    <td>' + builds[index]["branch"] + '</td> \
+                    <td><a href="../build' + builds[index]["username"] + builds[index]["branch"] + '">' + builds[index]["branch"] + '</a></td> \
                     <td>' + builds[index]["version"] + '</td> \
-                    <td>' + builds[index]["last_build_date"] + '</td> \
+                    <td><a href="../public/builds/' + builds[index]["username"] + builds[index]["branch"] + '/latest">' + builds[index]["last_build_date"] + '</a></td> \
                     <td>' + builds[index]["build_number"] + '</td> \
                     <td>' + builds[index]["status"] + '</td> \
                     <td>' + builds[index]["repos"] + '</td> \

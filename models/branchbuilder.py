@@ -6,6 +6,7 @@ class BranchBuilder:
 
     def __init__(self, db):
         self.db = db
+        self.buildUtil = BuildUtil()
 
     def searchBuilds(self, **params):
         if "limit" not in params.keys():
@@ -53,7 +54,13 @@ class BranchBuilder:
             query_sql = default_sql 
             builds_count_sql = default_count_sql
 
-        return {"builds": self.db.query(query_sql), "builds_count": self.db.query(builds_count_sql)[0]["builds_count"]} 
+        # Rebuild builds list
+        builds_list = list(self.db.query(query_sql))
+        for build_index in range(0, len(builds_list)):
+           builds_list[build_index]['username'] = self.buildUtil.generate_user_name(builds_list[build_index]['author'])
+           builds_list[build_index]["build_number"] = self.buildUtil.get_build_number(builds_list[build_index])
+
+        return {"builds": builds_list, "builds_count": self.db.query(builds_count_sql)[0]["builds_count"]} 
 
     def getIndexPage(self, pageNum = 1, pageLimit = appconfig.per_page):
         offset = (pageNum - 1) * appconfig.per_page
@@ -64,17 +71,9 @@ class BranchBuilder:
           limit " + str(pageLimit) + ' offset ' + str(offset))
 
         fix_builds = []
-        buildUtil = BuildUtil()
         for build in builds:
-           build['username'] = buildUtil.generate_user_name(build['author'])
-           if os.path.exists('../public/builds/' + build['username'] + build['branch'] + '/latest'):
-               build['build_number'] = os.readlink('../public/builds/'
-                                   + build['username'] + build['branch']
-                                   + '/latest')
-           else:
-               build['build_number'] = '1000'
-
-           build["build_number"] = buildUtil.get_build_number(build)
+           build['username'] = self.buildUtil.generate_user_name(build['author'])
+           build["build_number"] = self.buildUtil.get_build_number(build)
            fix_builds.append(build)
 
         total_records_count = self.db.query('select count(*) as count from builds')[0].count

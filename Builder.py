@@ -99,7 +99,7 @@ class SearchBuild:
             return "[]"
 
 
-        return json.JSONEncoder().encode({"builds": list(builds["builds"]), "builds_count": builds["builds_count"]})
+        return json.JSONEncoder().encode({"builds": builds["builds"], "builds_count": builds["builds_count"]})
 
 
 class Add:
