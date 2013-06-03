@@ -1,239 +1,175 @@
 $(document).ready(function(){
 		var builder = {"hasRunningTask": false};
 
-        var build_render = function (builds, perPage, pageNum) {
-            var renderBody = "";
-
-            for(var index = 0; index < builds.length; index ++) {
-                renderBody += ' \
-                <tr> \
-                    <td><a href="../build' + builds[index]["username"] + builds[index]["branch"] + '">' + builds[index]["branch"] + '</a></td> \
-                    <td>' + builds[index]["version"] + '</td> \
-                    <td><a href="../public/builds/' + builds[index]["username"] + builds[index]["branch"] + '/latest">' + builds[index]["last_build_date"] + '</a></td> \
-                    <td>' + builds[index]["build_number"] + '</td> \
-                    <td>' + builds[index]["status"] + '</td> \
-                    <td>' + builds[index]["repos"] + '</td> \
-                    <td>' + builds[index]["author"] + '</td> \
-                    <td>' +  ' \
-                        <input type="button" class="btn btn-success" name="rebuild" id="buildList-' + builds[index]["task_id"] + '"  value="Build" >  \
-                        <input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-' + builds[index]["task_id"] + '" value="Edit" > \
-                        <a data-toggle="modal" name="duplicateBuild" class="btn" data-target="#popupViewBuild" id="dupList-' + builds[index]["task_id"] + '" >Duplicate</a> \
-                        <input type="button" class="btn btn-danger" name="removeBuild" id="buildListRemove-' + builds[index]["task_id"] + '" value="Remove"> \
-                    </td> \
-                </tr>';
-
-                if (index + 1 >= 20) {
-                    break;
-                }
-            }
-
-            return renderBody;
-        };
-
-        var getPageCount = function (totalCount, perPage) {
-            var pageCount = 0;
-            var perPage = perPage == "" ? 20 : perPage;
-
-            pageCount = Math.floor(totalCount / perPage);
-
-            if ((totalCount % perPage) > 0 && totalCount > perPage ) {
-                pageCount ++;
-            }
-
-            if (pageCount == 0 && totalCount > 0) {
-                pageCount ++;
-            }
-            
-            return pageCount;
-        }
-
-        var renderBuildList = function(q, queryURL, pageNum) {
-            $.getJSON( queryURL, {"q": q, "pageNum": pageNum})
-             .done(function(builds_data){
-                var perPage = 20;
-                var pageCount = getPageCount(builds_data["builds_count"], perPage);
-
-                if (pageCount == 0) {
-                    pageNum = 0;
-                }
-
-                $("#buildList-tbody").html(build_render(builds_data["builds"], perPage));
-                $("#buildList-pageNum-link").text(pageNum + " of " + pageCount);
-                $("#buildList-pageNum").val(pageNum);
-                $("#buildList-totalPage").val(pageCount);
-
-             })
-             .fail(function(jqxhr, textStatus, error){
-                 console.log( "Request Failed: " + textStatus + "," + error);
-             });
-        }
-
 		$("li.active").removeClass("active");
 		$("#navHome").addClass("active");
 
-		$('#package-help-info').popover({'title': 'Package info', 'content': 'Package can be "ult,ent,corp,pro,com"'});
-		$('td[name="list_status"]').each(function (i, domEle){
-			if ($(domEle).text() == "Running"){
-				var task_id = $(domEle).attr("id").split("_");
-				$("#buildList-" + task_id[2]).attr("disabled", "disabled");
-				$('#editList-' + task_id[2]).attr("disabled", "disabled");
-				$('#buildListRemove-' + task_id[2]).attr("disabled", "disabled");
-			}
-		});
-		$('input[name="removeBuild"]').each(function(i, domEle){
-			$(domEle).click(function(){
-				var task_id = $(domEle).attr("id").split("-");
-				$(this).attr("disabled", "disabled");
-				$.get(
-					'/BranchBuilder/remove',
-					{"task_id": task_id[1]},
-					function(data){
-						window.location.reload(true);
-					}
-				);
-			});
-		});
-		$('input[name="rebuild"]').each(function(i, domEle){
-			$(domEle).click(function(){
-				var task_id = $(domEle).attr("id").split("-");
-				$(this).attr("disabled", "disabled");
-				$('#build_status_' + task_id[1]).text("Starting...");
-				$('#editList-' + task_id[1]).attr("disabled", "disabled");
-				$('#buildListRemove-' + task_id[1]).attr("disabled", "disabled");
-				$.get(
-					'/BranchBuilder/build',
-					{"task_id": task_id[1]},
-					function(data){
-						$('#build_status_' + data.task_id).text(data.status);
-						window.location.reload(true);
-					}
-				);
-			});
-		});
+        var buildListEventBind = function () {
+            $('#package-help-info').popover({'title': 'Package info', 'content': 'Package can be "ult,ent,corp,pro,com"'});
+            $('td[name="list_status"]').each(function (i, domEle){
+                if ($(domEle).text() == "Running"){
+                    var task_id = $(domEle).attr("id").split("_");
+                    $("#buildList-" + task_id[2]).attr("disabled", "disabled");
+                    $('#editList-' + task_id[2]).attr("disabled", "disabled");
+                    $('#buildListRemove-' + task_id[2]).attr("disabled", "disabled");
+                }
+            });
+            $('input[name="removeBuild"]').each(function(i, domEle){
+                $(domEle).click(function(){
+                    var task_id = $(domEle).attr("id").split("-");
+                    $(this).attr("disabled", "disabled");
+                    $.get(
+                        '/BranchBuilder/remove',
+                        {"task_id": task_id[1]},
+                        function(data){
+                            window.location.reload(true);
+                        }
+                    );
+                });
+            });
+            $('input[name="rebuild"]').each(function(i, domEle){
+                $(domEle).click(function(){
+                    var task_id = $(domEle).attr("id").split("-");
+                    $(this).attr("disabled", "disabled");
+                    $('#build_status_' + task_id[1]).text("Starting...");
+                    $('#editList-' + task_id[1]).attr("disabled", "disabled");
+                    $('#buildListRemove-' + task_id[1]).attr("disabled", "disabled");
+                    $.get(
+                        '/BranchBuilder/build',
+                        {"task_id": task_id[1]},
+                        function(data){
+                            $('#build_status_' + data.task_id).text(data.status);
+                            window.location.reload(true);
+                        }
+                    );
+                });
+            });
 
-		$('a[name="duplicateBuild"]').each(function(i, domEle){
-			$(domEle).click(function(){
-				var task_id = $(domEle).attr("id").split("-");
-				$.get('/BranchBuilder/getbuild',
-					{"task_id": task_id[1]},
-					function(data){
-						buildObj = data;
-						$('#popView-repos').val(buildObj['repos']);
-						$('#popView-branch').val(buildObj['branch']); 
-						$('#popView-version').val(buildObj['version']); 
-						$('#popView-author').val(buildObj['author']);
-						$('#popView-styleguide_repo').val(buildObj['styleguide_repo']);
-						$('#popView-styleguide_branch').val(buildObj['styleguide_branch']);
-						$('#popView-sidecar_repo').val(buildObj['sidecar_repo']);
-						$('#popView-sidecar_branch').val(buildObj['sidecar_branch']);
-						$('#popView-package_list').val(buildObj['package_list']);
-						$('#popView-upgrade_package').attr("checked", buildObj['upgrade_package'] ? true : false);
-						$('#popView-latin').attr("checked", buildObj['latin'] ? true : false);
-						$('#popView-demo_data').attr("checked", buildObj['demo_data'] ? true : false);
-						
-						//Set selectAction as editBuild
-						$('#popView-selectAction').val('duplicateBuild');
+            $('a[name="duplicateBuild"]').each(function(i, domEle){
+                $(domEle).click(function(){
+                    var task_id = $(domEle).attr("id").split("-");
+                    $.get('/BranchBuilder/getbuild',
+                        {"task_id": task_id[1]},
+                        function(data){
+                            buildObj = data;
+                            $('#popView-repos').val(buildObj['repos']);
+                            $('#popView-branch').val(buildObj['branch']); 
+                            $('#popView-version').val(buildObj['version']); 
+                            $('#popView-author').val(buildObj['author']);
+                            $('#popView-styleguide_repo').val(buildObj['styleguide_repo']);
+                            $('#popView-styleguide_branch').val(buildObj['styleguide_branch']);
+                            $('#popView-sidecar_repo').val(buildObj['sidecar_repo']);
+                            $('#popView-sidecar_branch').val(buildObj['sidecar_branch']);
+                            $('#popView-package_list').val(buildObj['package_list']);
+                            $('#popView-upgrade_package').attr("checked", buildObj['upgrade_package'] ? true : false);
+                            $('#popView-latin').attr("checked", buildObj['latin'] ? true : false);
+                            $('#popView-demo_data').attr("checked", buildObj['demo_data'] ? true : false);
+                            
+                            //Set selectAction as editBuild
+                            $('#popView-selectAction').val('duplicateBuild');
 
-						//Update the popup view title and build ID
-						$('#popView-title').text('Duplicate build -- Task ID ' + task_id[1]);
+                            //Update the popup view title and build ID
+                            $('#popView-title').text('Duplicate build -- Task ID ' + task_id[1]);
 
-						$('#popView-selectBuildID').val(task_id[1]);
-					}
-				);
-			});
-		});
+                            $('#popView-selectBuildID').val(task_id[1]);
+                        }
+                    );
+                });
+            });
 
-		$('input[name="editBuild"]').each(function(i, domEle){
-			$(domEle).click(function(){
-				var task_id = $(domEle).attr("id").split("-");
-                console.log(task_id);
-				$.get('/BranchBuilder/getbuild',
-					{"task_id": task_id[1]},
-					function(data){
-						var buildObj = data;
-						$('#popView-repos').val(buildObj['repos']);
-						$('#popView-branch').val(buildObj['branch']); 
-						$('#popView-version').val(buildObj['version']); 
-						$('#popView-author').val(buildObj['author']);
-						$('#popView-styleguide_repo').val(buildObj['styleguide_repo']);
-						$('#popView-styleguide_branch').val(buildObj['styleguide_branch']);
-						$('#popView-sidecar_repo').val(buildObj['sidecar_repo']);
-						$('#popView-sidecar_branch').val(buildObj['sidecar_branch']);
-						$('#popView-package_list').val(buildObj['package_list']);
-						$('#popView-upgrade_package').attr("checked", buildObj['upgrade_package'] ? true : false);
-						$('#popView-latin').attr("checked", buildObj['latin'] ? true : false);
-						$('#popView-demo_data').attr("checked", buildObj['demo_data'] ? true : false);
+            $('input[name="editBuild"]').each(function(i, domEle){
+                $(domEle).click(function(){
+                    var task_id = $(domEle).attr("id").split("-");
+                    $.get('/BranchBuilder/getbuild',
+                        {"task_id": task_id[1]},
+                        function(data){
+                            var buildObj = data;
+                            $('#popView-repos').val(buildObj['repos']);
+                            $('#popView-branch').val(buildObj['branch']); 
+                            $('#popView-version').val(buildObj['version']); 
+                            $('#popView-author').val(buildObj['author']);
+                            $('#popView-styleguide_repo').val(buildObj['styleguide_repo']);
+                            $('#popView-styleguide_branch').val(buildObj['styleguide_branch']);
+                            $('#popView-sidecar_repo').val(buildObj['sidecar_repo']);
+                            $('#popView-sidecar_branch').val(buildObj['sidecar_branch']);
+                            $('#popView-package_list').val(buildObj['package_list']);
+                            $('#popView-upgrade_package').attr("checked", buildObj['upgrade_package'] ? true : false);
+                            $('#popView-latin').attr("checked", buildObj['latin'] ? true : false);
+                            $('#popView-demo_data').attr("checked", buildObj['demo_data'] ? true : false);
 
-						//Set selectAction as editBuild
-						$('#popView-selectAction').val('editBuild');
+                            //Set selectAction as editBuild
+                            $('#popView-selectAction').val('editBuild');
 
-						//Update the popup view title and build ID
-						$('#popView-title').text('Edit build -- Task ID ' + task_id[1]);
-						$('#popView-selectBuildID').val(task_id[1]);
-					}
-				);
-			});
-		});
-	
-		$('#popView-Save').click(function(){
-			//Check form validate firstly
-			if (! $('#popView-actionBuildForm').valid()){
-				return false;
-			}
+                            //Update the popup view title and build ID
+                            $('#popView-title').text('Edit build -- Task ID ' + task_id[1]);
+                            $('#popView-selectBuildID').val(task_id[1]);
+                        }
+                    );
+                });
+            });
+        
+            $('#popView-Save').click(function(){
+                //Check form validate firstly
+                if (! $('#popView-actionBuildForm').valid()){
+                    return false;
+                }
 
-			var upgrade_package = $('#popView-upgrade_package').attr('checked') ? 1 : 0;
-			var latin = $('#popView-latin').attr('checked') ? 1 : 0;
-			var demo_data = $('#popView-demo_data').attr('checked') ? 1 : 0;
-			if ($('#popView-selectAction').val() == 'duplicateBuild') {
-				$.post('/BranchBuilder/add', 
+                var upgrade_package = $('#popView-upgrade_package').attr('checked') ? 1 : 0;
+                var latin = $('#popView-latin').attr('checked') ? 1 : 0;
+                var demo_data = $('#popView-demo_data').attr('checked') ? 1 : 0;
+                if ($('#popView-selectAction').val() == 'duplicateBuild') {
+                    $.post('/BranchBuilder/add', 
 
-					{
-					 "repos": $('#popView-repos').val(),
-					 "branch": $('#popView-branch').val(), 
-					 "version": $('#popView-version').val(), 
-					 "package_list": $('#popView-package_list').val(),
-					 "author": $('#popView-author').val(),
-					 "styleguide_repo": $('#popView-styleguide_repo').val(),
-					 "styleguide_branch": $('#popView-styleguide_branch').val(),
-					 "sidecar_repo": $('#popView-sidecar_repo').val(),
-					 "sidecar_branch": $('#popView-sidecar_branch').val(),
-					 "upgrade_package": upgrade_package,
-					 "latin": latin,
-					 "demo_data": demo_data
-					 },
+                        {
+                         "repos": $('#popView-repos').val(),
+                         "branch": $('#popView-branch').val(), 
+                         "version": $('#popView-version').val(), 
+                         "package_list": $('#popView-package_list').val(),
+                         "author": $('#popView-author').val(),
+                         "styleguide_repo": $('#popView-styleguide_repo').val(),
+                         "styleguide_branch": $('#popView-styleguide_branch').val(),
+                         "sidecar_repo": $('#popView-sidecar_repo').val(),
+                         "sidecar_branch": $('#popView-sidecar_branch').val(),
+                         "upgrade_package": upgrade_package,
+                         "latin": latin,
+                         "demo_data": demo_data
+                         },
 
-					 function(data){
-						$("#popupViewBuild").modal("hide");
-						location.reload();
-					 }
-				);
-			} else if ($('#popView-selectAction').val() == 'editBuild'){
-				$.post('/BranchBuilder/updatebuild', 
+                         function(data){
+                            $("#popupViewBuild").modal("hide");
+                            location.reload();
+                         }
+                    );
+                } else if ($('#popView-selectAction').val() == 'editBuild'){
+                    $.post('/BranchBuilder/updatebuild', 
 
-					{
-					 "task_id": $('#popView-selectBuildID').val(), 
-					 "repos": $('#popView-repos').val(),
-					 "branch": $('#popView-branch').val(), 
-					 "version": $('#popView-version').val(), 
-					 "package_list": $('#popView-package_list').val(),
-					 "author": $('#popView-author').val(),
-					 "styleguide_repo": $('#popView-styleguide_repo').val(),
-					 "styleguide_branch": $('#popView-styleguide_branch').val(),
-					 "sidecar_repo": $('#popView-sidecar_repo').val(),
-					 "sidecar_branch": $('#popView-sidecar_branch').val(),
-					 "upgrade_package": upgrade_package,
-					 "latin": latin,
-					 "demo_data": demo_data
-					 },
+                        {
+                         "task_id": $('#popView-selectBuildID').val(), 
+                         "repos": $('#popView-repos').val(),
+                         "branch": $('#popView-branch').val(), 
+                         "version": $('#popView-version').val(), 
+                         "package_list": $('#popView-package_list').val(),
+                         "author": $('#popView-author').val(),
+                         "styleguide_repo": $('#popView-styleguide_repo').val(),
+                         "styleguide_branch": $('#popView-styleguide_branch').val(),
+                         "sidecar_repo": $('#popView-sidecar_repo').val(),
+                         "sidecar_branch": $('#popView-sidecar_branch').val(),
+                         "upgrade_package": upgrade_package,
+                         "latin": latin,
+                         "demo_data": demo_data
+                         },
 
-					 function(data){
-						$("#popupViewBuild").modal("hide");
+                         function(data){
+                            $("#popupViewBuild").modal("hide");
 
-						location.reload();
-					 }
-				);
-			}
-		});
+                            location.reload();
+                         }
+                    );
+                }
+            });
+        }
+
+        buildListEventBind();
 
 		$('#mailToAdmin').click(function(){
 				$('#popView-MailFrom').val(""),
@@ -326,6 +262,75 @@ $(document).ready(function(){
             $("#buildList-firstPage-link").attr("href", "#");
         }
 
+        var build_render = function (builds, perPage, pageNum) {
+            var renderBody = "";
+
+            for(var index = 0; index < builds.length; index ++) {
+                renderBody += ' \
+                <tr> \
+                    <td><a href="../build' + builds[index]["username"] + builds[index]["branch"] + '">' + builds[index]["branch"] + '</a></td> \
+                    <td>' + builds[index]["version"] + '</td> \
+                    <td><a href="../public/builds/' + builds[index]["username"] + builds[index]["branch"] + '/latest">' + builds[index]["last_build_date"] + '</a></td> \
+                    <td>' + builds[index]["build_number"] + '</td> \
+                    <td>' + builds[index]["status"] + '</td> \
+                    <td>' + builds[index]["repos"] + '</td> \
+                    <td>' + builds[index]["author"] + '</td> \
+                    <td>' +  ' \
+                        <input type="button" class="btn btn-success" name="rebuild" id="buildList-' + builds[index]["task_id"] + '"  value="Build" >  \
+                        <input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-' + builds[index]["task_id"] + '" value="Edit" > \
+                        <a data-toggle="modal" name="duplicateBuild" class="btn" data-target="#popupViewBuild" id="dupList-' + builds[index]["task_id"] + '" >Duplicate</a> \
+                        <input type="button" class="btn btn-danger" name="removeBuild" id="buildListRemove-' + builds[index]["task_id"] + '" value="Remove"> \
+                    </td> \
+                </tr>';
+
+                if (index + 1 >= 20) {
+                    break;
+                }
+            }
+
+            return renderBody;
+        };
+
+        var getPageCount = function (totalCount, perPage) {
+            var pageCount = 0;
+            var perPage = perPage == "" ? 20 : perPage;
+
+            pageCount = Math.floor(totalCount / perPage);
+
+            if ((totalCount % perPage) > 0 && totalCount > perPage ) {
+                pageCount ++;
+            }
+
+            if (pageCount == 0 && totalCount > 0) {
+                pageCount ++;
+            }
+            
+            return pageCount;
+        }
+
+        var renderBuildList = function(q, queryURL, pageNum) {
+            $.getJSON( queryURL, {"q": q, "pageNum": pageNum})
+             .done(function(builds_data){
+                var perPage = 20;
+                var pageCount = getPageCount(builds_data["builds_count"], perPage);
+
+                if (pageCount == 0) {
+                    pageNum = 0;
+                }
+
+                $("#buildList-tbody").html(build_render(builds_data["builds"], perPage));
+                $("#buildList-pageNum-link").text(pageNum + " of " + pageCount);
+                $("#buildList-pageNum").val(pageNum);
+                $("#buildList-totalPage").val(pageCount);
+
+                buildListEventBind();
+
+             })
+             .fail(function(jqxhr, textStatus, error){
+                 console.log( "Request Failed: " + textStatus + "," + error);
+             });
+        }
+
         $("#searchForm-query").keyup(function(){
             var q = $(this).val();
             var queryURL = "./searchbuild";
@@ -339,6 +344,7 @@ $(document).ready(function(){
                 var queryURL = "./searchbuild";
 
                 renderBuildList(q, queryURL, 1);
+                
             }
         });
 
@@ -385,6 +391,11 @@ $(document).ready(function(){
                 var queryURL = "./searchbuild";
 
                 renderBuildList(q, queryURL, parseInt($("#buildList-totalPage").val()));
+
+                $("#buildList-nextPage").removeClass("active");
+                $("#buildList-nextPage").addClass("disabled");
+                $("#buildList-lastPage").removeClass("active");
+                $("#buildList-lastPage").addClass("disabled");
             }
         });
 
