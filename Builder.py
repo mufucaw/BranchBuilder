@@ -16,6 +16,7 @@ import ODDeploy
 import CIDeploy
 import Nomad
 import appconfig
+from models.branchbuilder import BranchBuilder
 
 render = web.template.render('template/', base='layout')
 urls = (
@@ -24,6 +25,7 @@ urls = (
     '/build', 'Build',
     '/getbuild', 'GetBuild',
     '/stopbuild', 'StopBuild',
+    '/searchbuild', 'SearchBuild',
     '/updatebuild', 'UpdateBuild',
     '/remove', 'Remove',
     '/sendmail', 'SendMailToAdmin',
@@ -41,15 +43,12 @@ web.config.smtp_port = 25
 web.config.debug = False
 app = web.application(urls, globals())
 
-db = web.database(dbn='sqlite', db='branchBuilder')
+db = web.database(dbn='sqlite', db='branchbuilder.sqlite3')
 
 
 class Index:
 
     def GET(self):
-
-    # self.update_status()
-    # builds = db.select('builds', order="last_build_date DESC", where="repos is not null")
 
         i = web.input()
         if hasattr(i, 'pageLimit') and int(i.pageLimit) > 0:
@@ -57,45 +56,16 @@ class Index:
         else:
             pageLimit = appconfig.per_page
 
-        if hasattr(i, 'pageNum') and int(i.pageNum) > 0:
+        if hasattr(i, 'pageNum') and i.pageNum != ""  and int(i.pageNum) > 0:
             pageNum = int(i.pageNum)
         else:
             pageNum = 1
-        offset = (pageNum - 1) * appconfig.per_page
-        builds = \
-            db.query("select a.task_id, a.author, a.branch, a.repos, a.version, a.author, \
-      a.styleguide_repo, a.styleguide_branch, a.sidecar_repo, a.sidecar_branch, a.last_build_date, \
-      ifnull(b.status, a.status) as status \
-      from builds as a \
-      left join  builds_status as b \
-      on a.task_id=b.task_id \
-      order by b.status desc,a.last_build_date desc \
-      limit "
-                      + str(pageLimit) + ' offset ' + str(offset))
 
-        fix_builds = []
-        buildUtil = BuildUtil()
-        for build in builds:
-            build['username'] = \
-                buildUtil.generate_user_name(build['author'])
-            if os.path.exists('../public/builds/' + build['username']
-                              + build['branch'] + '/latest'):
-                build['build_number'] = os.readlink('../public/builds/'
-                        + build['username'] + build['branch']
-                        + '/latest')
-            else:
-                build['build_number'] = '1000'
-            fix_builds.append(build)
+        branchBuilder = BranchBuilder(db)
+        indexPage = branchBuilder.getIndexPage(pageNum, pageLimit)
 
-        total_records_count = \
-            db.query('select count(*) as count from builds')[0].count
-        plus_page = 0
-        if total_records_count % appconfig.per_page != 0:
-            plus_page = 1
-        total_page = total_records_count / appconfig.per_page \
-            + plus_page
-        return render.index(fix_builds, appconfig.site_url, pageNum,
-                            total_page)
+        return render.index(indexPage["fix_builds"], appconfig.site_url, pageNum,
+                            indexPage["total_page"])
 
     def update_status(self):
         builds_status = db.select('builds_status')
@@ -108,6 +78,28 @@ class Index:
     def get_job_name(self, string):
         buildUtil = BuildUtil()
         return buildUtil.get_job_name(repos=string)
+
+
+class SearchBuild:
+
+    def GET(self):
+        i = web.input()
+        web.header('Content-type', 'application/json')
+
+        branchBuilder = BranchBuilder(db)
+
+        if not hasattr(i, "pageNum"):
+            pageNum = 1
+        else:
+            pageNum = i.pageNum
+
+        if hasattr(i, "q"):
+            builds = branchBuilder.searchBuilds(q = i.q, pageNum = int(pageNum))
+        else:
+            return "[]"
+
+
+        return json.JSONEncoder().encode({"builds": list(builds["builds"]), "builds_count": builds["builds_count"]})
 
 
 class Add:
@@ -301,7 +293,7 @@ class UpdateBuild:
                 demo_data=i.demo_data,
                 )
 
-      # After update
+          # After update
 
             for k in db.select('builds', where='task_id =' + i.task_id):
                 f.write(date_now + ' [After Update Action:]'
@@ -315,7 +307,7 @@ class UpdateBuild:
 
         f.close()
 
-    # End logger
+        # End logger
 
         raise web.seeother('/')
 
@@ -359,9 +351,7 @@ class StopBuild:
             db.delete('builds_status', where='task_id=' + i.task_id)
             web.seeother('/')
 
-        selectedBuilds = \
-            db.query('select repos from builds where task_id='
-                     + i.task_id)
+        selectedBuilds = db.query('select repos from builds where task_id=' + i.task_id)
         for x in selectedBuilds:
             jobName = BuildUtil().get_job_name(repos=x.repos)
             TaskBuilder(appconfig.jenkins_url).stop_jenkins_jobs(jobName)
@@ -420,15 +410,6 @@ class BuildCron:
                         'status': min_build.status,
                         'priority': min_build.priority}
 
-    # min_build_priority = min_build_priorities[0].priority
-
-    # if min_build_priority:
-    #  selectedBuildTasks = db.select('builds_status', where='priority=' + str(min_build_priority))
-    #  for selectBuildTask in selectedBuildTasks:
-    #    return {"task_id":selectBuildTask.task_id, "status": selectBuildTask.status}
-    # else:
-    #  return False
-
     def update_task_status_as_lastBuild(self, task_id, jobName):
         j = self.taskBuilder
         job_status = j.get_build_status(jobName)
@@ -455,30 +436,21 @@ class BuildCron:
                 if self.is_building_job(jobName):
                     pass
                 else:
-
-          # update build_status and remove the running flag
-
+                    # update build_status and remove the running flag
                     self.update_task_status_as_lastBuild(str(lowest_build['task_id'
                             ]), jobName)
                     db.delete('builds_status', where='task_id='
                               + str(lowest_build['task_id']))
             elif lowest_build['status'] == 'InQueue':
-
-        # Assume Jenkins is avaliable for building
-
+                # Assume Jenkins is avaliable for building
                 RunBuild().run(lowest_build['task_id'])
                 db.update('builds_status', where='task_id='
                           + str(lowest_build['task_id']),
                           status='Running')
             else:
-
-        # print 'false with invalid status'
-
                 pass
         else:
-
-      # print 'false from lowest build'
-
+            # print 'false from lowest build'
             pass
 
         for x in db.select('builds_status', what='task_id, status'):

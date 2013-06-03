@@ -29,16 +29,16 @@ $var site_url: $site_url
 		<th>Actions</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody id="buildList-tbody">
         <div class="pagination pagination-right">
             <ul>
-                <li id="buildList-firstPage" class="active"><a id="buildList-firstPage-link" href="./?pageNum=1">&laquo;</a></li>
-                <li id="buildList-prePage" class="active"><a id="buildList-prePage-link" href="./?pageNum=${pageNum - 1}">&lt;</a></li>
-                <li class="disabled"><a href="#">$pageNum of ${total_page}</a></li>
+                <li id="buildList-firstPage" class="active"><a id="buildList-firstPage-link" href="#">&laquo;</a></li>
+                <li id="buildList-prePage" class="active"><a id="buildList-prePage-link" href="#">&lt;</a></li>
+                <li class="disabled"><a id="buildList-pageNum-link" href="#">$pageNum of ${total_page}</a></li>
                 <input type="hidden" id="buildList-pageNum" value="${pageNum}" />
                 <input type="hidden" id="buildList-totalPage" value="${total_page}" />
-                <li id="buildList-nextPage" class="active"><a id="buildList-nextPage-link" href="./?pageNum=${pageNum + 1}">&gt;</a></li>
-                <li id="buildList-lastPage" class="active"><a id="buildList-lastPage-link" href="./?pageNum=${total_page}">&raquo;</a></li>
+                <li id="buildList-nextPage" class="active"><a id="buildList-nextPage-link" href="#">&gt;</a></li>
+                <li id="buildList-lastPage" class="active"><a id="buildList-lastPage-link" href="#">&raquo;</a></li>
             </ul>
         </div>
 	$for build in builds:

@@ -1,6 +1,73 @@
 $(document).ready(function(){
 		var builder = {"hasRunningTask": false};
 
+        var build_render = function (builds, perPage, pageNum) {
+            var renderBody = "";
+
+            for(var index = 0; index < builds.length; index ++) {
+                renderBody += ' \
+                <tr> \
+                    <td>' + builds[index]["branch"] + '</td> \
+                    <td>' + builds[index]["version"] + '</td> \
+                    <td>' + builds[index]["last_build_date"] + '</td> \
+                    <td>' + builds[index]["build_number"] + '</td> \
+                    <td>' + builds[index]["status"] + '</td> \
+                    <td>' + builds[index]["repos"] + '</td> \
+                    <td>' + builds[index]["author"] + '</td> \
+                    <td>' +  ' \
+                        <input type="button" class="btn btn-success" name="rebuild" id="buildList-' + builds.task_id + '"  value="Build" >  \
+                        <input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-' + builds.task_id + '" value="Edit" > \
+                        <a data-toggle="modal" name="duplicateBuild" class="btn" data-target="#popupViewBuild" id="dupList-' + builds.task_id + '" >Duplicate</a> \
+                        <input type="button" class="btn btn-danger" name="removeBuild" id="buildListRemove-' + builds.task_id + '" value="Remove"> \
+                    </td> \
+                </tr>';
+
+                if (index + 1 >= 20) {
+                    break;
+                }
+            }
+
+            return renderBody;
+        };
+
+        var getPageCount = function (totalCount, perPage) {
+            var pageCount = 0;
+            var perPage = perPage == "" ? 20 : perPage;
+
+            pageCount = Math.floor(totalCount / perPage);
+
+            if ((totalCount % perPage) > 0 && totalCount > perPage ) {
+                pageCount ++;
+            }
+
+            if (pageCount == 0 && totalCount > 0) {
+                pageCount ++;
+            }
+            
+            return pageCount;
+        }
+
+        var renderBuildList = function(q, queryURL, pageNum) {
+            $.getJSON( queryURL, {"q": q, "pageNum": pageNum})
+             .done(function(builds_data){
+                var perPage = 20;
+                var pageCount = getPageCount(builds_data["builds_count"], perPage);
+
+                if (pageCount == 0) {
+                    pageNum = 0;
+                }
+
+                $("#buildList-tbody").html(build_render(builds_data["builds"], perPage));
+                $("#buildList-pageNum-link").text(pageNum + " of " + pageCount);
+                $("#buildList-pageNum").val(pageNum);
+                $("#buildList-totalPage").val(pageCount);
+
+             })
+             .fail(function(jqxhr, textStatus, error){
+                 console.log( "Request Failed: " + textStatus + "," + error);
+             });
+        }
+
 		$("li.active").removeClass("active");
 		$("#navHome").addClass("active");
 
@@ -217,7 +284,7 @@ $(document).ready(function(){
 							$('#editList-' + task_id).attr("disabled", "disabled");
 							builder.hasRunningTask = true;
 							
-						}else{
+						} else {
 							//window.location.reload()
 							/*
 							$(domEle).removeAttr('disabled');						
@@ -258,5 +325,67 @@ $(document).ready(function(){
             $("#buildList-firstPage-link").attr("href", "#");
         }
 
-		
+        $("#searchForm-query").keyup(function(){
+            var q = $(this).val();
+            var queryURL = "./searchbuild";
+
+            renderBuildList(q, queryURL, 1);
+        });
+
+        $("#buildList-firstPage-link").click(function(){
+            if ($("#buildList-pageNum").val() > 1) {
+                var q = $("#searchForm-query").val();
+                var queryURL = "./searchbuild";
+
+                renderBuildList(q, queryURL, 1);
+            }
+        });
+
+        $("#buildList-prePage-link").click(function(){
+            if ($("#buildList-pageNum").val() > 1) {
+                var q = $("#searchForm-query").val();
+                var queryURL = "./searchbuild";
+
+                renderBuildList(q, queryURL, parseInt($("#buildList-pageNum").val()) - 1);
+            }
+
+            if ($("#buildList-pageNum").val() == 1) {
+                $("#buildList-firstPage").removeClass("active");
+                $("#buildList-firstPage").addClass("disabled");
+                $("#buildList-prePage").removeClass("active");
+                $("#buildList-prePage").addClass("disabled");
+            }
+        });
+
+        $("#buildList-nextPage-link").click(function(){
+            if ($("#buildList-totalPage").val() > 1 && $("#buildList-pageNum").val() < $("#buildList-totalPage").val()) {
+                var q = $("#searchForm-query").val();
+                var queryURL = "./searchbuild";
+
+                renderBuildList(q, queryURL, parseInt($("#buildList-pageNum").val()) + 1);
+
+                $("#buildList-firstPage").removeClass("disabled");
+                $("#buildList-firstPage").addClass("active");
+                $("#buildList-prePage").removeClass("disabled");
+                $("#buildList-prePage").addClass("active");
+            }
+
+            if ($("#buildList-pageNum").val() == $("#buildList-totalPage").val() - 1) {
+                $("#buildList-nextPage").removeClass("active");
+                $("#buildList-nextPage").addClass("disabled");
+                $("#buildList-lastPage").removeClass("active");
+                $("#buildList-lastPage").addClass("disabled");
+            }
+        });
+
+        $("#buildList-lastPage-link").click(function(){
+            if ($("#buildList-totalPage").val() > 1) {
+                var q = $("#searchForm-query").val();
+                var queryURL = "./searchbuild";
+
+                renderBuildList(q, queryURL, parseInt($("#buildList-totalPage").val()));
+            }
+        });
+
+
 	});
