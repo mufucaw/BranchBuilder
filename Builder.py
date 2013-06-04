@@ -123,6 +123,16 @@ class Add:
             else:
                 upgrade_package = 0
 
+            if hasattr(i, 'latin'):
+                latin = i.latin
+            else:
+                latin = 0
+
+            if hasattr(i, 'demo_data'):
+                demo_data = i.demo_data
+            else:
+                demo_data = 1
+
             buildUtil = BuildUtil()
             i = buildUtil.sanitize_input(i)
             styleguide_branch = \
@@ -146,8 +156,8 @@ class Add:
                 status='Available',
                 package_list='ent',
                 upgrade_package=upgrade_package,
-                latin=0,
-                demo_data=1,
+                latin=latin,
+                demo_data=demo_data,
                 )
 
             date_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -177,7 +187,6 @@ class Remove:
         f.close()
 
         n = db.delete('builds', where='task_id ="' + i.task_id + '"')
-        raise web.seeother('/')
 
 
 class RunBuild:

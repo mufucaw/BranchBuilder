@@ -4,6 +4,27 @@ $(document).ready(function(){
 		$("li.active").removeClass("active");
 		$("#navHome").addClass("active");
 
+        var build_render = function (build) {
+            var renderBody = ' \
+            <tr id="t' + build["task_id"] + '"> \
+                <td><a href="../build' + build["username"] + build["branch"] + '">' + build["branch"] + '</a></td> \
+                <td>' + build["version"] + '</td> \
+                <td><a href="../public/builds/' + build["username"] + build["branch"] + '/latest">' + build["last_build_date"] + '</a></td> \
+                <td>' + build["build_number"] + '</td> \
+                <td>' + build["status"] + '</td> \
+                <td>' + build["repos"] + '</td> \
+                <td>' + build["author"] + '</td> \
+                <td>' +  ' \
+                    <input type="button" class="btn btn-success" name="rebuild" id="buildList-' + build["task_id"] + '"  value="Build" >  \
+                    <input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-' + build["task_id"] + '" value="Edit" > \
+                    <a data-toggle="modal" name="duplicateBuild" class="btn" data-target="#popupViewBuild" id="dupList-' + build["task_id"] + '" >Duplicate</a> \
+                    <input type="button" class="btn btn-danger" name="removeBuild" id="buildListRemove-' + build["task_id"] + '" value="Remove"> \
+                </td> \
+            </tr>';
+            
+            return renderBody;
+        }
+
         var buildListEventBind = function () {
             $('#package-help-info').popover({'title': 'Package info', 'content': 'Package can be "ult,ent,corp,pro,com"'});
             $('td[name="list_status"]').each(function (i, domEle){
@@ -22,7 +43,8 @@ $(document).ready(function(){
                         '/BranchBuilder/remove',
                         {"task_id": task_id[1]},
                         function(data){
-                            window.location.reload(true);
+                            //window.location.reload(true);
+                            $("#t" + task_id[1]).remove();
                         }
                     );
                 });
@@ -137,7 +159,7 @@ $(document).ready(function(){
 
                          function(data){
                             $("#popupViewBuild").modal("hide");
-                            location.reload();
+                            window.location.reload(true);
                          }
                     );
                 } else if ($('#popView-selectAction').val() == 'editBuild'){
@@ -162,7 +184,6 @@ $(document).ready(function(){
                          function(data){
                             $("#popupViewBuild").modal("hide");
 
-                            location.reload();
                          }
                     );
                 }
@@ -262,26 +283,12 @@ $(document).ready(function(){
             $("#buildList-firstPage-link").attr("href", "#");
         }
 
-        var build_render = function (builds, perPage, pageNum) {
+
+        var builds_render = function (builds, perPage) {
             var renderBody = "";
 
             for(var index = 0; index < builds.length; index ++) {
-                renderBody += ' \
-                <tr> \
-                    <td><a href="../build' + builds[index]["username"] + builds[index]["branch"] + '">' + builds[index]["branch"] + '</a></td> \
-                    <td>' + builds[index]["version"] + '</td> \
-                    <td><a href="../public/builds/' + builds[index]["username"] + builds[index]["branch"] + '/latest">' + builds[index]["last_build_date"] + '</a></td> \
-                    <td>' + builds[index]["build_number"] + '</td> \
-                    <td>' + builds[index]["status"] + '</td> \
-                    <td>' + builds[index]["repos"] + '</td> \
-                    <td>' + builds[index]["author"] + '</td> \
-                    <td>' +  ' \
-                        <input type="button" class="btn btn-success" name="rebuild" id="buildList-' + builds[index]["task_id"] + '"  value="Build" >  \
-                        <input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-' + builds[index]["task_id"] + '" value="Edit" > \
-                        <a data-toggle="modal" name="duplicateBuild" class="btn" data-target="#popupViewBuild" id="dupList-' + builds[index]["task_id"] + '" >Duplicate</a> \
-                        <input type="button" class="btn btn-danger" name="removeBuild" id="buildListRemove-' + builds[index]["task_id"] + '" value="Remove"> \
-                    </td> \
-                </tr>';
+                renderBody += build_render(builds[index]);
 
                 if (index + 1 >= 20) {
                     break;
@@ -318,7 +325,7 @@ $(document).ready(function(){
                     pageNum = 0;
                 }
 
-                $("#buildList-tbody").html(build_render(builds_data["builds"], perPage));
+                $("#buildList-tbody").html(builds_render(builds_data["builds"], perPage));
                 $("#buildList-pageNum-link").text(pageNum + " of " + pageCount);
                 $("#buildList-pageNum").val(pageNum);
                 $("#buildList-totalPage").val(pageCount);
