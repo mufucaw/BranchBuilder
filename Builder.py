@@ -40,7 +40,7 @@ urls = (
 
 web.config.smtp_server = 'localhost'
 web.config.smtp_port = 25
-web.config.debug = True
+web.config.debug = False
 app = web.application(urls, globals())
 
 db = web.database(dbn='sqlite', db='branchbuilder.sqlite3')
@@ -168,7 +168,7 @@ class Remove:
         date_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
         f = open('logger', 'a')
-        for m in db.select('builds', where='task_id =' + i.task_id):
+        for m in db.select('builds', where='task_id ="' + i.task_id + '"'):
             f.write(date_now + ' [Delete Action:]' + str(m.task_id)
                     + ',' + m.repos + ',' + m.branch + ',' + m.version
                     + ',' + m.author + ',' + m.styleguide_repo + ','
@@ -259,7 +259,7 @@ class UpdateBuild:
     # Before update
 
         f = open('logger', 'a')
-        for m in db.select('builds', where='task_id =' + i.task_id):
+        for m in db.select('builds', where='task_id ="' + i.task_id + '"'):
             f.write(date_now + ' [Before Update Action:]'
                     + str(m.task_id) + ',' + m.repos + ',' + m.branch
                     + ',' + m.version + ',' + m.author + ','
@@ -268,8 +268,8 @@ class UpdateBuild:
                     + ',' + m.package_list + ',' + str(m.latin) + ','
                     + str(m.demo_data) + ',' + '\n')
 
-        selectedBuilds = db.select('builds', where='task_id='
-                                   + i.task_id)
+        selectedBuilds = db.select('builds', where='task_id="'
+                                   + i.task_id + '"')
 
         buildUtil = BuildUtil()
         i = buildUtil.sanitize_input(i)
@@ -280,7 +280,7 @@ class UpdateBuild:
         if selectedBuilds:
             db.update(
                 'builds',
-                where='task_id=' + i.task_id,
+                where='task_id="' + i.task_id + '"',
                 repos=i.repos,
                 branch=i.branch,
                 version=i.version,
@@ -297,7 +297,7 @@ class UpdateBuild:
 
           # After update
 
-            for k in db.select('builds', where='task_id =' + i.task_id):
+            for k in db.select('builds', where='task_id ="' + i.task_id + '"'):
                 f.write(date_now + ' [After Update Action:]'
                         + str(k.task_id) + ',' + k.repos + ','
                         + k.branch + ',' + k.version + ',' + k.author

@@ -61,9 +61,9 @@ $(document).ready(function(){
                             $('#popView-sidecar_repo').val(buildObj['sidecar_repo']);
                             $('#popView-sidecar_branch').val(buildObj['sidecar_branch']);
                             $('#popView-package_list').val(buildObj['package_list']);
-                            $('#popView-upgrade_package').attr("checked", buildObj['upgrade_package'] ? true : false);
-                            $('#popView-latin').attr("checked", buildObj['latin'] ? true : false);
-                            $('#popView-demo_data').attr("checked", buildObj['demo_data'] ? true : false);
+                            $('#popView-upgrade_package').attr("checked", buildObj['upgrade_package'] == "1" ? true : false);
+                            $('#popView-latin').attr("checked", buildObj['latin'] == "1" ? true : false);
+                            $('#popView-demo_data').attr("checked", buildObj['demo_data'] == "1" ? true : false);
                             
                             //Set selectAction as editBuild
                             $('#popView-selectAction').val('duplicateBuild');
@@ -93,9 +93,9 @@ $(document).ready(function(){
                             $('#popView-sidecar_repo').val(buildObj['sidecar_repo']);
                             $('#popView-sidecar_branch').val(buildObj['sidecar_branch']);
                             $('#popView-package_list').val(buildObj['package_list']);
-                            $('#popView-upgrade_package').attr("checked", buildObj['upgrade_package'] ? true : false);
-                            $('#popView-latin').attr("checked", buildObj['latin'] ? true : false);
-                            $('#popView-demo_data').attr("checked", buildObj['demo_data'] ? true : false);
+                            $('#popView-upgrade_package').attr("checked", buildObj['upgrade_package'] == "1" ? true : false);
+                            $('#popView-latin').attr("checked", buildObj['latin'] == "1" ? true : false);
+                            $('#popView-demo_data').attr("checked", buildObj['demo_data'] == "1" ? true : false);
 
                             //Set selectAction as editBuild
                             $('#popView-selectAction').val('editBuild');
