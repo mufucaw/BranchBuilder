@@ -34,7 +34,7 @@ urls = (
 
 web.config.debug = True
 
-db = web.database(dbn='sqlite', db='branchBuilder')
+db = web.database(dbn='sqlite', db='branchbuilder.sqlite3')
 
 
 class ODDeployIndex:
