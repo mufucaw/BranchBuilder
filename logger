@@ -1209,3 +1209,232 @@
 2013-05-31 14:23:58 [Delete Action:]298,git@github.com:glevine-sugarcrm/Mango.git,mar728,7.0.0,Greg Levine,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
 2013-05-31 14:24:20 [Add Action:],git@github.com:dtam/Mango.git,SP-826,7.0.0,Domos,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
 2013-05-31 14:24:31 [Delete Action:]236,git@github.com:glevine-sugarcrm/Mango.git,fixphpunitformarsuite,7.0.0,glevine,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-03 08:23:47 [Add Action:],git@oyang,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-03 08:24:12 [Add Action:],git@oyang,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-03 08:43:31 [Add Action:],git@oyang,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-03 08:50:15 [Delete Action:]376,git@oyang,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-03 08:50:59 [Add Action:],git@oyang,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-03 08:52:13 [Add Action:],git@oyang,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-03 08:53:45 [Add Action:],git@github.com:jbartek/Mango-1.git,BR-16-New-Subpanels,7.0.0,JimB,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-03 08:59:00 [Add Action:],git@github.com:jwhitcraft/Mango.git,7_0_0-sugar7-sfa1077,7.0.0,Jon Whitcraft,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-03 09:59:52 [Add Action:],git@github.com:glevine-sugarcrm/Mango.git,mar870,7.0.0,Greg Levine,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-03 10:12:04 [Add Action:],git@github.com:lamhuynh/Mango.git,sugar7_uiux632,7.0.0,Lam Huynh,git@github.com:sugarcrm/styleguide.git,master_7_uiux632,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-03 10:55:19 [Add Action:],git@github.com:hhrogersii/Mango.git,uiux-768-pill,7.0.0,Henry Rogers,git@github.com:sugarcrm/styleguide.git,uiux-768-pills,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-03 11:34:36 [Add Action:],git@github.com:sugarcrm/Mango.git,master,7.0.0,shine,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-03 11:39:54 [Add Action:],git@github.com:sugarcrm/Mango.git,mar859,7.0.0,Joo,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-03 12:13:07 [Add Action:],git@github.com:roblevintennis/Mango.git,SP-847,7.0.0,Domos,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-03 15:43:35 [Add Action:],git@github.com:dszczesny/Mango.git,SP-719,7.0.0,Domos,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-03 16:14:51 [Add Action:],git@github.com:dszczesny/Mango.git,SP719,7.0.0,Domos,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 00:30:23 [Add Action:],git@github.com:GulDmitry/Mango.git,SC-908,7.0.0,GulDmitry,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 01:43:56 [Add Action:],git@github.com:debuger/Mango.git,master,7.0.0,debuger,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 07:02:08 [Add Action:],git@github.com:mmarum-sugarcrm/Mango.git,SP-862,7.0.0,Domos,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 08:15:24 [Add Action:],git@github.com:mmarum-sugarcrm/Mango.git,SP-863,7.0.0,Domos,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 08:35:09 [Add Action:],git@github.com:jbartek/Mango-1.git,BR-passwords,7.0.0,JimB,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 08:38:12 [Add Action:],git@github.com:lamhuynh/Mango.git,uiux776,7.0.0,Lam Huynh,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 08:54:49 [Add Action:],git@github.com:justinpark/Mango.git,SC-918-hotfix2,7.0.0,jpark,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:52 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:52 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:52 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:52 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:52 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:52 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:53 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:53 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:53 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:53 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:53 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:53 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:54 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:54 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:54 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:41:54 [Add Action:],git@github.com:timwolf/Mango.git,MAR783-2,7.0.0,Tim Wolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 09:49:46 [Add Action:],git@github.com:timwolf/Mango.git,MAR873-2,7.0.0,timwolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 09:49:46 [Add Action:],git@github.com:timwolf/Mango.git,MAR873-2,7.0.0,timwolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 09:49:46 [Add Action:],git@github.com:timwolf/Mango.git,MAR873-2,7.0.0,timwolf,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 09:51:37 [Add Action:],git@github.com:sugarpsd/Mango.git,qad,7.0.0,Enterprise PS2,git@github.com:sugarcrm/styleguide.git,322a748ad4b9d0ab3dc7782dd2356bb0f528143a,git@github.com:sugarcrm/sidecar.git,9e287c41aa8d3239875335c6c5da47e179e014cf, ent, Available0
+2013-06-04 09:52:20 [Add Action:],git@github.com:sugarpsd/Mango.git,qad,7.0.0,Enterprise PS3,git@github.com:sugarcrm/styleguide.git,322a748ad4b9d0ab3dc7782dd2356bb0f528143a,git@github.com:sugarcrm/sidecar.git,9e287c41aa8d3239875335c6c5da47e179e014cf, ent, Available0
+2013-06-04 09:52:20 [Add Action:],git@github.com:sugarpsd/Mango.git,qad,7.0.0,Enterprise PS3,git@github.com:sugarcrm/styleguide.git,322a748ad4b9d0ab3dc7782dd2356bb0f528143a,git@github.com:sugarcrm/sidecar.git,9e287c41aa8d3239875335c6c5da47e179e014cf, ent, Available0
+2013-06-04 10:03:21 [Add Action:],git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 10:08:26 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent,0,1,
+2013-06-04 10:08:26 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,1
+2013-06-04 10:08:26 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent,0,1,
+2013-06-04 10:08:26 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,1
+2013-06-04 10:08:26 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent,0,1,
+2013-06-04 10:08:26 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,1
+2013-06-04 10:08:26 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent,0,1,
+2013-06-04 10:08:26 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,1
+2013-06-04 10:08:26 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,1,
+2013-06-04 10:08:26 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,1
+2013-06-04 10:08:26 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,1,
+2013-06-04 10:08:26 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,1
+2013-06-04 10:08:49 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,1,
+2013-06-04 10:08:49 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0
+2013-06-04 10:08:49 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,1,
+2013-06-04 10:08:49 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0
+2013-06-04 10:08:49 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0,
+2013-06-04 10:08:49 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0
+2013-06-04 10:08:49 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0,
+2013-06-04 10:08:49 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0
+2013-06-04 10:08:49 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,1,
+2013-06-04 10:08:49 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0
+2013-06-04 10:08:50 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0,
+2013-06-04 10:08:50 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0
+2013-06-04 10:12:33 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0,
+2013-06-04 10:12:33 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1
+2013-06-04 10:12:33 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0,
+2013-06-04 10:12:33 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1
+2013-06-04 10:12:33 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1,
+2013-06-04 10:12:33 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1
+2013-06-04 10:12:33 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1,
+2013-06-04 10:12:33 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1
+2013-06-04 10:12:33 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1,
+2013-06-04 10:12:33 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1
+2013-06-04 10:12:33 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1,
+2013-06-04 10:12:33 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1
+2013-06-04 10:12:33 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1,
+2013-06-04 10:12:33 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1
+2013-06-04 10:13:00 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1,
+2013-06-04 10:13:00 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0
+2013-06-04 10:13:00 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1,
+2013-06-04 10:13:00 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0
+2013-06-04 10:13:00 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,1,
+2013-06-04 10:13:00 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0
+2013-06-04 10:13:00 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0,
+2013-06-04 10:13:00 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0
+2013-06-04 10:13:01 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0,
+2013-06-04 10:13:01 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0
+2013-06-04 10:13:01 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0,
+2013-06-04 10:13:01 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0
+2013-06-04 10:13:09 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,0,0,
+2013-06-04 10:13:09 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,0
+2013-06-04 10:13:09 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,0,
+2013-06-04 10:13:09 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,0
+2013-06-04 10:13:09 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,0,
+2013-06-04 10:13:09 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,0
+2013-06-04 10:13:09 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,0,
+2013-06-04 10:13:09 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,0
+2013-06-04 10:13:09 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,0,
+2013-06-04 10:13:09 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,0
+2013-06-04 10:13:09 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,0,
+2013-06-04 10:13:09 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,0
+2013-06-04 10:13:44 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,0,
+2013-06-04 10:13:44 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyangs,git@github.com:sugarcrm/styleguides.git,master_7_2s,git@github.com:sugarcrm/sidecars.git,master,ent,1,0
+2013-06-04 10:13:44 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,0,
+2013-06-04 10:13:44 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyangs,git@github.com:sugarcrm/styleguides.git,master_7_2s,git@github.com:sugarcrm/sidecars.git,master,ent,1,0
+2013-06-04 10:13:44 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_1,git@github.com:sugarcrm/sidecar.git,masters,ent,1,0,
+2013-06-04 10:13:44 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyangs,git@github.com:sugarcrm/styleguides.git,master_7_2s,git@github.com:sugarcrm/sidecars.git,master,ent,1,0
+2013-06-04 10:13:44 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyangs,git@github.com:sugarcrm/styleguides.git,master_7_2s,git@github.com:sugarcrm/sidecars.git,master,ent,1,0,
+2013-06-04 10:13:44 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyangs,git@github.com:sugarcrm/styleguides.git,master_7_2s,git@github.com:sugarcrm/sidecars.git,master,ent,1,0
+2013-06-04 10:13:44 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyangs,git@github.com:sugarcrm/styleguides.git,master_7_2s,git@github.com:sugarcrm/sidecars.git,master,ent,1,0,
+2013-06-04 10:13:44 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyangs,git@github.com:sugarcrm/styleguides.git,master_7_2s,git@github.com:sugarcrm/sidecars.git,master,ent,1,0
+2013-06-04 10:13:44 [Before Update Action:]395,git@oyang.com,oyang,7.0.0,oyangs,git@github.com:sugarcrm/styleguides.git,master_7_2s,git@github.com:sugarcrm/sidecars.git,master,ent,1,0,
+2013-06-04 10:13:44 [After Update Action:]395,git@oyang.com,oyang,7.0.0,oyangs,git@github.com:sugarcrm/styleguides.git,master_7_2s,git@github.com:sugarcrm/sidecars.git,master,ent,1,0
+2013-06-04 10:13:58 [Delete Action:]395,git@oyang.com,oyang,7.0.0,oyangs,git@github.com:sugarcrm/styleguides.git,master_7_2s,git@github.com:sugarcrm/sidecars.git,master,ent
+2013-06-04 10:28:16 [Add Action:],git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 10:28:44 [Add Action:],git@oyang.com,oyang2,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:28:44 [Add Action:],git@oyang.com,oyang2,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:28:44 [Add Action:],git@oyang.com,oyang2,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:28:44 [Add Action:],git@oyang.com,oyang2,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:28:44 [Add Action:],git@oyang.com,oyang2,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:28:44 [Add Action:],git@oyang.com,oyang2,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:29:34 [Delete Action:]396,git@oyang.com,oyang2,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 10:29:34 [Delete Action:]396,git@oyang.com,oyang2,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 10:29:41 [Delete Action:]397,git@oyang.com,oyang2,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 10:29:41 [Delete Action:]397,git@oyang.com,oyang2,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 10:29:41 [Delete Action:]397,git@oyang.com,oyang2,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 10:29:49 [Delete Action:]398,git@oyang.com,oyang2,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 10:31:15 [Add Action:],git@github.com:axyjo/Mango.git,MAR-785,7.0.0,ajoshi,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 10:31:29 [Add Action:],git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:31:29 [Add Action:],git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:31:29 [Add Action:],git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:31:29 [Add Action:],git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:31:29 [Add Action:],git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:31:29 [Add Action:],git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:31:29 [Add Action:],git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:31:29 [Add Action:],git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:36:07 [Delete Action:]395,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 10:36:20 [Delete Action:]397,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 10:36:33 [Delete Action:]398,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 10:36:43 [Delete Action:]399,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 10:36:43 [Delete Action:]399,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 10:37:08 [Delete Action:]400,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 10:39:29 [Add Action:],git@github.com:RobertGonzalez/Mango.git,BR5,7.0.0,Robert Gonzalez,git@github.com:sugarcrm/styleguide.git,master,git@github.com:RobertGonzalez/sidecar.git,BR5, ent, Available0
+2013-06-04 10:44:03 [Delete Action:]402,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 10:44:03 [Delete Action:]402,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 10:44:43 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent,0,1,
+2013-06-04 10:44:43 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0
+2013-06-04 10:44:43 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0,
+2013-06-04 10:44:43 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0
+2013-06-04 10:44:43 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0,
+2013-06-04 10:44:43 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0
+2013-06-04 10:44:43 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0,
+2013-06-04 10:44:43 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0
+2013-06-04 10:44:43 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0,
+2013-06-04 10:44:43 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0
+2013-06-04 10:44:43 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0,
+2013-06-04 10:44:43 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0
+2013-06-04 10:44:45 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0,
+2013-06-04 10:44:45 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0
+2013-06-04 10:44:45 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0,
+2013-06-04 10:44:45 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0
+2013-06-04 10:45:22 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0,
+2013-06-04 10:45:22 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,1
+2013-06-04 10:45:22 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,0,
+2013-06-04 10:45:22 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,1
+2013-06-04 10:45:22 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,1,
+2013-06-04 10:45:22 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,1
+2013-06-04 10:45:22 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,1,
+2013-06-04 10:45:22 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,1
+2013-06-04 10:45:22 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,1,
+2013-06-04 10:45:22 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,1
+2013-06-04 10:45:22 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,1,
+2013-06-04 10:45:22 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,1
+2013-06-04 10:45:24 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,1,
+2013-06-04 10:45:24 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,1
+2013-06-04 10:45:24 [Before Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,1,
+2013-06-04 10:45:24 [After Update Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent,1,1
+2013-06-04 10:48:50 [Add Action:],git@github.com:lamhuynh/Mango.git,uiux777,7.0.0,Lam Huynh,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master, ent, Available1
+2013-06-04 10:52:24 [Add Action:],git@oyang.com,oyang22,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters, ent, Available0
+2013-06-04 10:52:24 [Add Action:],git@oyang.com,oyang22,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters, ent, Available0
+2013-06-04 10:52:24 [Add Action:],git@oyang.com,oyang22,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters, ent, Available0
+2013-06-04 10:52:24 [Add Action:],git@oyang.com,oyang22,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters, ent, Available0
+2013-06-04 10:52:24 [Add Action:],git@oyang.com,oyang22,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters, ent, Available0
+2013-06-04 10:52:24 [Add Action:],git@oyang.com,oyang22,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters, ent, Available0
+2013-06-04 10:52:25 [Add Action:],git@oyang.com,oyang22,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters, ent, Available0
+2013-06-04 10:52:26 [Add Action:],git@oyang.com,oyang22,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters, ent, Available0
+2013-06-04 10:52:26 [Add Action:],git@oyang.com,oyang22,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters, ent, Available0
+2013-06-04 11:02:06 [Add Action:],git@github.com:alias-mac/Mango.git,oyang23,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed, ent, Available0
+2013-06-04 11:02:44 [Before Update Action:]405,git@github.com:alias-mac/Mango.git,oyang23,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed,ent,0,1,
+2013-06-04 11:02:44 [After Update Action:]405,git@github.com:alias-mac/Mango.git,oyang25,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed,ent,1,0
+2013-06-04 11:02:44 [Before Update Action:]405,git@github.com:alias-mac/Mango.git,oyang23,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed,ent,0,1,
+2013-06-04 11:02:44 [After Update Action:]405,git@github.com:alias-mac/Mango.git,oyang25,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed,ent,1,0
+2013-06-04 11:02:44 [Before Update Action:]405,git@github.com:alias-mac/Mango.git,oyang25,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed,ent,1,0,
+2013-06-04 11:02:44 [After Update Action:]405,git@github.com:alias-mac/Mango.git,oyang25,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed,ent,1,0
+2013-06-04 11:02:44 [Before Update Action:]405,git@github.com:alias-mac/Mango.git,oyang25,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed,ent,1,0,
+2013-06-04 11:02:44 [After Update Action:]405,git@github.com:alias-mac/Mango.git,oyang25,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed,ent,1,0
+2013-06-04 11:02:44 [Before Update Action:]405,git@github.com:alias-mac/Mango.git,oyang25,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed,ent,1,0,
+2013-06-04 11:02:44 [After Update Action:]405,git@github.com:alias-mac/Mango.git,oyang25,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed,ent,1,0
+2013-06-04 11:02:44 [Before Update Action:]405,git@github.com:alias-mac/Mango.git,oyang25,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed,ent,1,0,
+2013-06-04 11:02:44 [After Update Action:]405,git@github.com:alias-mac/Mango.git,oyang25,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed,ent,1,0
+2013-06-04 11:03:10 [Add Action:],git@github.com:alias-mac/Mango.git,oyang26,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed, ent, Available0
+2013-06-04 11:03:10 [Add Action:],git@github.com:alias-mac/Mango.git,oyang26,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed, ent, Available0
+2013-06-04 11:03:10 [Add Action:],git@github.com:alias-mac/Mango.git,oyang26,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed, ent, Available0
+2013-06-04 11:03:10 [Add Action:],git@github.com:alias-mac/Mango.git,oyang26,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed, ent, Available0
+2013-06-04 11:03:10 [Add Action:],git@github.com:alias-mac/Mango.git,oyang26,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed, ent, Available0
+2013-06-04 11:03:10 [Add Action:],git@github.com:alias-mac/Mango.git,oyang26,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed, ent, Available0
+2013-06-04 11:03:10 [Add Action:],git@github.com:alias-mac/Mango.git,oyang26,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed, ent, Available0
+2013-06-04 11:03:10 [Add Action:],git@github.com:alias-mac/Mango.git,oyang26,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed, ent, Available0
+2013-06-04 11:03:10 [Add Action:],git@github.com:alias-mac/Mango.git,oyang26,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed, ent, Available0
+2013-06-04 11:03:11 [Add Action:],git@github.com:alias-mac/Mango.git,oyang26,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed, ent, Available0
+2013-06-04 11:03:11 [Add Action:],git@github.com:alias-mac/Mango.git,oyang26,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed, ent, Available0
+2013-06-04 11:03:11 [Add Action:],git@github.com:alias-mac/Mango.git,oyang26,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed, ent, Available0
+2013-06-04 11:03:11 [Add Action:],git@github.com:alias-mac/Mango.git,oyang26,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed, ent, Available0
+2013-06-04 11:04:14 [Delete Action:]405,git@github.com:alias-mac/Mango.git,oyang25,7.0.0,oyang,git@github.com:alias-mac/styleguide.git,list-view-fixed,git@github.com:alias-mac/sidecar.git,list-view-fixed,ent
+2013-06-04 11:04:22 [Delete Action:]401,git@oyang.com,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguides.git,master_7_1,git@github.com:sugarcrm/sidecars.git,masters,ent
+2013-06-04 11:23:58 [Add Action:],git@oyang.git,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 11:24:05 [Delete Action:]405,git@oyang.git,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 11:24:41 [Add Action:],git@oyang.git,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 11:24:46 [Delete Action:]405,git@oyang.git,oyang,7.0.0,oyang,git@github.com:sugarcrm/styleguide.git,master_7_0,git@github.com:sugarcrm/sidecar.git,master,ent
+2013-06-04 11:38:41 [Add Action:],git@github.com:axyjo/Mango.git,MAR-878,7.0.0,ajoshi,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 11:47:53 [Add Action:],git@github.com:neilharding/Mango.git,mar864_deleteRLIFailure,7.0.0,Neil Harding,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
+2013-06-04 11:52:38 [Add Action:],git@github.com:jwhitcraft/Mango.git,7_0_0-sugar7-sfa1067,7.0.0,Jon Whitcraft,git@github.com:sugarcrm/styleguide.git,master,git@github.com:sugarcrm/sidecar.git,master, ent, Available0
