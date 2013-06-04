@@ -372,7 +372,8 @@ $(document).ready(function(){
         });
 
         $("#buildList-nextPage-link").click(function(){
-            if ($("#buildList-totalPage").val() > 1 && $("#buildList-pageNum").val() < $("#buildList-totalPage").val()) {
+            if (parseInt($("#buildList-totalPage").val()) > 1 && parseInt($("#buildList-pageNum").val()) < parseInt($("#buildList-totalPage").val())) {
+                console.log("click next page");
                 var q = $("#searchForm-query").val();
                 var queryURL = "./searchbuild";
 
@@ -384,7 +385,7 @@ $(document).ready(function(){
                 $("#buildList-prePage").addClass("active");
             }
 
-            if ($("#buildList-pageNum").val() == $("#buildList-totalPage").val() - 1) {
+            if (parseInt($("#buildList-pageNum").val()) == parseInt($("#buildList-totalPage").val() - 1)) {
                 $("#buildList-nextPage").removeClass("active");
                 $("#buildList-nextPage").addClass("disabled");
                 $("#buildList-lastPage").removeClass("active");
@@ -403,8 +404,12 @@ $(document).ready(function(){
                 $("#buildList-nextPage").addClass("disabled");
                 $("#buildList-lastPage").removeClass("active");
                 $("#buildList-lastPage").addClass("disabled");
+
+                $("#buildList-firstPage").removeClass("disabled");
+                $("#buildList-firstPage").addClass("active");
+                $("#buildList-prePage").removeClass("disabled");
+                $("#buildList-prePage").addClass("active");
             }
         });
-
 
 	});
