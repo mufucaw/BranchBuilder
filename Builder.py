@@ -428,7 +428,7 @@ class BuildCron:
         if job_status == False or job_status == 'Succcess':
             job_status = 'Available'
 
-        db.update('builds', where='task_id=' + str(task_id),
+        db.update('builds', where='task_id="' + str(task_id) + '"',
                   status=job_status)
 
     def run_cron(self):
@@ -450,8 +450,8 @@ class BuildCron:
                     # update build_status and remove the running flag
                     self.update_task_status_as_lastBuild(str(lowest_build['task_id'
                             ]), jobName)
-                    db.delete('builds_status', where='task_id='
-                              + str(lowest_build['task_id']))
+                    db.delete('builds_status', where='task_id="'
+                              + str(lowest_build['task_id']) + '"')
             elif lowest_build['status'] == 'InQueue':
                 # Assume Jenkins is avaliable for building
                 RunBuild().run(lowest_build['task_id'])
