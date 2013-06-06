@@ -167,7 +167,7 @@ class BuildUtil:
           else:
               user_name = full_name_list[0]
   
-      return user_name[0:16].lower()
+      return user_name[0:64].lower()
 
   def get_build_number(self, build):
       build_number = ""
