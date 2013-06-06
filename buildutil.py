@@ -157,6 +157,7 @@ class BuildUtil:
       full_name = full_name.replace("#", "")
       full_name = full_name.replace("_", "")
       full_name = full_name.replace("-", "")
+      full_name = full_name.replace("!", "")
       if full_name == "":
           return ""
       else:
