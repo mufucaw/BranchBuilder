@@ -11,7 +11,7 @@ $(document).ready(function(){
                 <td>' + build["version"] + '</td> \
                 <td><a href="../public/builds/' + build["username"] + build["branch"] + '/latest">' + build["last_build_date"] + '</a></td> \
                 <td>' + build["build_number"] + '</td> \
-                <td>' + build["status"] + '</td> \
+                <td name="list_status" class="' + build["status"] + '"' + 'id="build_status_' + build["task_id"] + '">' + build["status"] + '</td> \
                 <td>' + build["repos"] + '</td> \
                 <td>' + build["author"] + '</td> \
                 <td>' +  ' \
@@ -68,7 +68,7 @@ $(document).ready(function(){
             });
 
             $('a[name="duplicateBuild"]').each(function(i, domEle){
-                $(domEle).click(function(){
+                $(domEle).unbind("click").click(function(){
                     var task_id = $(domEle).attr("id").split("-");
                     $.get('/BranchBuilder/getbuild',
                         {"task_id": task_id[1]},
@@ -130,7 +130,7 @@ $(document).ready(function(){
                 });
             });
         
-            $('#popView-Save').click(function(){
+            $('#popView-Save').unbind("click").click(function(){
                 //Check form validate firstly
                 if (! $('#popView-actionBuildForm').valid()){
                     return false;
@@ -373,7 +373,6 @@ $(document).ready(function(){
 
         $("#buildList-nextPage-link").click(function(){
             if (parseInt($("#buildList-totalPage").val()) > 1 && parseInt($("#buildList-pageNum").val()) < parseInt($("#buildList-totalPage").val())) {
-                console.log("click next page");
                 var q = $("#searchForm-query").val();
                 var queryURL = "./searchbuild";
 
