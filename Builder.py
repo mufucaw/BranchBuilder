@@ -71,8 +71,8 @@ class Index:
         builds_status = db.select('builds_status')
 
         for build_status in builds_status:
-            db.update('builds', where='task_id='
-                      + str(build_status.task_id),
+            db.update('builds', where='task_id="'
+                      + str(build_status.task_id) + '"',
                       status=build_status.status)
 
     def get_job_name(self, string):
@@ -356,13 +356,13 @@ class StopBuild:
     def GET(self):
         i = web.input()
         jobInQueue = \
-            db.query('select * from builds_status where task_id='
-                     + i.task_id + ' and status="InQueue"')
+            db.query('select * from builds_status where task_id="'
+                     + i.task_id + '" and status="InQueue"')
         if len(jobInQueue.list()) > 0:
-            db.delete('builds_status', where='task_id=' + i.task_id)
+            db.delete('builds_status', where='task_id="' + i.task_id + '"')
             web.seeother('/')
 
-        selectedBuilds = db.query('select repos from builds where task_id=' + i.task_id)
+        selectedBuilds = db.query('select repos from builds where task_id="' + i.task_id + '"')
         for x in selectedBuilds:
             jobName = BuildUtil().get_job_name(repos=x.repos)
             TaskBuilder(appconfig.jenkins_url).stop_jenkins_jobs(jobName)
@@ -425,7 +425,7 @@ class BuildCron:
         j = self.taskBuilder
         job_status = j.get_build_status(jobName)
 
-        if job_status == False or job_status == 'Succcess':
+        if job_status == False or job_status == 'Succcess' or job_status == 'Running':
             job_status = 'Available'
 
         db.update('builds', where='task_id="' + str(task_id) + '"',
