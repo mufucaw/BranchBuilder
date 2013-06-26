@@ -286,6 +286,7 @@ class UpdateBuild:
             buildUtil.determine_styleguide_branch(i.styleguide_repo,
                 i.styleguide_branch, i.version)
 
+        build_string = json.dumps([])
         if selectedBuilds:
             db.update(
                 'builds',
@@ -307,6 +308,7 @@ class UpdateBuild:
           # After update
 
             for k in db.select('builds', where='task_id ="' + i.task_id + '"'):
+                build_string = json.dumps(dict(k))
                 f.write(date_now + ' [After Update Action:]'
                         + str(k.task_id) + ',' + k.repos + ','
                         + k.branch + ',' + k.version + ',' + k.author
@@ -319,8 +321,8 @@ class UpdateBuild:
         f.close()
 
         # End logger
-
-        raise web.seeother('/')
+        web.header('Content-type', 'application/json')
+        return build_string
 
 
 class GetBuild:

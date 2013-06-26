@@ -4,7 +4,39 @@ $(document).ready(function(){
 		$("li.active").removeClass("active");
 		$("#navHome").addClass("active");
 
+        var tr_render = function (build) {
+            var trBody = ' \
+                <td><a href="../build' + build["username"] + build["branch"] + '">' + build["branch"] + '</a></td> \
+                <td>' + build["version"] + '</td> \
+                <td><a href="../public/builds/' + build["username"] + build["branch"] + '/latest">' + build["last_build_date"] + '</a></td> \
+                <td>' + build["build_number"] + '</td> \
+                <td name="list_status" class="' + build["status"] + '"' + 'id="build_status_' + build["task_id"] + '">' + build["status"] + '</td> \
+                <td>' + build["repos"] + '</td> \
+                <td>' + build["author"] + '</td> \
+                <td>' +  ' \
+                    <input type="button" class="btn btn-success" name="rebuild" id="buildList-' + build["task_id"] + '"  value="Build" >  \
+                    <input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-' + build["task_id"] + '" value="Edit" > \
+                    <a data-toggle="modal" name="duplicateBuild" class="btn" data-target="#popupViewBuild" id="dupList-' + build["task_id"] + '" >Duplicate</a> \
+                    <input type="button" class="btn btn-danger" name="removeBuild" id="buildListRemove-' + build["task_id"] + '" value="Remove"> \
+                </td> \
+                ';
+            return trBody;
+        };
+
         var build_render = function (build) {
+            var actionPart = ' \
+                    <input type="button" class="btn btn-success" name="rebuild" id="buildList-' + build["task_id"] + '"  value="Build" >  \
+                    <input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-' + build["task_id"] + '" value="Edit" > \
+                    <a data-toggle="modal" name="duplicateBuild" class="btn" data-target="#popupViewBuild" id="dupList-' + build["task_id"] + '" >Duplicate</a> \
+                    <input type="button" class="btn btn-danger" name="removeBuild" id="buildListRemove-' + build["task_id"] + '" value="Remove"> \
+                    ';
+            if (build["status"] == "Running" || build["status"] == "InQueue") {
+                actionPart = ' \
+                    <input type="button" class="btn btn-success" name="rebuild" id="buildList-' + build["task_id"] + '"  value="Build" >  \
+                    <input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-' + build["task_id"] + '" value="Edit" > \
+                    <a href="stopbuild?task_id=${build.task_id}" name="stopBuild" class="btn" id="stopList-$build.task_id" >Stop</a> \
+                    ';
+            }
             var renderBody = ' \
             <tr id="t' + build["task_id"] + '"> \
                 <td><a href="../build' + build["username"] + build["branch"] + '">' + build["branch"] + '</a></td> \
@@ -23,7 +55,7 @@ $(document).ready(function(){
             </tr>';
             
             return renderBody;
-        }
+        };
 
         var buildListEventBind = function () {
             $('#package-help-info').popover({'title': 'Package info', 'content': 'Package can be "ult,ent,corp,pro,com"'});
@@ -183,6 +215,11 @@ $(document).ready(function(){
 
                          function(data){
                             $("#popupViewBuild").modal("hide");
+                            if (data && data['task_id']) {
+                                var tr_id = 't' + data['task_id'];
+                                $('#' + tr_id).html(tr_render(data));
+                                buildListEventBind();
+                            }
 
                          }
                     );
