@@ -13,7 +13,7 @@ $(document).ready(function(){
 			return result;
 		}, "Not a valid git repo");
 		jQuery.validator.addMethod("version", function( value, element ) {
-			var result = this.optional(element) || /\d+\.\d+/i.test(value);
+			var result = this.optional(element) || /^v?(\d+\.)+\d+((beta)|(RC))?\d*$/i.test(value);
 			if (!result) {
 				//element.value = "";
 				var validator = this;
