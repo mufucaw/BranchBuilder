@@ -11,7 +11,7 @@ $var site_url: $site_url
 	<button type="submit" class="btn btn-primary">Add</button>
   <br />
 	<input type="text" id="add-styleguide_repo" class="required SubmoduleInput" name="styleguide_repo" value="git@github.com:sugarcrm/styleguide.git" />
-	<input type="text" id="add-styleguide_branch" class="required SubmoduleInput" name="styleguide_branch" value="master" />
+	<input type="text" id="add-styleguide_branch" class="required SubmoduleInput" name="styleguide_branch" value="master_7_0" />
 	<input type="text" id="add-sidecar_repo" class="required SubmoduleInput" name="sidecar_repo" value="git@github.com:sugarcrm/sidecar.git" />
 	<input type="text" id="add-sidecar_branch" class="required SubmoduleInput" name="sidecar_branch" value="master" />
 </form>
@@ -78,7 +78,7 @@ $var site_url: $site_url
 					<div class="control-group">
 						<label class="control-label" for="popView-repos">Repository URL:</label>
 						<div class="controls">
-							<input type="text" class="required" id="popView-repos" name="repos" />
+							<input type="text" class="required github" id="popView-repos" name="repos" />
 						</div>
 					</div>
 					<div class="control-group">
@@ -90,7 +90,7 @@ $var site_url: $site_url
 					<div class="control-group">
 						<label class="control-label" for="popView-version">Mapped Version:</label>
 						<div class="controls">
-							<input type="text" id="popView-version" class="required" name="version" />
+							<input type="text" id="popView-version" class="required version" name="version" />
 						</div>
 					</div>
 					<div class="control-group">
