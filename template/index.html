@@ -42,7 +42,7 @@ $var site_url: $site_url
             </ul>
         </div>
 	$for build in builds:
-		<tr id="t$build.task_id">
+		<tr id="$build.task_id">
 			<td><a href="../build${build.username}${build.branch}">$build.branch</a></td>
 			<td>$build.version</td>
             <td><a href="../public/builds/${build.username}${build.branch}/latest">${build.last_build_date}</a></td>
@@ -145,6 +145,12 @@ $var site_url: $site_url
 						<label class="control-label" for="popView-styleguide_repo">Styleguide Branch:</label>
 						<div class="controls">
 							<input type="text" id="popView-styleguide_branch" class="required" name="styleguide_branch" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-expired_tag">Expired:</label>
+						<div class="controls">
+							<input type="checkbox" id="popView-expired_tag" class="required" name="expired_tag" />
 						</div>
 					</div>
 				</fieldset>

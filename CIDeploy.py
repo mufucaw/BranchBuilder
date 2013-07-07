@@ -60,7 +60,7 @@ class CIDeployIndex:
         job_list = []
         jobName = "ci_silentupgrade"
         
-	deployInfo = DeployInfo().getDeployInfo()
+        deployInfo = DeployInfo().getDeployInfo()
         ci_deploys = db.query("select a.id, a.username, a.webroot, a.version, a.deploy_config, a.last_deploy_date, \
                 ifnull(b.status, \"Available\") as status \
                 from ci_deployer as a \

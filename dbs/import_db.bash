@@ -1,6 +1,7 @@
 #!/bin/bash
-for x in `sqlite3 branchBuilder.bak.20130602 ".tables"` ; do
-sqlite3 branchbuilder.sqlite3 << !    
+db_name="branchbuilder.new.20130707"
+for x in `sqlite3 $db_name ".tables"` ; do
+sqlite3 $db_name << !    
 .separator ,
 .mode csv
 .import $x.csv $x

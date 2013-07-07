@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import uuid
 import web
 from jenkins import Jenkins
 
@@ -40,11 +41,10 @@ urls = (
 
 web.config.smtp_server = 'localhost'
 web.config.smtp_port = 25
-web.config.debug = False
+web.config.debug = True
 app = web.application(urls, globals())
 
 db = web.database(dbn='sqlite', db='branchbuilder.sqlite3')
-
 
 class Index:
 
@@ -138,7 +138,7 @@ class Add:
             styleguide_branch = \
                 buildUtil.determine_styleguide_branch(i.styleguide_repo,
                     i.styleguide_branch, i.version)
-            task_id  = int(db.query("select max(rowid), task_id from builds")[0]["task_id"]) + 1
+            task_id  = uuid.uuid4()
             n = db.insert(
                 'builds',
                 task_id = str(task_id),
@@ -158,6 +158,7 @@ class Add:
                 upgrade_package=upgrade_package,
                 latin=latin,
                 demo_data=demo_data,
+                expired_tag = 1
                 )
 
             date_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -242,13 +243,13 @@ class Build:
                              )
                 new_max_priority = max_priority_records[0].priority + 1
 
-                db.insert('builds_status', task_id=int(i.task_id),
+                db.insert('builds_status', task_id=str(i.task_id),
                           priority=new_max_priority, status='InQueue')
                 statusString = \
                     json.JSONEncoder().encode({'task_id': i.task_id,
                         'status': 'InQueue'})
             else:
-                db.insert('builds_status', task_id=int(i.task_id),
+                db.insert('builds_status', task_id=str(i.task_id),
                           status='Running', priority=1)
                 RunBuild().run(i.task_id)
                 statusString = \
@@ -348,6 +349,7 @@ class GetBuild:
                     'sidecar_branch': x.sidecar_branch,
                     'package_list': x.package_list,
                     'upgrade_package': x.upgrade_package,
+                    'expired_tag': x.expired_tag
                     })
             web.header('Content-type', 'application/json')
             return buildString
