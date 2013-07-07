@@ -1,5 +1,4 @@
 import os
-import sys
 import subprocess
 import shutil
 import time
@@ -8,17 +7,13 @@ import glob
 import web
 import logging
 
-from taskutil import TaskUtil
+from taskutil import BuildTask, TaskUtil
 
-
-class BuildTask(object):
-    def __init__(self):
-        pass
-
-    def execute(self):
-        pass
 
 class PruneBuildTask(BuildTask):
+    """
+    This prune build task will prune all the sugar build in specific directory
+    """
 
     def __init__(self, build_dirs, builder_db_path):
         super(PruneBuildTask, self).__init__()
@@ -26,10 +21,19 @@ class PruneBuildTask(BuildTask):
         self.builder_db_path = builder_db_path
         self.db = None
 
+    
     def execute(self):
+        """
+        main execute entry point
+        """
         self.prune_builds(self.build_dirs)
 
+    
     def prune_builds(self, build_dirs):
+        """
+        @build_dirs build dir list 
+        @return None
+        """
         filter_build_dirs = self.get_prune_list(build_dirs, self.get_exempt_list())
         
         for build_dir in filter_build_dirs:
@@ -39,9 +43,12 @@ class PruneBuildTask(BuildTask):
                 self.prune_sugar_build(sugar_build)
         
         self.prune_builder_db()
-
                 
+    
     def get_exempt_list(self):
+        """
+        @return exempt list
+        """
         exempt_list = []
         db = self.get_builder_db()
         if db != None:
@@ -54,13 +61,26 @@ class PruneBuildTask(BuildTask):
                 for flavor in task.package_list:
                     instance_name = flavor.lower() + TaskUtil().generate_user_name(task.author) + task.branch
                     exempt_list.append(instance_name)
+        else:
+            raise Exception("Can not get db connection!")
                 
         return exempt_list
     
+    
     def get_prune_list(self, build_dirs, filter_list):
+        """
+        @param build_dirs all the build dris
+        @param filter_list exempt list
+        @return build dir list which will be pruned
+        """
         return [build for build in build_dirs if build not in filter_list]
     
+    
     def get_build_info(self, build_dir):
+        """
+        @param build_dir for single build dir
+        @return
+        """
         sugar_build = {"build_dir": build_dir}
         old_pwd = os.getcwd()
         os.chdir(build_dir)
@@ -99,35 +119,60 @@ class PruneBuildTask(BuildTask):
         os.chdir(old_pwd)
         return sugar_build
 
+    
     def get_elapsed_time(self, build_dir):
+        """
+        @param build_dir signle sguar build dir
+        @return get elapsed time as seconds
+        """
         created_time = os.path.getctime(build_dir + "/install.log")
         current_time = time.time()
 
         return current_time - created_time
 
+    
     def elapse_specific_time(self, **args):
+        """
+        @param args time format
+        @return total seconds in duration
+        """
         duration_delta = datetime.timedelta(**args)
 
         return duration_delta.total_seconds()
 
-    def check_build_eplapsed_time(self, build_dir, **time):
-        elapsed_time = self.get_elapsed_time(build_dir)
-        if len(time) == 0:
-            time = {"weeks": 2}
+    
+    def check_build_eplapsed_time(self, build_dir, **time_duration):
+        """
+        @param build_dir
+        @param time_duration
+        @return get the result to check whether build dir has elapsed given time
+        """
+        elapsed_time_duration = self.get_elapsed_time(build_dir)
+        if len(time_duration) == 0:
+            time_duration = {"weeks": 2}
 
-        if elapsed_time >= self.elapse_specific_time(**time):
+        if elapsed_time_duration >= self.elapse_specific_time(**time_duration):
             return True
         else:
             return False
 
+    
     def available_to_prune(self, build_dir):
+        """
+        @param build_dir
+        @return get the status if current build should be pruned
+        """
         if self.is_sugar_build(build_dir):
             if self.check_build_eplapsed_time(build_dir, hours=1):
                 return True
             
         return False
 
+    
     def get_builder_db(self):
+        """
+        @return branch builder DB
+        """
         if self.db == None:
             try:
                 self.db = web.database(dbn = "sqlite", db = self.builder_db_path)
@@ -137,7 +182,12 @@ class PruneBuildTask(BuildTask):
 
         return None
 
+    
     def is_sugar_build(self, build_dir):
+        """
+        @param build_dir
+        @return get the staus if current build is sugar build
+        """
         if os.path.exists(build_dir):
             build_dir = os.path.realpath(build_dir)
             sugar_version = build_dir + "/sugar_version.php"
@@ -148,11 +198,21 @@ class PruneBuildTask(BuildTask):
 
         return False
 
+    
     def prune_sugar_build(self, sugar_build):
+        """
+        @param sugar_build build object
+        @return None
+        """
         self.prune_build_dir(sugar_build)
         self.prune_build_db(sugar_build)
 
+    
     def prune_builder_db(self):
+        """
+        Prune branch builder DB
+        @return None
+        """
         db = self.get_builder_db()
         if db != None:
             db_prune_list_sql = """
@@ -161,10 +221,21 @@ class PruneBuildTask(BuildTask):
             """
             db.query(db_prune_list_sql)
 
+    
     def prune_build_dir(self, sugar_build):
+        """
+        @param sugar_build build object
+        @return None
+        """
         shutil.rmtree(sugar_build["build_dir"]) 
 
+    
     def prune_build_db(self, sugar_build):
+        """
+        Prune sugar build DB and assume DB type is MySQL
+        @param sugar_build bulid object
+        @return None
+        """
         db_clean_cmd = [
                 "mysqladmin",
                 "-f",
@@ -176,8 +247,8 @@ class PruneBuildTask(BuildTask):
                 ]
         try:
             subprocess.check_output(db_clean_cmd, stderr = subprocess.STDOUT)
-        except subprocess.CalledProcessError as e:
-            if "database doesn't exist" in e.output:
+        except subprocess.CalledProcessError as exception:
+            if "database doesn't exist" in exception.output:
                 print "Info: database {} was already pruned".format(sugar_build["sugar_build_db_name"]) 
                 return True
             else:
@@ -186,13 +257,13 @@ class PruneBuildTask(BuildTask):
 
 def main():
     logging.basicConfig(filename="prunebuildtask.log", format="%(asctime)s %(levelname)s %(message)s", level=logging.DEBUG)
-    BUILD_DIRS_PARENT = "/var/www"
+    build_dirs_parent = "/var/www"
     old_pwd = os.getcwd()
-    os.chdir(BUILD_DIRS_PARENT)
-    BUILDER_DB_PATH = "/var/www/branchbuilder.sqlite3"
+    os.chdir(build_dirs_parent)
+    builder_db_path = "/var/www/branchbuilder.sqlite3"
 
-    pruneBuildTask = PruneBuildTask(glob.glob("*"), BUILDER_DB_PATH)
-    pruneBuildTask.execute()
+    prunebuildtask = PruneBuildTask(glob.glob("*"), builder_db_path)
+    prunebuildtask.execute()
     os.chdir(old_pwd)
 
 if __name__ == "__main__":
