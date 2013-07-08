@@ -188,7 +188,7 @@ class PruneBuildTask(BuildTask):
                 print "Fatal: can not open {}".format(self.builder_db_path)
                 return None
 
-        return None
+        return self.db
 
     
     def is_sugar_build(self, build_dir):
@@ -233,10 +233,11 @@ class PruneBuildTask(BuildTask):
         """
         db = self.get_builder_db()
         if db != None:
+            time_duration = datetime.timedelta(weeks=2).total_seconds()
             db_prune_list_sql = """
             delete from builds
-            where expire_flag = 0 and strftime('%s', 'now', 'localtime') - strftime('%s', last_build_date, 'localtime') >= 2*7*24*60*60;
-            """
+            where expire_flag = 0 and strftime('%s', 'now', 'localtime') - strftime('%s', last_build_date, 'localtime') >= {};
+            """.format(time_duration)
             db.query(db_prune_list_sql)
 
     
