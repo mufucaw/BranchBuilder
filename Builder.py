@@ -10,6 +10,7 @@ import json
 import urllib2
 import re
 from datetime import datetime
+import logging
 
 from buildutil import *
 import BuildConfig
@@ -18,6 +19,9 @@ import CIDeploy
 import Nomad
 import appconfig
 from models.branchbuilder import BranchBuilder
+
+#init the logging
+logging.basicConfig(**appconfig.logging_setting)
 
 render = web.template.render('template/', base='layout')
 urls = (
@@ -161,14 +165,7 @@ class Add:
                 expired_tag = 1
                 )
 
-            date_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            f = open('logger', 'a')
-            f.write(date_now + ' [Add Action:],' + i.repos + ','
-                    + i.branch + ',' + i.version + ',' + i.author + ','
-                    + i.styleguide_repo + ',' + i.styleguide_branch
-                    + ',' + i.sidecar_repo + ',' + i.sidecar_branch
-                    + ', ent, Available' + str(upgrade_package) + '\n')
-            f.close()
+            logging.info("[Add Action:]" + json.dumps(i))
             raise web.seeother('/')
 
 
@@ -176,16 +173,9 @@ class Remove:
 
     def GET(self):
         i = web.input()
-        date_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        f = open('logger', 'a')
         for m in db.select('builds', where='task_id ="' + i.task_id + '"'):
-            f.write(date_now + ' [Delete Action:]' + str(m.task_id)
-                    + ',' + m.repos + ',' + m.branch + ',' + m.version
-                    + ',' + m.author + ',' + m.styleguide_repo + ','
-                    + m.styleguide_branch + ',' + m.sidecar_repo + ','
-                    + m.sidecar_branch + ',' + m.package_list + '\n')
-        f.close()
+            logging.info("[Delete Action:]" + json.dumps(m))
 
         n = db.delete('builds', where='task_id ="' + i.task_id + '"')
 
@@ -268,15 +258,8 @@ class UpdateBuild:
 
     # Before update
 
-        f = open('logger', 'a')
         for m in db.select('builds', where='task_id ="' + i.task_id + '"'):
-            f.write(date_now + ' [Before Update Action:]'
-                    + str(m.task_id) + ',' + m.repos + ',' + m.branch
-                    + ',' + m.version + ',' + m.author + ','
-                    + m.styleguide_repo + ',' + m.styleguide_branch
-                    + ',' + m.sidecar_repo + ',' + m.sidecar_branch
-                    + ',' + m.package_list + ',' + str(m.latin) + ','
-                    + str(m.demo_data) + ',' + '\n')
+            logging.info("[Before Update Action:]" + json.dumps(m))
 
         selectedBuilds = db.select('builds', where='task_id="'
                                    + i.task_id + '"')
@@ -310,16 +293,7 @@ class UpdateBuild:
 
             for k in db.select('builds', where='task_id ="' + i.task_id + '"'):
                 build_string = json.dumps(dict(k))
-                f.write(date_now + ' [After Update Action:]'
-                        + str(k.task_id) + ',' + k.repos + ','
-                        + k.branch + ',' + k.version + ',' + k.author
-                        + ',' + k.styleguide_repo + ','
-                        + k.styleguide_branch + ',' + k.sidecar_repo
-                        + ',' + k.sidecar_branch + ',' + k.package_list
-                        + ',' + str(k.latin) + ',' + str(k.demo_data)
-                        + '\n')
-
-        f.close()
+                logging.info("[After Update Action:]" + json.dumps(k))
 
         # End logger
         web.header('Content-type', 'application/json')
