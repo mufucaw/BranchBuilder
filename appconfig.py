@@ -3,7 +3,7 @@ logging_setting = {
     "filename" : "logger",
     "level" : logging.INFO,
     "format" : '%(asctime)s %(message)s',
-    "datefmt" : '%m/%d/%Y %H:%M:%S' 
+    "datefmt" : '%Y-%m-%d %H:%M:%S' 
 }
 
 site_url='http://honey-g/BranchBuilder'
