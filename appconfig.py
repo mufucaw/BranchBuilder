@@ -1,3 +1,11 @@
+import logging
+logging_setting = {
+    "filename" : "logger",
+    "level" : logging.INFO,
+    "format" : '%(asctime)s %(message)s',
+    "datefmt" : '%m/%d/%Y %H:%M:%S' 
+}
+
 site_url='http://honey-g/BranchBuilder'
 jenkins_url='http://honey-g:8080'
 per_page = 20
