@@ -15,11 +15,11 @@ class PruneBuildTask(BuildTask):
     This prune build task will prune all the sugar build in specific directory
     """
 
-    def __init__(self, build_dirs, builder_db_path, build_installer_dir):
+    def __init__(self, build_dirs, builder_db_path, build_installer_parent):
         super(PruneBuildTask, self).__init__()
         self.build_dirs = build_dirs
         self.builder_db_path = builder_db_path
-        self.build_installer_dir = build_installer_dir
+        self.build_installer_parent = build_installer_parent
         self.db = None
 
     
@@ -118,7 +118,7 @@ class PruneBuildTask(BuildTask):
             sugar_build["sugar_build_db_passwd"] = subprocess.check_output(get_db_passwd_cmd)
             sugar_build["build_dir"] = build_dir
             sugar_build["sugar_build_flavor"] = subprocess.check_output(get_sugar_flavor_cmd)
-            sugar_build["sugar_installer_dir"] = os.path.realpath(self.build_installer_dir) + "/" + build_dir[len(sugar_build["sugar_build_flavor"]) + 1:]
+            sugar_build["sugar_installer_dir"] = os.path.realpath(self.build_installer_parent) + "/" + build_dir[len(sugar_build["sugar_build_flavor"]) + 1:]
         except subprocess.CalledProcessError:
             print "Fatal: can not get sugar db info"
             print sugar_build
@@ -215,13 +215,28 @@ class PruneBuildTask(BuildTask):
         self.prune_build_dir(sugar_build)
         self.prune_build_db(sugar_build)
         self.prune_build_installer(sugar_build)
+        self.prune_build_summary_page(sugar_build)
+
+    def prune_build_summary_page(self, sugar_build):
+        """
+        @param sugar_build build object
+        @return None
+        """
+        if os.path.exists(sugar_build["sugar_installer_dir"]) and sugar_build["sugar_installer_dir"] != self.build_installer_parent:
+            build_summary_page = os.path.dirname(sugar_build["sugar_installer_dir"]) + "/build" + os.path.basename(sugar_build["sugar_installer_dir"]) + ".html"
+            if os.path.exists(build_summary_page):
+                shutil.rmtree(build_summary_page)
+            else:
+                raise Exception("Can not find build_summary_page" + build_summary_page)
+        else:
+            raise Exception("Can not find sugar build install dir " + sugar_build["sugar_installer_dir"])
 
     def prune_build_installer(self, sugar_build):
         """
         @param sugar_build build object
         @return None
         """
-        if os.path.exists(sugar_build["sugar_installer_dir"]) and sugar_build["sugar_installer_dir"] != self.build_installer_dir:
+        if os.path.exists(sugar_build["sugar_installer_dir"]) and sugar_build["sugar_installer_dir"] != self.build_installer_parent:
             shutil.rmtree(sugar_build["sugar_installer_dir"])
         else:
             raise Exception("Can not find sugar build install dir ")
@@ -277,12 +292,12 @@ class PruneBuildTask(BuildTask):
 def main():
     logging.basicConfig(filename="prunebuildtask.log", format="%(asctime)s %(levelname)s %(message)s", level=logging.DEBUG)
     build_dirs_parent = "/var/www"
-    build_installer_dir = "/var/www/public/builds"
+    build_installer_parent = "/var/www/public/builds"
     old_pwd = os.getcwd()
     os.chdir(build_dirs_parent)
     builder_db_path = "/var/www/branchbuilder.sqlite3"
 
-    prunebuildtask = PruneBuildTask(glob.glob("*"), builder_db_path, build_installer_dir)
+    prunebuildtask = PruneBuildTask(glob.glob("*"), builder_db_path, build_installer_parent)
     prunebuildtask.execute()
     os.chdir(old_pwd)
 
