@@ -72,7 +72,7 @@ $(document).ready(function(){
                     var task_id = $(domEle).parent().parent().attr("id");
                     $(this).attr("disabled", "disabled");
                     $.get(
-                        '/BranchBuilder/remove',
+                        './remove',
                         {"task_id": task_id},
                         function(data){
                             //window.location.reload(true);
@@ -89,7 +89,7 @@ $(document).ready(function(){
                     $('#editList-' + task_id).attr("disabled", "disabled");
                     $('#buildListRemove-' + task_id).attr("disabled", "disabled");
                     $.get(
-                        '/BranchBuilder/build',
+                        './build',
                         {"task_id": task_id},
                         function(data){
                             $('#build_status_' + data.task_id).text(data.status);
@@ -102,7 +102,7 @@ $(document).ready(function(){
             $('a[name="duplicateBuild"]').each(function(i, domEle){
                 $(domEle).unbind("click").click(function(){
                     var task_id = $(domEle).parent().parent().attr("id");
-                    $.get('/BranchBuilder/getbuild',
+                    $.get('./getbuild',
                         {"task_id": task_id},
                         function(data){
                             buildObj = data;
@@ -135,7 +135,7 @@ $(document).ready(function(){
             $('input[name="editBuild"]').each(function(i, domEle){
                 $(domEle).click(function(){
                     var task_id = $(domEle).parent().parent().attr("id");
-                    $.get('/BranchBuilder/getbuild',
+                    $.get('./getbuild',
                         {"task_id": task_id},
                         function(data){
                             var buildObj = data;
@@ -175,7 +175,7 @@ $(document).ready(function(){
                 var demo_data = $('#popView-demo_data').attr('checked') ? 1 : 0;
                 var expired_tag = $('#popView-expired_tag').attr('checked') ? 1 : 0;
                 if ($('#popView-selectAction').val() == 'duplicateBuild') {
-                    $.post('/BranchBuilder/add', 
+                    $.post('./add', 
 
                         {
                          "repos": $('#popView-repos').val(),
@@ -199,7 +199,7 @@ $(document).ready(function(){
                          }
                     );
                 } else if ($('#popView-selectAction').val() == 'editBuild'){
-                    $.post('/BranchBuilder/updatebuild', 
+                    $.post('./updatebuild', 
 
                         {
                          "task_id": $('#popView-selectBuildID').val(), 
@@ -242,7 +242,7 @@ $(document).ready(function(){
 
 		$('#popView-Send').click( function(){
 			if ($('#popView-sendMailForm').valid()) {
-				$.post('/BranchBuilder/sendmail',
+				$.post('./sendmail',
 					{
 						"from_address": $('#popView-MailFrom').val(),
 						"to": $('#popView-MailTo').val(),
