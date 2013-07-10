@@ -154,7 +154,7 @@ class Add:
                 styleguide_branch=styleguide_branch,
                 sidecar_repo=i.sidecar_repo,
                 sidecar_branch=i.sidecar_branch,
-                build_number=1000,
+                build_number='',
                 last_build_date='',
                 start_time='',
                 status='Available',
@@ -287,6 +287,7 @@ class UpdateBuild:
                 upgrade_package=i.upgrade_package,
                 latin=i.latin,
                 demo_data=i.demo_data,
+                expired_tag=i.expired_tag
                 )
 
           # After update
