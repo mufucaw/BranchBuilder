@@ -16,6 +16,10 @@ $var site_url: $site_url
 	<input type="text" id="add-sidecar_branch" class="required SubmoduleInput" name="sidecar_branch" value="master" />
 </form>
 
+ <div class="alert">
+     <button type="button" class="close" data-dismiss="alert">×</button>
+     <strong>Notice!</strong> Build will be pruned automatically every 2 weeks for every build dosn't active in 2 weeks! And you can uncheck expired checkbox in build edit page to make build live forever.
+</div>
 	<table class="table table-condensed">
 	<thead>
 		<tr>
@@ -150,7 +154,7 @@ $var site_url: $site_url
 					<div class="control-group">
 						<label class="control-label" for="popView-expired_tag">Expired:</label>
 						<div class="controls">
-							<input type="checkbox" id="popView-expired_tag" class="required" name="expired_tag" />
+							<input type="checkbox" id="popView-expired_tag" name="expired_tag" />
 						</div>
 					</div>
 				</fieldset>
