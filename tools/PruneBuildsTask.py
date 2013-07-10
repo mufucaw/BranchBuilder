@@ -118,7 +118,7 @@ class PruneBuildTask(BuildTask):
             sugar_build["sugar_build_db_passwd"] = subprocess.check_output(get_db_passwd_cmd)
             sugar_build["build_dir"] = build_dir
             sugar_build["sugar_build_flavor"] = subprocess.check_output(get_sugar_flavor_cmd)
-            sugar_build["sugar_installer_dir"] = os.path.realpath(self.build_installer_parent) + "/" + build_dir[len(sugar_build["sugar_build_flavor"]) + 1:]
+            sugar_build["sugar_installer_dir"] = os.path.realpath(self.build_installer_parent) + "/" + build_dir[len(sugar_build["sugar_build_flavor"]):]
         except subprocess.CalledProcessError:
             print "Fatal: can not get sugar db info"
             print sugar_build
@@ -227,9 +227,9 @@ class PruneBuildTask(BuildTask):
             if os.path.exists(build_summary_page):
                 shutil.rmtree(build_summary_page)
             else:
-                raise Exception("Can not find build_summary_page" + build_summary_page)
+                print "Skipped: Can not find build_summary_page {}".format(build_summary_page)
         else:
-            raise Exception("Can not find sugar build install dir " + sugar_build["sugar_installer_dir"])
+            print "Can not find sugar build install dir {}".format(sugar_build["sugar_installer_dir"])
 
     def prune_build_installer(self, sugar_build):
         """
@@ -239,7 +239,7 @@ class PruneBuildTask(BuildTask):
         if os.path.exists(sugar_build["sugar_installer_dir"]) and sugar_build["sugar_installer_dir"] != self.build_installer_parent:
             shutil.rmtree(sugar_build["sugar_installer_dir"])
         else:
-            raise Exception("Can not find sugar build install dir ")
+            print "Can not find sugar build install dir {}".format(sugar_build["sugar_installer_dir"])
     
     def prune_builder_db(self):
         """
@@ -295,7 +295,7 @@ def main():
     build_installer_parent = "/var/www/public/builds"
     old_pwd = os.getcwd()
     os.chdir(build_dirs_parent)
-    builder_db_path = "/var/www/branchbuilder.sqlite3"
+    builder_db_path = "/var/www/BranchBuilder/branchbuilder.sqlite3"
 
     prunebuildtask = PruneBuildTask(glob.glob("*"), builder_db_path, build_installer_parent)
     prunebuildtask.execute()
