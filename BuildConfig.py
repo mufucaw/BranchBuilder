@@ -20,9 +20,9 @@ urls = (
 #web.config.smtp_password = 'sugarcrm'
 #web.config.smtp_starttls = True
 
-web.config.debug = True
+web.config.debug = False
 
-db = web.database(dbn='sqlite', db='branchBuilder')
+db = web.database(dbn='sqlite', db='branchbuilder')
 
 
 class BuildConfigIndex:

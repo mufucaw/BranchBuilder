@@ -38,7 +38,7 @@ class PruneBuildTask(BuildTask):
         filter_build_dirs = self.get_prune_list(build_dirs, self.get_exempt_list())
         
         for build_dir in filter_build_dirs:
-            print "Info: build dir is {}".format(build_dir)
+            logging.info("build dir is {}".format(build_dir))
             if self.available_to_prune(build_dir):
                 sugar_build = self.get_build_info(build_dir)
                 self.prune_sugar_build(sugar_build)
@@ -120,8 +120,8 @@ class PruneBuildTask(BuildTask):
             sugar_build["sugar_build_flavor"] = subprocess.check_output(get_sugar_flavor_cmd)
             sugar_build["sugar_installer_dir"] = os.path.realpath(self.build_installer_parent) + "/" + build_dir[len(sugar_build["sugar_build_flavor"]):]
         except subprocess.CalledProcessError:
-            print "Fatal: can not get sugar db info"
-            print sugar_build
+            logging.fatal("can not get sugar db info")
+            logging.info(sugar_build)
             return False
         
         os.chdir(old_pwd)
@@ -185,7 +185,7 @@ class PruneBuildTask(BuildTask):
             try:
                 self.db = web.database(dbn = "sqlite", db = self.builder_db_path)
             except Exception:
-                print "Fatal: can not open {}".format(self.builder_db_path)
+                logging.fatal("can not open {}".format(self.builder_db_path))
                 return None
 
         return self.db
@@ -225,11 +225,12 @@ class PruneBuildTask(BuildTask):
         if os.path.exists(sugar_build["sugar_installer_dir"]) and sugar_build["sugar_installer_dir"] != self.build_installer_parent:
             build_summary_page = os.path.dirname(sugar_build["sugar_installer_dir"]) + "/build" + os.path.basename(sugar_build["sugar_installer_dir"]) + ".html"
             if os.path.exists(build_summary_page):
+                logging.info("Start to prune build summary page {}".format(build_summary_page))
                 shutil.rmtree(build_summary_page)
             else:
-                print "Skipped: Can not find build_summary_page {}".format(build_summary_page)
+                logging.warning("Can not find build_summary_page {}".format(build_summary_page))
         else:
-            print "Can not find sugar build install dir {}".format(sugar_build["sugar_installer_dir"])
+            logging.warning("Can not find sugar build install dir {}".format(sugar_build["sugar_installer_dir"]))
 
     def prune_build_installer(self, sugar_build):
         """
@@ -237,9 +238,10 @@ class PruneBuildTask(BuildTask):
         @return None
         """
         if os.path.exists(sugar_build["sugar_installer_dir"]) and sugar_build["sugar_installer_dir"] != self.build_installer_parent:
+            logging.info("Start to prune build installer dir {}".format(sugar_build["sugar_installer_dir"]))
             shutil.rmtree(sugar_build["sugar_installer_dir"])
         else:
-            print "Can not find sugar build install dir {}".format(sugar_build["sugar_installer_dir"])
+            logging.warning("Can not find sugar build install dir {}".format(sugar_build["sugar_installer_dir"]))
     
     def prune_builder_db(self):
         """
@@ -248,6 +250,8 @@ class PruneBuildTask(BuildTask):
         """
         db = self.get_builder_db()
         if db != None:
+            logging.info("Start to prune builder DB {}".format(self.builder_db_path))
+
             time_duration = datetime.timedelta(weeks=2).total_seconds()
             db_prune_list_sql = """
             delete from builds
@@ -261,6 +265,7 @@ class PruneBuildTask(BuildTask):
         @param sugar_build build object
         @return None
         """
+        logging.info("Start to prune sugar instance {}".format(sugar_build["build_dir"]))
         shutil.rmtree(sugar_build["build_dir"]) 
 
     
@@ -280,17 +285,18 @@ class PruneBuildTask(BuildTask):
                 sugar_build["sugar_build_db_name"]
                 ]
         try:
+            logging.info("Start to prune sugar instance DB {}".format(sugar_build["sugar_build_db_name"]))
             subprocess.check_output(db_clean_cmd, stderr = subprocess.STDOUT)
         except subprocess.CalledProcessError as exception:
             if "database doesn't exist" in exception.output:
-                print "Info: database {} was already pruned".format(sugar_build["sugar_build_db_name"]) 
+                logging.info("database {} was already pruned".format(sugar_build["sugar_build_db_name"]))
                 return True
             else:
-                print "Error: prune sugar db failed {}".format(sugar_build["sugar_build_db_name"])
+                logging.error("prune sugar db failed {}".format(sugar_build["sugar_build_db_name"]))
                 return False
 
 def main():
-    logging.basicConfig(filename="prunebuildtask.log", format="%(asctime)s %(levelname)s %(message)s", level=logging.DEBUG)
+    logging.basicConfig(filename="/var/log/prunebuildtask.log", format="%(asctime)s %(levelname)s %(message)s", level=logging.DEBUG)
     build_dirs_parent = "/var/www"
     build_installer_parent = "/var/www/public/builds"
     old_pwd = os.getcwd()
