@@ -22,7 +22,7 @@ urls = (
 
 web.config.debug = False
 
-db = web.database(dbn='sqlite', db='branchbuilder')
+db = web.database(dbn='sqlite', db='branchbuilder.sqlite3')
 
 
 class BuildConfigIndex:
@@ -54,7 +54,7 @@ class BuildConfigUtil:
     def getVersionFile(self, version):
       if self.checkVersionFile(version):
         shortver = self.getShortVersion(version)
-	f = open("builds/config/template/build_config.php", "r")
+	f = open("builds/config/template/build_config.json", "r")
 	a_buildconfig = f.read()
 	f.close()
         return a_buildconfig
