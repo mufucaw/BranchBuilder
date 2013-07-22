@@ -1,6 +1,6 @@
 $(document).ready(function(){
 		jQuery.validator.addMethod("github", function( value, element ) {
-			var result = this.optional(element) || /^git@/i.test(value);
+			var result = this.optional(element) || (/^git@/i.test(value) && ! /\s/.test(value.trim()));
 			if (!result) {
 				//element.value = "";
 				var validator = this;

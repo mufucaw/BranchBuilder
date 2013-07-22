@@ -35,9 +35,9 @@ od_users = {
 		"phuang": {"full_name": "Paul Huang", "email": "phuang@sugarcrm.com"} ,\
 	}
 od_users["tester"] =  {"full_name": "QA Tester", "email": "oyang@sugarcrm.com"}
-od_version = ['6.5.9', '6.5.10', '6.5.11', '6.5.12', '6.6.0', '6.6.1', '6.6.2','6.6.3', '6.7.0', '6.7.0.1', '6.7.1', '6.7.2']
+od_version = ['6.5.9', '6.5.10', '6.5.11', '6.5.12', '6.6.0', '6.6.1', '6.6.2','6.6.3', '6.7.0', '6.7.0.1', '6.7.1', '6.7.2', '7.0.0']
 ci_users = dict(od_users)
-ci_version = ['6.7.1', '6.7.2']
+ci_version = ['6.7.1', '6.7.2', '7.0.0']
 
 nomad_users = {
 		"builder": {"full_name": "Branch Builder", "email": "build@sugarcrm.com"} , \
