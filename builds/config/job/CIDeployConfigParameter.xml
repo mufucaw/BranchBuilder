@@ -9,7 +9,7 @@
         <hudson.model.StringParameterDefinition>
           <name>version</name>
           <description></description>
-          <defaultValue>6.6.2</defaultValue>
+          <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>flavor</name>
@@ -40,7 +40,7 @@
     <hudson.matrix.LabelAxis>
       <name>label</name>
       <values>
-        <string>CIDeploy</string>
+        <string>master</string>
       </values>
     </hudson.matrix.LabelAxis>
   </axes>
@@ -68,16 +68,12 @@ case &quot;$sugarShortVer&quot; in
     *) sodaBranch=`echo $sugarShortVer | tr &apos;.&apos; &apos;_&apos;`&quot;_0&quot; ;;
 esac
 echo &quot;sodaBranch is $sodaBranch&quot;
-ruby /srv/ci-tools/git_update.rb -r sugarcrm/SodaIceBox -b $sodaBranch -p /srv/SodaIceBox 
-ruby /srv/ci-tools/git_update.rb -r sugarcrm/AutoUtils -b master -p /srv/AutoUtils 
-cd /srv/AutoUtils/jobs-utils/slave/target 
-ruby deploy_test.rb --version=&quot;${version}&quot; --flavor=${lowerFlavor} --env=ec2-trg-01  --name=&quot;${instanceName}&quot;
-
-echo &quot;${deploy_timestamp}&quot; &gt; /var/www/${instanceName}/build_date.log
-cp -r /srv/SodaIceBox  /var/www/${instanceName}/
-chmod -R 777 /var/www/${instanceName}/SodaIceBox
-chown -R www-data:www-data /var/www/${instanceName}/SodaIceBox
-
+ssh root@10.25.10.74 &quot; \
+ruby /srv/ci-tools/git_update.rb -r sugarcrm/AutoUtils -b master -p /srv/AutoUtils  &amp;&amp; \
+cd /srv/AutoUtils/jobs-utils/slave/target  &amp;&amp; \
+ruby deploy.rb --version=\&quot;${version}\&quot; --flavor=${lowerFlavor} --env=stack94 --name=\&quot;${instanceName}\&quot;  &amp;&amp; \
+echo \&quot;${deploy_timestamp}\&quot; &gt; /usr/local/apache2/htdocs/${instanceName}/build_date.log
+&quot;
 </command>
     </hudson.tasks.Shell>
   </builders>

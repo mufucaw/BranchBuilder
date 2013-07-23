@@ -15,7 +15,10 @@ $var site_url: $site_url
 		</select>
 		<select name="version">
 		$for version in ci_version: 
-			<option value="$version">${version}</option>
+			$if version == "7.0.0":
+				<option value="$version" selected="selected">${version}</option>
+			$else:
+				<option value="$version">${version}</option>
 		</select>
 		<input name="webroot" type="hidden"  value="qatest-web1.sjc.sugarcrm.pvt" >
 		<select name="flavor1">
