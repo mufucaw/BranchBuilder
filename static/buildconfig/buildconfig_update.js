@@ -14,6 +14,11 @@ $(document).ready(function(){
 			$("#code_area").removeAttr("readonly");	
 			$(this).text("Save");
 		} else if ($(this).text() == "Save"){
+            try {
+                var c = $.parseJSON(editor.getValue());
+            } catch (err) {
+                alert("Invalidate JSON: " + err);
+            }
 			$.post(
 				"buildconfig_update",
 				{
