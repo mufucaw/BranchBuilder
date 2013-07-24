@@ -45,7 +45,7 @@ urls = (
 
 web.config.smtp_server = 'localhost'
 web.config.smtp_port = 25
-web.config.debug = False
+web.config.debug = True
 app = web.application(urls, globals())
 
 db = web.database(dbn='sqlite', db='branchbuilder.sqlite3')
@@ -225,19 +225,20 @@ class Build:
                                    + str(i.task_id) + '"', what='task_id')
 
         if selectedBuilds:
-            builds_status = db.select('builds_status')
+            builds_status = db.query('select * from builds_status')
 
             if builds_status:
-                max_priority_records = \
-                    db.query('select max(priority) as priority from builds_status'
-                             )
-                new_max_priority = max_priority_records[0].priority + 1
+                existing_build = db.query('select task_id from builds_status where task_id="' + i.task_id + '"')
+                if len(list(existing_build)) == 0:
+                    max_priority_records = \
+                        db.query('select max(priority) as priority from builds_status')
+                    new_max_priority = max_priority_records[0].priority + 1
 
-                db.insert('builds_status', task_id=str(i.task_id),
-                          priority=new_max_priority, status='InQueue')
-                statusString = \
-                    json.JSONEncoder().encode({'task_id': i.task_id,
-                        'status': 'InQueue'})
+                    db.insert('builds_status', task_id=str(i.task_id),
+                              priority=new_max_priority, status='InQueue')
+                    statusString = \
+                        json.JSONEncoder().encode({'task_id': i.task_id,
+                            'status': 'InQueue'})
             else:
                 db.insert('builds_status', task_id=str(i.task_id),
                           status='Running', priority=1)
