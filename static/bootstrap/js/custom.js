@@ -93,9 +93,15 @@ $(document).ready(function(){
                         {"task_id": task_id},
                         function(data){
                             $('#build_status_' + data.task_id).text(data.status);
-                            window.location.reload(true);
+                            //window.location.reload(true);
                         }
-                    );
+                    )
+                    .fail(function(){
+                        $(this).removeAttr("disabled");
+                        $('#build_status_' + task_id).text("Available");
+                        $('#editList-' + task_id).removeAttr("disabled");
+                        $('#buildListRemove-' + task_id).removeAttr("disabled");
+                    });
                 });
             });
 
@@ -271,33 +277,29 @@ $(document).ready(function(){
 					for (var x=0; x < data.length; x++) {
 						task_id_list.push(data[x].task_id.toString());
 						task_status_list.push(data[x].status.toString());
+
+                        if ($('#build_status_' + data[x].task_id).text() != data[x].status) {
+                            $('#buildList-' + data[x].task_id).attr("disabled", "disabled");
+                            $('#build_status_' + data[x].task_id).text(data[x].status);
+                            $('#build_status_' + data[x].task_id).attr("class", data[x].status);
+                            
+                            //Disable the edit button
+                            $('#editList-' + data[x].task_id).attr("disabled", "disabled");
+							$('#buildListRemove-' + data[x].task_id).attr("disabled", "disabled");
+                        }
+                        builder.hasRunningTask = true;
+                    
 					}
-					$('input[name="rebuild"]').each(function(i, domEle){
-						var task_id =$(domEle).parent().parent().attr("id"); 
-						if (task_id_list.indexOf(task_id) != -1){
-							var task_status = task_status_list[task_id_list.indexOf(task_id)];
-							$('#buildList-' + task_id).attr("disabled", "disabled");
-							$('#build_status_' + task_id).text(task_status);
-							$('#build_status_' + task_id).attr("class", task_status);
-							
-							//Disable the edit button
-							$('#editList-' + task_id).attr("disabled", "disabled");
-							builder.hasRunningTask = true;
-							
-						} else {
-							//window.location.reload()
-							/*
-							$(domEle).removeAttr('disabled');						
-							//$('#build_status_' + task_id).text('Available');						
-							$('#build_status_' + task_id).attr('class', 'Available');						
-							//Remove disabled attr for edit button
+                    $('input[name="rebuild"]').not(".Available").each(function(i, domEle) {
+						var task_id = $(domEle).parent().parent().attr("id"); 
+                        if (task_id_list.indexOf(task_id) == -1) {
+							$('#buildList-' + task_id).removeAttr("disabled", "disabled");
+							$('#build_status_' + task_id).text("Available");
+							$('#build_status_' + task_id).attr("class", "Available");
 							$('#editList-' + task_id).removeAttr("disabled");
-							
-							//Remove disabled attr for remove button
 							$('#buildListRemove-' + task_id).removeAttr("disabled");
-							*/
-						}
-					});
+                        }
+                    });
 					if (task_id_list.length == 0 &&  builder.hasRunningTask == true){
 						window.location.reload()
 					}
@@ -381,7 +383,7 @@ $(document).ready(function(){
         }
 
         $("#searchForm-query").keyup(function(){
-            var q = $(this).val();
+            var q = $(this).val().trim();
             var queryURL = "./searchbuild";
 
             renderBuildList(q, queryURL, 1);
