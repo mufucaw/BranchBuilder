@@ -101,6 +101,7 @@ $(document).ready(function(){
                         $('#build_status_' + task_id).text("Available");
                         $('#editList-' + task_id).removeAttr("disabled");
                         $('#buildListRemove-' + task_id).removeAttr("disabled");
+                        alert("Failed to start current build, please wait a second or reload the page then re-try !");
                     });
                 });
             });
@@ -290,8 +291,8 @@ $(document).ready(function(){
                         builder.hasRunningTask = true;
                     
 					}
-                    $('input[name="rebuild"]').not(".Available").each(function(i, domEle) {
-						var task_id = $(domEle).parent().parent().attr("id"); 
+                    $('td[name="list_status"].Running, td[name="list_status"].InQueue').each(function(i, domEle) {
+						var task_id = $(domEle).parent().attr("id"); 
                         if (task_id_list.indexOf(task_id) == -1) {
 							$('#buildList-' + task_id).removeAttr("disabled", "disabled");
 							$('#build_status_' + task_id).text("Available");
@@ -300,9 +301,11 @@ $(document).ready(function(){
 							$('#buildListRemove-' + task_id).removeAttr("disabled");
                         }
                     });
+                    /*
 					if (task_id_list.length == 0 &&  builder.hasRunningTask == true){
 						window.location.reload()
 					}
+                    */
 					
 				}
 			);

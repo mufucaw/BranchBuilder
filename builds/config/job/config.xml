@@ -135,7 +135,6 @@ cd ../..
 mkdir /dev/shm/sugarbuild-$version
 cp -r sugarcrm /dev/shm/sugarbuild-$version/
 cp -r build /dev/shm/sugarbuild-$version/
-cp -r sugarportal /dev/shm/sugarbuild-$version/
 
 cd /home/build/sugarsvn/Mango/build_clean
 svn revert build_config.json

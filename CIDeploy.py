@@ -309,7 +309,7 @@ class ODFormat:
 class DeployInfo:
 	def getDeployInfo(self):
 	  try:
-	    jsonData = json.loads(urllib2.urlopen('http://10.25.10.5/instances.php?json', None, 10).read())
+	    jsonData = json.loads(urllib2.urlopen('http://10.25.10.74/instances.php?json', None, 10).read())
 	    if jsonData:
 	      return jsonData 
     	    else:
