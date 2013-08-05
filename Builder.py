@@ -162,7 +162,7 @@ class Add:
                 upgrade_package=upgrade_package,
                 latin=latin,
                 demo_data=demo_data,
-                expired_tag = 1
+                expired_tag = '1'
                 )
 
             logging.info("[Add Action:]" + json.dumps(i))
