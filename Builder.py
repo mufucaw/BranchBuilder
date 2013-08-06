@@ -454,7 +454,7 @@ class BuildCron:
             # print 'false from lowest build'
             pass
 
-        for x in db.select('builds_status', what='task_id, status'):
+        for x in db.select('builds_status', what='task_id, status, priority'):
             job_list.append(x)
 
         return job_list
@@ -466,7 +466,8 @@ class BuildCron:
         if new_builds_status:
             for build_status in new_builds_status:
                 job_list.append({'task_id': build_status.task_id,
-                                'status': build_status.status})
+                                'status': build_status.status,
+                                'priority': build_status.priority})
 
         return json.JSONEncoder().encode(job_list)
 
