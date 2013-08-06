@@ -126,17 +126,22 @@ class Add:
             if hasattr(i, 'upgrade_package'):
                 upgrade_package = i.upgrade_package
             else:
-                upgrade_package = 0
+                upgrade_package = '0'
 
             if hasattr(i, 'latin'):
                 latin = i.latin
             else:
-                latin = 0
+                latin = '0'
 
             if hasattr(i, 'demo_data'):
                 demo_data = i.demo_data
             else:
-                demo_data = 1
+                demo_data = '1'
+
+            if hasattr(i, 'expired_tag'):
+                expired_tag = i.expired_tag
+            else:
+                expired_tag = '1'
 
             buildUtil = BuildUtil()
             i = buildUtil.sanitize_input(i)
