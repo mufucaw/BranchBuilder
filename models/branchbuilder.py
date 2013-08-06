@@ -1,3 +1,4 @@
+from sqlite3 import OperationalError
 import web
 import appconfig
 from  buildutil import *
@@ -57,7 +58,11 @@ class BranchBuilder:
         web.debug(query_sql)
         web.debug("offset is " +  str(params["offset"]))
         # Rebuild builds list
-        builds_list = list(self.db.query(query_sql))
+        try:
+            builds_list = list(self.db.query(query_sql))
+        except OperationalError as error:
+            return {"builds": [], "builds_count": 0}
+
         for build_index in range(0, len(builds_list)):
            builds_list[build_index]['username'] = self.buildUtil.generate_user_name(builds_list[build_index]['author'])
            builds_list[build_index]["build_number"] = self.buildUtil.get_build_number(builds_list[build_index])
