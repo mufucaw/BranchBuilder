@@ -4,6 +4,24 @@ $(document).ready(function(){
 		$("li.active").removeClass("active");
 		$("#navHome").addClass("active");
 
+        var get_username = function(author) {
+            var username = "";
+            author = author.replace(".", "");
+            author = author.replace("#", "");
+            author = author.replace("_", "");
+            author = author.replace("-", "");
+            author = author.replace("!", "");
+            var part_list = author.trim().split(/\s+/);
+
+            if (part_list.length > 1) {
+                username = part_list[0].charAt(0) + part_list[part_list.length - 1];
+            } else {
+                username = part_list[0];
+            }
+
+            return username.toLowerCase().substr(0, 64);
+        };
+
         var tr_render = function (build) {
             var trBody = ' \
                 <td><a href="../build' + build["username"] + build["branch"] + '">' + build["branch"] + '</a></td> \
@@ -456,6 +474,35 @@ $(document).ready(function(){
                 $("#buildList-prePage").removeClass("disabled");
                 $("#buildList-prePage").addClass("active");
             }
+        });
+
+        $("#addBuildForm").submit(function(event) {
+            var self = this;
+            event.preventDefault();
+
+            $.post(
+                './add', 
+                {
+                 "repos": $('#add-repos').val(),
+                 "branch": $('#add-branch').val(), 
+                 "version": $('#add-version').val(), 
+                 "author": $('#add-author').val(),
+                 "styleguide_repo": $('#add-styleguide_repo').val(),
+                 "styleguide_branch": $('#add-styleguide_branch').val(),
+                 "sidecar_repo": $('#add-sidecar_repo').val(),
+                 "sidecar_branch": $('#add-sidecar_branch').val()
+                 }
+            )
+            .done(function(build) {
+                build["username"] = get_username(build["author"]);
+                var new_build = build_render(build);
+
+                $("#buildList-tbody").prepend(new_build);
+                buildListEventBind();
+            })
+            .fail(function() {
+                alert("Failed to add a new build, please contact admin or retry!");
+            });
         });
 
 	});

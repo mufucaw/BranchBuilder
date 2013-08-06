@@ -27,6 +27,7 @@ render = web.template.render('template/', base='layout')
 urls = (
     '/', 'Index',
     '/add', 'Add',
+    '/api/add', 'Add',
     '/build', 'Build',
     '/getbuild', 'GetBuild',
     '/stopbuild', 'StopBuild',
@@ -143,30 +144,35 @@ class Add:
                 buildUtil.determine_styleguide_branch(i.styleguide_repo,
                     i.styleguide_branch, i.version)
             task_id  = uuid.uuid4()
+            data = {
+                'task_id': str(task_id),
+                'repos': i.repos,
+                'branch': i.branch,
+                'version': i.version,
+                'author': i.author,
+                'styleguide_repo': i.styleguide_repo,
+                'styleguide_branch': styleguide_branch,
+                'sidecar_repo': i.sidecar_repo,
+                'sidecar_branch': i.sidecar_branch,
+                'build_number': '',
+                'last_build_date': '',
+                'start_time': '',
+                'status': 'Available',
+                'package_list': 'ent',
+                'upgrade_package': upgrade_package,
+                'latin': latin,
+                'demo_data': demo_data,
+                'expired_tag': '1'
+                }
             n = db.insert(
                 'builds',
-                task_id = str(task_id),
-                repos=i.repos,
-                branch=i.branch,
-                version=i.version,
-                author=i.author,
-                styleguide_repo=i.styleguide_repo,
-                styleguide_branch=styleguide_branch,
-                sidecar_repo=i.sidecar_repo,
-                sidecar_branch=i.sidecar_branch,
-                build_number='',
-                last_build_date='',
-                start_time='',
-                status='Available',
-                package_list='ent',
-                upgrade_package=upgrade_package,
-                latin=latin,
-                demo_data=demo_data,
-                expired_tag = '1'
+                **data
                 )
 
-            logging.info("[Add Action:]" + json.dumps(i))
-            raise web.seeother('/')
+            logging.info("[Add Action:]" + json.dumps(data))
+            web.header('Content-type', 'application/json')
+
+            return json.dumps(data)
 
 
 class Remove:
