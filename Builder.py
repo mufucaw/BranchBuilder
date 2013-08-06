@@ -27,7 +27,6 @@ render = web.template.render('template/', base='layout')
 urls = (
     '/', 'Index',
     '/add', 'Add',
-    '/api/add', 'Add',
     '/build', 'Build',
     '/getbuild', 'GetBuild',
     '/stopbuild', 'StopBuild',
