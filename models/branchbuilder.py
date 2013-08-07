@@ -10,11 +10,13 @@ class BranchBuilder:
         self.buildUtil = BuildUtil()
 
     def searchBuilds(self, **params):
-        if "limit" not in params.keys():
-            params["limit"] = 20
+        if "limit" in params.keys():
+            params["limit"] = int(params["limit"])
+        else:
+            params["limit"] = 200
 
-        if "pageNum" in params.keys():
-            params["offset"] = (int(params["pageNum"])  - 1) * appconfig.per_page
+        if "offset" in params.keys():
+            params["offset"] = int(params["offset"])
         else:
             params["offset"] = 0
 
@@ -48,8 +50,11 @@ class BranchBuilder:
             where task_id in 
             ( select task_id 
               from builds 
-              where builds match '{}' ) 
-            """.format(params["q"])
+              where builds match '{}' 
+              limit {}
+              offset {}
+            ) 
+            """.format(params["q"], params["limit"], params["offset"])
 
         if params["q"] == "": 
             query_sql = default_sql 

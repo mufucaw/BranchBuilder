@@ -98,7 +98,7 @@ class SearchBuild:
             pageNum = i.pageNum
 
         if hasattr(i, "q"):
-            builds = branchBuilder.searchBuilds(q = i.q, pageNum = int(pageNum))
+            builds = branchBuilder.searchBuilds(**dict(i))
         else:
             return "[]"
 
