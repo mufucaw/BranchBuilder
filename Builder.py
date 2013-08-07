@@ -142,6 +142,11 @@ class Add:
             else:
                 expired_tag = '1'
 
+            if hasattr(i, 'package_list'):
+                package_list = i.package_list
+            else:
+                package_list = 'ent'
+
             buildUtil = BuildUtil()
             i = buildUtil.sanitize_input(i)
             styleguide_branch = \
@@ -162,11 +167,11 @@ class Add:
                 'last_build_date': '',
                 'start_time': '',
                 'status': 'Available',
-                'package_list': 'ent',
+                'package_list': package_list,
                 'upgrade_package': upgrade_package,
                 'latin': latin,
                 'demo_data': demo_data,
-                'expired_tag': '1'
+                'expired_tag': expired_tag
                 }
             n = db.insert(
                 'builds',
