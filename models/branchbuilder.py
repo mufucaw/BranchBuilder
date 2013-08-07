@@ -18,10 +18,13 @@ class BranchBuilder:
         if "offset" in params.keys():
             params["offset"] = int(params["offset"])
         else:
-            params["offset"] = 0
+            if "pageNum" in params.keys():
+                params["offset"] = (int(params["pageNum"]) - 1) * appconfig.per_page
+            else:
+                params["offset"] = 0
 
         default_sql = """ 
-            select task_id, status, build_number, author, repos, version, branch, last_build_date 
+            select *
             from builds_status_left_join_view 
             order by status desc, last_build_date desc
             limit {}
@@ -33,7 +36,7 @@ class BranchBuilder:
             order by status desc, last_build_date desc
             """
         query_sql = """
-            select task_id, status, build_number, author, repos, version, branch, last_build_date 
+            select *
             from builds_status_left_join_view 
             where task_id in 
             ( select task_id 
