@@ -1,4 +1,5 @@
 from sqlite3 import OperationalError
+import urllib2
 import web
 import appconfig
 from  buildutil import *
@@ -10,6 +11,8 @@ class BranchBuilder:
         self.buildUtil = BuildUtil()
 
     def searchBuilds(self, **params):
+        params["q"] = urllib2.unquote(params["q"])
+
         if "limit" in params.keys():
             params["limit"] = int(params["limit"])
         else:
