@@ -404,7 +404,7 @@ $(document).ready(function(){
         }
 
         $("#searchForm-query").keyup(function(){
-            var q = $(this).val().trim();
+            var q = encodeURIComponent($(this).val().trim());
             var queryURL = "./searchbuild";
 
             renderBuildList(q, queryURL, 1);
