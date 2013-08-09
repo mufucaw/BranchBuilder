@@ -6,11 +6,7 @@ $(document).ready(function(){
 
         var get_username = function(author) {
             var username = "";
-            author = author.replace(".", "");
-            author = author.replace("#", "");
-            author = author.replace("_", "");
-            author = author.replace("-", "");
-            author = author.replace("!", "");
+            author = author.replace(/\.|_|-|#/, "");
             var part_list = author.trim().split(/\s+/);
 
             if (part_list.length > 1) {
