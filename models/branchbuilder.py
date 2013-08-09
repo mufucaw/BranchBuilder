@@ -16,7 +16,10 @@ class BranchBuilder:
         if "limit" in params.keys():
             params["limit"] = int(params["limit"])
         else:
-            params["limit"] = 200
+            if "pageNum" in params.keys():
+                params["limit"] = 20
+            else:
+                params["limit"] = 200
 
         if "offset" in params.keys():
             params["offset"] = int(params["offset"])
@@ -57,10 +60,8 @@ class BranchBuilder:
             ( select task_id 
               from builds 
               where builds match '{}' 
-              limit {}
-              offset {}
             ) 
-            """.format(params["q"], params["limit"], params["offset"])
+            """.format(params["q"])
 
         if params["q"] == "": 
             query_sql = default_sql 
