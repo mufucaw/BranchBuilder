@@ -173,10 +173,18 @@ class Add:
                 'demo_data': demo_data,
                 'expired_tag': expired_tag
                 }
-            n = db.insert(
-                'builds',
-                **data
-                )
+            t = db.transaction()
+            try:
+                n = db.insert(
+                    'builds',
+                    **data
+                    )
+            except:
+                t.rollback()
+                raise
+            else:
+                t.commit()
+
 
             logging.info("[Add Action:]" + json.dumps(data))
             web.header('Content-type', 'application/json')
@@ -288,23 +296,30 @@ class UpdateBuild:
 
         build_string = json.dumps([])
         if selectedBuilds:
-            db.update(
-                'builds',
-                where='task_id="' + i.task_id + '"',
-                repos=i.repos,
-                branch=i.branch,
-                version=i.version,
-                author=i.author,
-                styleguide_repo=i.styleguide_repo,
-                styleguide_branch=styleguide_branch,
-                sidecar_repo=i.sidecar_repo,
-                sidecar_branch=i.sidecar_branch,
-                package_list=i.package_list,
-                upgrade_package=i.upgrade_package,
-                latin=i.latin,
-                demo_data=i.demo_data,
-                expired_tag=i.expired_tag
-                )
+            t = db.transaction()
+            try:
+                db.update(
+                    'builds',
+                    where='task_id="' + i.task_id + '"',
+                    repos=i.repos,
+                    branch=i.branch,
+                    version=i.version,
+                    author=i.author,
+                    styleguide_repo=i.styleguide_repo,
+                    styleguide_branch=styleguide_branch,
+                    sidecar_repo=i.sidecar_repo,
+                    sidecar_branch=i.sidecar_branch,
+                    package_list=i.package_list,
+                    upgrade_package=i.upgrade_package,
+                    latin=i.latin,
+                    demo_data=i.demo_data,
+                    expired_tag=i.expired_tag
+                    )
+            except:
+                t.rollback()
+                raise
+            else:
+                t.commit()
 
           # After update
 
