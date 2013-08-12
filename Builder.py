@@ -200,7 +200,14 @@ class Remove:
         for m in db.select('builds', where='task_id ="' + i.task_id + '"'):
             logging.info("[Delete Action:]" + json.dumps(m))
 
-        n = db.delete('builds', where='task_id ="' + i.task_id + '"')
+        t = db.transaction()
+        try:
+            n = db.delete('builds', where='task_id ="' + i.task_id + '"')
+        except:
+            t.rollback()
+            raise
+        else:
+            t.commit()
 
 
 class RunBuild:
