@@ -16,7 +16,10 @@ class BranchBuilder:
         if "limit" in params.keys():
             params["limit"] = int(params["limit"])
         else:
-            params["limit"] = 200
+            if "pageNum" in params.keys():
+                params["limit"] = 20
+            else:
+                params["limit"] = 200
 
         if "offset" in params.keys():
             params["offset"] = int(params["offset"])
