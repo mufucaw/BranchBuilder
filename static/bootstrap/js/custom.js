@@ -1,12 +1,21 @@
 $(document).ready(function(){
 		var builder = {"hasRunningTask": false};
+        window.favicon = new Favico({
+            "animation": "slide"
+        });
+        function update_favicon() {
+            var length = $('td[name="list_status"].Running, td[name="list_status"].InQueue').length;
+            window.favicon_len = length;
+            favicon.badge(length);
+        }
+        update_favicon();
 
 		$("li.active").removeClass("active");
 		$("#navHome").addClass("active");
 
         var get_username = function(author) {
             var username = "";
-            author = author.replace(/\.|_|-|#/, "");
+            author = author.replace(/\.|_|-|#|(|)/, "");
             var part_list = author.trim().split(/\s+/);
 
             if (part_list.length > 1) {
@@ -315,6 +324,12 @@ $(document).ready(function(){
 							$('#buildListRemove-' + task_id).removeAttr("disabled");
                         }
                     });
+                
+                    var length = $('td[name="list_status"].Running, td[name="list_status"].InQueue').length;
+                    if (length != window.favicon_len) {
+                        favicon.badge(data.length);
+                        window.favicon_len;
+                    }
                     /*
 					if (task_id_list.length == 0 &&  builder.hasRunningTask == true){
 						window.location.reload()
@@ -325,6 +340,7 @@ $(document).ready(function(){
 			);
 
 		}, 10000);
+
 
         if ($("#buildList-pageNum").attr("value") == $("#buildList-totalPage").attr("value")) {
             $("#buildList-nextPage").removeClass("active");
