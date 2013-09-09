@@ -1,7 +1,7 @@
 $(document).ready(function(){
 		var builder = {"hasRunningTask": false};
         window.favicon = new Favico({
-            "animation": "slide"
+            "animation": "none"
         });
         function update_favicon() {
             var length = $('td[name="list_status"].Running, td[name="list_status"].InQueue').length;
