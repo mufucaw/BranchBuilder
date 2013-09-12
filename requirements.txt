@@ -1,0 +1,4 @@
+web.py
+python-jenkins
+jinja2
+flup
