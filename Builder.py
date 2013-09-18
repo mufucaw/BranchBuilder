@@ -11,6 +11,7 @@ import urllib2
 import re
 from datetime import datetime
 import logging
+import requests
 
 from buildutil import *
 import BuildConfig
@@ -28,13 +29,14 @@ urls = (
     '/', 'Index',
     '/add', 'Add',
     '/build', 'Build',
+    '/buildstatus', 'BuildStatus',
+    '/cron', 'BuildCron',
     '/getbuild', 'GetBuild',
     '/stopbuild', 'StopBuild',
     '/searchbuild', 'SearchBuild',
     '/updatebuild', 'UpdateBuild',
     '/remove', 'Remove',
     '/sendmail', 'SendMailToAdmin',
-    '/cron', 'BuildCron',
     '/fullview', 'FullView',
     '/logger', 'Logger',
     '/buildconfig', BuildConfig.app_BuildConfig,
@@ -251,31 +253,69 @@ class Build:
     def GET(self):
 
         i = web.input()
+        selected_fileds = ' \
+            task_id, repos, branch, version, author, package_list, \
+            upgrade_package, styleguide_repo, styleguide_branch, sidecar_repo, \
+            sidecar_branch, demo_data, latin'
         selectedBuilds = db.select('builds', where='task_id="'
-                                   + str(i.task_id) + '"', what='task_id')
+                                   + str(i.task_id) + '"', what=selected_fileds)[0]
 
         if selectedBuilds:
             builds_status = db.query('select * from builds_status')
+            priority = 1;
 
             if builds_status:
                 existing_build = db.query('select task_id from builds_status where task_id="' + i.task_id + '"')
                 if len(list(existing_build)) == 0:
                     max_priority_records = \
                         db.query('select max(priority) as priority from builds_status')
-                    new_max_priority = max_priority_records[0].priority + 1
+                    priority = max_priority_records[0].priority + 1
 
-                    db.insert('builds_status', task_id=str(i.task_id),
-                              priority=new_max_priority, status='InQueue')
-                    statusString = \
-                        json.JSONEncoder().encode({'task_id': i.task_id,
-                            'status': 'InQueue'})
+            kue_job_id,kue_job_status = None, None
+            job_url = appconfig.kue_server + '/job'
+            playload = {
+                    'type': 'sugarbuild',
+                    'data': dict(selectedBuilds),
+                    'options': {
+                        'priority': priority,
+                        'attempts': 2
+                        }
+                    }
+            headers = {'content-type': 'application/json'}
+            job_status = 'InQueue'
+
+            try:
+                r = requests.post(job_url, data = json.dumps(playload), headers = headers)
+                kue_job_id = json.loads(r.text)['id']
+            except Exception as e:
+                web.debug('Failed to create kue job')
+
+            try:
+                r = requests.get(job_url + '/' + str(kue_job_id))
+                kue_job_status = json.loads(r.text)['state']
+            except Exception as e:
+                web.debug('Failed to retrieve the job ' + str(kue_job_id))
+
+            if kue_job_status == 'active':
+                job_status = 'Running'
+
+            t = db.transaction()
+            try:
+                n = db.insert('builds_status', 
+                        task_id=str(i.task_id),
+                        priority=priority, status=job_status,
+                        kue_job_id=kue_job_id)
+            except:
+                t.rollback()
+                raise
             else:
-                db.insert('builds_status', task_id=str(i.task_id),
-                          status='Running', priority=1)
-                RunBuild().run(i.task_id)
-                statusString = \
-                    json.JSONEncoder().encode({'task_id': i.task_id,
-                        'status': 'Running'})
+                t.commit()
+
+            statusString = \
+                json.JSONEncoder().encode({'task_id': i.task_id,
+                    'status': job_status})
+
+            web.header('Content-type', 'application/json')
 
             return statusString
 
@@ -386,102 +426,80 @@ class StopBuild:
 
         web.seeother('/')
 
+class BuildStatus:
+
+    def POST(self):
+        i = web.input()
+
+        if i.status :
+            job_status = 'Available'
+
+            if i.status == 'complete' :
+                job_status = 'Available'
+                t = db.transaction()
+                try:
+                    n = db.delete(
+                        'builds_status',
+                        where='task_id="' + i.task_id + '"'
+                        )
+                except:
+                    t.rollback()
+                    raise
+                else:
+                    t.commit()
+            elif i.status == 'failed' :
+                job_status = 'Failed'
+                t = db.transaction()
+                try:
+                    n = db.delete(
+                        'builds_status',
+                        where='task_id="' + i.task_id + '"'
+                        )
+                except:
+                    t.rollback()
+                    raise
+                else:
+                    t.commit()
+            elif i.status == 'progress' :
+                if i.progress and float(i.progress) < 1 :
+                    job_status = 'Running'
+                    t = db.transaction()
+                    try:
+                        n = db.update(
+                            'builds_status',
+                            where='task_id="' + i.task_id + '"',
+                            status=job_status
+                            )
+                    except:
+                        t.rollback()
+                        raise
+                    else:
+                        t.commit()
+                else:
+                    job_status = 'Available'
+
+            t = db.transaction()
+            try:
+                n = db.update(
+                    'builds',
+                    where='task_id="' + i.task_id + '"',
+                    status=job_status
+                    )
+            except:
+                t.rollback()
+                raise
+            else:
+                t.commit()
+        else:
+            pass
 
 class BuildCron:
 
-    def __init__(self):
-        self.taskBuilder = TaskBuilder(appconfig.jenkins_url)
-
-    def check_queue(self):
-
-    # Check queue jobs
-
-        j = self.taskBuilder.j
-
-        return j.get_queue_info()
-
-    def is_building_job(self, jobName):
-        if str(jobName) in self.get_building_job():
-            return True
-        else:
-            return False
-
-    def get_building_job(self):
-
-    # Check building job
-
-        j = self.taskBuilder.j
-        job_list = j.get_jobs()
-        job_queue_list = j.get_queue_info()
-        running_job = []
-
-        for job in job_list:
-            if re.search('anime', job['color']) and re.match('^Build_',
-                    job['name']):
-                running_job.append(job['name'])
-
-        for queue_item in job_queue_list:
-            if re.match('^Build_', queue_item['task']['name']):
-                running_job.append(queue_item['task']['name'])
-
-        return running_job
-
-    def get_lowest_build(self):
-        min_builds = \
-            db.query('select task_id, status, priority \
-           from builds_status \
-           where priority=(select min(b.priority) from builds_status as b)'
-                     )
-        if min_builds:
-            for min_build in min_builds:
-                return {'task_id': min_build.task_id,
-                        'status': min_build.status,
-                        'priority': min_build.priority}
-
-    def update_task_status_as_lastBuild(self, task_id, jobName):
-        j = self.taskBuilder
-        job_status = j.get_build_status(jobName)
-
-        if job_status == False or job_status == 'Succcess' or job_status == 'Running':
-            job_status = 'Available'
-
-        db.update('builds', where='task_id="' + str(task_id) + '"',
-                  status=job_status)
-
     def run_cron(self):
-        lowest_build = self.get_lowest_build()
         job_list = []
 
-        if lowest_build:
-            if lowest_build['status'] == 'Running':
-                selectRepos = db.select('builds', where='task_id="'
-                        + str(lowest_build['task_id']) + '"', what='repos')
-                buildUtil = BuildUtil()
-                jobName = ''
-                for m in selectRepos:
-                    jobName = buildUtil.get_job_name(repos=m['repos'])
 
-                if self.is_building_job(jobName):
-                    pass
-                else:
-                    # update build_status and remove the running flag
-                    self.update_task_status_as_lastBuild(str(lowest_build['task_id'
-                            ]), jobName)
-                    db.delete('builds_status', where='task_id="'
-                              + str(lowest_build['task_id']) + '"')
-            elif lowest_build['status'] == 'InQueue':
-                # Assume Jenkins is avaliable for building
-                RunBuild().run(lowest_build['task_id'])
-                db.update('builds_status', where='task_id="'
-                          + str(lowest_build['task_id']) + '"',
-                          status='Running')
-            else:
-                pass
-        else:
-            # print 'false from lowest build'
-            pass
-
-        for x in db.select('builds_status', what='task_id, status, priority'):
+        for x in db.select('builds_status', what='task_id, status, priority, kue_job_id'):
             job_list.append(x)
 
         return job_list
@@ -494,33 +512,11 @@ class BuildCron:
             for build_status in new_builds_status:
                 job_list.append({'task_id': build_status.task_id,
                                 'status': build_status.status,
-                                'priority': build_status.priority})
+                                'priority': build_status.priority,
+                                'kue_job_id': build_status.kue_job_id
+                                })
 
         return json.JSONEncoder().encode(job_list)
-
-
-class FullView:
-
-    def POST(self):
-        i = web.input()
-        builds = db.select('builds', where='task_id =' + i.task_id)
-
-        return render.view(builds)
-
-    def GET(self):
-        i = web.input()
-        builds = db.select('builds', where='task_id =' + i.task_id)
-
-        return render.view(builds)
-
-
-class Fixing:
-
-    def GET(self):
-        i = web.input()
-
-        return render.fixing(appconfig.site_url)
-
 
 class SendMailToAdmin:
 
