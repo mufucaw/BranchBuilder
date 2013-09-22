@@ -45,3 +45,4 @@ nomad_users = {
 nomad_version = ['6.7.1']
 nomad_flavors = ['Ult', 'Ent', 'Crop', 'Pro']
 builds_dir = "/var/www/public/builds"
+kue_server="http://honey-g:3000"

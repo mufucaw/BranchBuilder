@@ -505,16 +505,8 @@ class BuildCron:
         return job_list
 
     def GET(self):
-        job_list = []
-        new_builds_status = self.run_cron()
+        job_list = self.run_cron()
         web.header('Content-type', 'application/json')
-        if new_builds_status:
-            for build_status in new_builds_status:
-                job_list.append({'task_id': build_status.task_id,
-                                'status': build_status.status,
-                                'priority': build_status.priority,
-                                'kue_job_id': build_status.kue_job_id
-                                })
 
         return json.JSONEncoder().encode(job_list)
 
