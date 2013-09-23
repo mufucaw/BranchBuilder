@@ -69,7 +69,7 @@ class ODDeployIndex:
         else:
             upgradeStatus = 0
         
-	deployInfo = DeployInfo().getDeployInfo()
+	    deployInfo = DeployInfo().getDeployInfo()
         od_deploys = db.query("select a.id, a.username, a.webroot, a.version, a.deploy_config, a.last_deploy_date, \
                 ifnull(b.status, \"Available\") as status \
                 from od_deployer as a \

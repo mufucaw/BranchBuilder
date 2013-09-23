@@ -234,6 +234,7 @@ class CICron:
         if lowest_deploy:
             if lowest_deploy["status"] == 'Running':
                 selectedDeploys = db.select('ci_deployer', where="id=" + str(lowest_deploy["task_id"]))
+                jobName = ""
                 for m in selectedDeploys:
                     username = m.username
                     jobName = "ci_" + username
