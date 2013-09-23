@@ -33,7 +33,7 @@ create view if not exists builds_status_left_join_view as
     select a.task_id, a.author, a.build_number, a.branch, a.repos, a.version,
            a.styleguide_repo, a.styleguide_branch, a.sidecar_repo,
            a.sidecar_branch, a.last_build_date, a.demo_data, a.package_list,
-           a.upgrade_package, ifnull(b.status, a.status) as status
+           a.upgrade_package, a.latin, a.expired_tag, ifnull(b.status, a.status) as status
     from builds as a
     left join  builds_status as b
     on a.task_id=b.task_id
