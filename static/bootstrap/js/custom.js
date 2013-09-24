@@ -83,7 +83,7 @@ $(document).ready(function(){
         var buildListEventBind = function () {
             $('#package-help-info').popover({'title': 'Package info', 'content': 'Package can be "ult,ent,corp,pro,com"'});
             $('td[name="list_status"]').each(function (i, domEle){
-                if ($(domEle).text() == "Running") {
+                if ($(domEle).text() == "Running" || $(domEle).text() == "InQueue") {
                     var task_id = $(domEle).parent().attr("id");
                     $("#buildList-" + task_id).attr("disabled", "disabled");
                     $('#editList-' + task_id).attr("disabled", "disabled");
