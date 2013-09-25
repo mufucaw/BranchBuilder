@@ -463,7 +463,7 @@ class BuildStatus:
                 else:
                     t.commit()
             elif i.status == 'progress' :
-                if i.progress and float(i.progress) < 1 :
+                if i.progress and int(i.progress) < 100:
                     job_status = 'Running'
                     t = db.transaction()
                     try:

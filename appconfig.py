@@ -32,12 +32,40 @@ od_users = {
 		"rlee": {"full_name": "Randy Lee", "email": "rlee@sugarcrm.com"} ,\
 		"rsennewald": {"full_name": "Ray Sennewald", "email": "rsennewald@sugarcrm.com"} ,\
 		"rzhou": {"full_name": "Ran Zhou", "email": "rzhou@sugarcrm.com"} ,\
+		"support1": {"full_name": "Support 1", "email": "support@sugarcrm.com"} ,\
+		"support2": {"full_name": "Support 2", "email": "support@sugarcrm.com"} ,\
+		"support3": {"full_name": "Support 3", "email": "support@sugarcrm.com"} ,\
+		"support4": {"full_name": "Support 4", "email": "support@sugarcrm.com"} ,\
+		"support5": {"full_name": "Support 5", "email": "support@sugarcrm.com"} ,\
 		"phuang": {"full_name": "Paul Huang", "email": "phuang@sugarcrm.com"} ,\
 	}
 od_users["tester"] =  {"full_name": "QA Tester", "email": "oyang@sugarcrm.com"}
-od_version = ['6.5.9', '6.5.10', '6.5.11', '6.5.12', '6.5.13', '6.5.14', '6.5.15', '6.5.16', '6.6.0', '6.6.1', '6.6.2','6.6.3', '6.7.0', '6.7.0.1', '6.7.1', '6.7.2', '6.7.3', '6.7.4', '7.0.0', '7.0.0RC1', '7.0.0RC2']
+od_version = [
+    '6.5.9',
+    '6.5.10',
+    '6.5.11',
+    '6.5.12',
+    '6.5.13',
+    '6.5.14',
+    '6.5.15',
+    '6.5.16',
+    '6.6.0',
+    '6.6.1',
+    '6.6.2',
+    '6.6.3',
+    '6.7.0',
+    '6.7.0.1',
+    '6.7.1',
+    '6.7.2',
+    '6.7.3',
+    '6.7.4',
+    '7.0.0',
+    '7.0.0RC1',
+    '7.0.0RC2',
+    '7.0.0RC3'
+]
 ci_users = dict(od_users)
-ci_version = ['6.7.1', '6.7.2', '6.7.3', '6.7.4', '7.0.0', '7.0.0RC1', '7.0.0RC2']
+ci_version = ['6.7.1', '6.7.2', '6.7.3', '6.7.4', '7.0.0', '7.0.0RC1', '7.0.0RC2', '7.0.0RC3']
 
 nomad_users = {
 		"builder": {"full_name": "Branch Builder", "email": "build@sugarcrm.com"} , \
@@ -45,4 +73,4 @@ nomad_users = {
 nomad_version = ['6.7.1']
 nomad_flavors = ['Ult', 'Ent', 'Crop', 'Pro']
 builds_dir = "/var/www/public/builds"
-kue_server="http://honey-g:3000"
+kue_server = "http://honey-g:3000"
