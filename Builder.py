@@ -430,12 +430,13 @@ class BuildStatus:
 
     def POST(self):
         i = web.input()
+        job_status = 'Available'
+        final_status = 'Available'
 
         if i.status :
-            job_status = 'Available'
-
             if i.status == 'complete' :
                 job_status = 'Available'
+                final_status = 'Available'
                 t = db.transaction()
                 try:
                     n = db.delete(
@@ -449,6 +450,7 @@ class BuildStatus:
                     t.commit()
             elif i.status == 'failed' :
                 job_status = 'Failed'
+                final_status = 'Failed'
                 t = db.transaction()
                 try:
                     n = db.delete(
@@ -480,11 +482,12 @@ class BuildStatus:
 
             t = db.transaction()
             try:
-                n = db.update(
-                    'builds',
-                    where='task_id="' + i.task_id + '"',
-                    status=job_status
-                    )
+                if i.status != 'progress':
+                    n = db.update(
+                        'builds',
+                        where='task_id="' + i.task_id + '"',
+                        status=final_status
+                        )
             except:
                 t.rollback()
                 raise
