@@ -62,10 +62,11 @@ od_version = [
     '7.0.0',
     '7.0.0RC1',
     '7.0.0RC2',
-    '7.0.0RC3'
+    '7.0.0RC3',
+    '7.1.0'
 ]
 ci_users = dict(od_users)
-ci_version = ['6.7.1', '6.7.2', '6.7.3', '6.7.4', '7.0.0', '7.0.0RC1', '7.0.0RC2', '7.0.0RC3']
+ci_version = ['6.7.1', '6.7.2', '6.7.3', '6.7.4', '7.0.0', '7.1.0']
 
 nomad_users = {
 		"builder": {"full_name": "Branch Builder", "email": "build@sugarcrm.com"} , \

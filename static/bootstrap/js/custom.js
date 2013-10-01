@@ -69,6 +69,7 @@ $(document).ready(function(){
                 <td name="list_status" class="' + build["status"] + '"' + 'id="build_status_' + build["task_id"] + '">' + build["status"] + '</td> \
                 <td>' + build["repos"] + '</td> \
                 <td>' + build["author"] + '</td> \
+                <td><a href="/logs/builds/' + build["task_id"] + '.log" target="_blank">log</a></td> \
                 <td>' +  ' \
                     <input type="button" class="btn btn-success" name="rebuild" id="buildList-' + build["task_id"] + '"  value="Build" >  \
                     <input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-' + build["task_id"] + '" value="Edit" > \

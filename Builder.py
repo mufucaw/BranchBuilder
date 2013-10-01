@@ -162,7 +162,7 @@ class Add:
                 'version': i.version,
                 'author': i.author,
                 'styleguide_repo': i.styleguide_repo,
-                'styleguide_branch': styleguide_branch,
+                'styleguide_branch': i.styleguide_branch,
                 'sidecar_repo': i.sidecar_repo,
                 'sidecar_branch': i.sidecar_branch,
                 'build_number': '',

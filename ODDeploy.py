@@ -34,7 +34,7 @@ urls = (
 
 web.config.debug = True
 
-db = web.database(dbn='sqlite', db='branchbuilder.sqlite3')
+db = web.database(dbn='sqlite', db='od_deploy.sqlite3')
 
 
 class ODDeployIndex:
@@ -87,14 +87,14 @@ class ODDeployUpdate:
       return render.ODDeploy_detail(od_deploy, appconfig.site_url)
 
     def POST(self):
-      i = web.input()
+      i = web.input(demo_data="1")
       try: 
         i.id
       except NameError:
-        od_deploys = db.insert('od_deployer', username=i.username, version=i.version, status='Available', deploy_config=i.deploy_config)
-	return "{}"
+        od_deploys = db.insert('od_deployer', username=i.username, version=i.version, status='Available', deploy_config=i.deploy_config, demo_data=i.demo_data)
+        return "{}"
       else:
-        db.update('od_deployer', where="id=" + i.id, username=i.username, version=i.version, deploy_config=i.deploy_config)
+        db.update('od_deployer', where="id=" + i.id, username=i.username, version=i.version, deploy_config=i.deploy_config, demo_data=i.demo_data)
 
         raise web.seeother("/")
 
@@ -103,9 +103,9 @@ class ODDeployGet:
       i = web.input()
       try:
         i.id
-        od_deploy = db.select("od_deployer", where="id=" + i.id, what="id, username, version, deploy_config")
+        od_deploy = db.select("od_deployer", where="id=" + i.id, what="id, username, version, deploy_config, demo_data")
 	for x in  od_deploy:
-	   deployString = json.JSONEncoder().encode({"username": x.username, "version": x.version, "deploy_config": x.deploy_config})
+	   deployString = json.JSONEncoder().encode({"username": x.username, "version": x.version, "deploy_config": x.deploy_config, "demo_data": x.demo_data})
       except Exception:
         return False
 
@@ -340,7 +340,7 @@ class ODCron:
 
 class ODDeployAdd:
     def POST(self):
-      i = web.input()
+      i = web.input(demo_data="1")
       isDuplicate = db.select('od_deployer', where='username=\"' + i.username + '\" AND version=\"' + i.version + '\"', what="count(*) as count")[0]
       deploy_config = []    
 
@@ -357,7 +357,7 @@ class ODDeployAdd:
           if len(deploy_config) == 0 : deploy_config.append("Ent")
 
           deploy_config_new = "" ",".join(deploy_config)
-          db.insert('od_deployer', username=i.username, version=i.version, webroot=i.webroot, status='Available', deploy_config=deploy_config_new)
+          db.insert('od_deployer', username=i.username, version=i.version, webroot=i.webroot, status='Available', deploy_config=deploy_config_new, demo_data=i.demo_data)
           raise web.seeother("/")
 
 class ODFormat:

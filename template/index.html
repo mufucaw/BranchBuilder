@@ -5,13 +5,13 @@ $var site_url: $site_url
 
 <form class="well form-inline" method="post" action ="add" id="addBuildForm">
 	<input type="text" id="add-repos" class="required github" name="repos" placeholder="Git Repository URI"/>
-	<input type="text" id="add-branch" class="required" name="branch" placeholder="Branch" />
+	<input type="text" id="add-branch" class="required" name="branch" value="master" placeholder="Branch" />
 	<input type="text" id="add-version" class="required version" name="version" placeholder="Mapped Version" />
 	<input type="text" id="add-author" class="required" name="author" placeholder="Author" />
 	<button type="submit" class="btn btn-primary">Add</button>
   <br />
 	<input type="text" id="add-styleguide_repo" class="required SubmoduleInput" name="styleguide_repo" value="git@github.com:sugarcrm/styleguide.git" />
-	<input type="text" id="add-styleguide_branch" class="required SubmoduleInput" name="styleguide_branch" value="master_7_0" />
+	<input type="text" id="add-styleguide_branch" class="required SubmoduleInput" name="styleguide_branch" value="master" />
 	<input type="text" id="add-sidecar_repo" class="required SubmoduleInput" name="sidecar_repo" value="git@github.com:sugarcrm/sidecar.git" />
 	<input type="text" id="add-sidecar_branch" class="required SubmoduleInput" name="sidecar_branch" value="master" />
 </form>
