@@ -483,10 +483,12 @@ class BuildStatus:
             t = db.transaction()
             try:
                 if i.status != 'progress':
+                    date_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                     n = db.update(
                         'builds',
                         where='task_id="' + i.task_id + '"',
-                        status=final_status
+                        status=final_status,
+                        last_build_date=date_now
                         )
             except:
                 t.rollback()
