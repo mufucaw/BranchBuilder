@@ -159,8 +159,9 @@ class RunDeploy:
         version = m.version
         webroot = m.webroot
         deploy_config = m.deploy_config
-	timeo = datetime.strptime(m.last_deploy_date, "%Y-%m-%d %H:%M:%S")
+        timeo = datetime.strptime(m.last_deploy_date, "%Y-%m-%d %H:%M:%S")
         deploy_timestamp = timeo.strftime("%Y%m%d%H%M%S")
+        demo_data = m.demo_data
 
       builder = JobBuilder(appconfig.jenkins_url)
       jobname = "od_" + username
@@ -170,7 +171,8 @@ class RunDeploy:
                 version=version, \
                 webroot=webroot, \
                 deploy_config=deploy_config, \
-                deploy_timestamp=deploy_timestamp)      
+                deploy_timestamp=deploy_timestamp, \
+                demo_data=demo_data)      
 
 class ODDeploy:
         def GET(self):
