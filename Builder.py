@@ -40,6 +40,7 @@ urls = (
     '/fullview', 'FullView',
     '/logger', 'Logger',
     '/buildconfig', BuildConfig.app_BuildConfig,
+	'/mappedversion', MappedVersion,
     '/ODDeploy', ODDeploy.app_ODDeploy,
     '/CIDeploy', CIDeploy.app_CIDeploy,
     '/Nomad', Nomad.app_Nomad,
@@ -71,7 +72,7 @@ class Index:
         indexPage = branchBuilder.getIndexPage(pageNum, pageLimit)
 
         return render.index(indexPage["fix_builds"], appconfig.site_url, pageNum,
-                            indexPage["total_page"])
+                            indexPage["total_page"], appconfig.branchbuilder)
 
     def update_status(self):
         builds_status = db.select('builds_status')
@@ -522,6 +523,16 @@ class SendMailToAdmin:
         web.sendmail(i.from_address, 'oyang@sugarcrm.com',
                      'BranchBuilder - ' + i.subject, i.message)
 
+class MappedVersion:
+	def GET(self):
+		i = web.input(version="")
+		web.header('Content-type', 'application/json')
+		branchbuilder = appconfig.branchbuilder
+		
+		if i.version in branchbuilder.keys():       
+			return json.JSONEncoder().encode(branchbuilder[i.version])
+		else:
+			return '{}'
 
 class Logger:
 

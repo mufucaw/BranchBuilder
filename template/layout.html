@@ -13,61 +13,66 @@ $def with (content)
     <!-- Le styles -->
 $if content.cssfiles:
 	$for f in content.cssfiles.split():
-	    <link rel="stylesheet" href="$f" type="text/css" media="screen" charset="utf-8"/>
+	    <link rel="stylesheet" href="$f" type="text/css" charset="utf-8"/>
 </head>
 <body style="padding: 50px">
-<div class="navbar navbar-fixed-top navbar-inverse">
-  <div class="navbar-inner">
-    <div class="container">
-	<a class="brand" href="/" >BranchBuilder</a>
-	<ul class="nav" >
-		<li id="navHome" class="active">
-			<a href="/" >Home</a>
-		</li>
-		<li id="navConfig" class="dropdown">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#" name="Config" id="config">Config</a>
-			<ul class="dropdown-menu">
-				<li>
-					<a href="#">Build config(To do)</a>
-				</li>
-				<li>
-					<a id="upgrade_config" href="${content.site_url}/buildconfig/">Upgrade config</a>
-				</li>
-			</ul>
-		</li>
-		<li id="navODDeploy">
-			<a href="${content.site_url}/ODDeploy/"  >OD_Deploy</a>
-		</li>
-		<li id="navCIDeploy">
-			<a href="${content.site_url}/CIDeploy/"  >CI_Deploy</a>
-		</li>
-		<li >
-			<a href="/phpmyadmin" target="_blank" >DBM</a>
-		</li>
-		<li id="navJobServer">
-			<a href="http://honey-g:8080" target="_blank" >Jenkins</a>
-		</li>
-		<li id="navKue">
-			<a href="http://honey-g:3000" target="_blank" >Kue</a>
-		</li>
-		<li id="navKibana">
-			<a href="http://honey-g:9292"  target="_blank">Kibana</a>
-		</li>
-	</ul>
-	<ul class="nav pull-right">
-        <li >
-            <div class="navbar-search">
-                <input class="input-medium span3 " name="q" type="text" id="searchForm-query" placeholder="Search ..." />
-            </div>
-        </li>
-		<li class="divider-vertical" ></li>
-		<li >
-			<a data-toggle="modal" href="#popupViewMail" name="mailToAdmin" id="mailToAdmin">Contact admin</a>
-		</li>
-	</ul>
-    </div>
-  </div>
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<button type="button" class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse"></button>
+			<a class="brand" href="/">BranchBuilder</a>
+			<div class="nav-collapse collapse" style="height: 0px;">
+				<ul class="nav">
+					<li id="navHome" class="active">
+						<a href="/">Home</a>
+					</li>
+					<li id="navConfig" class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" name="Config" id="config">Config</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="#">Build config(To do)</a>
+							</li>
+							<li>
+								<a id="upgrade_config" href="${content.site_url}/buildconfig/" name="upgrade_config">Upgrade config</a>
+							</li>
+						</ul>
+					</li>
+					<li id="navODDeploy">
+						<a href="${content.site_url}/ODDeploy/">OD_Deploy</a>
+					</li>
+					<li id="navCIDeploy">
+						<a href="${content.site_url}/CIDeploy/">CI_Deploy</a>
+					</li>
+					<li>
+						<a href="/phpmyadmin" target="_blank">DBM</a>
+					</li>
+					<li id="navJobServer">
+						<a href="http://honey-g:8080" target="_blank">Jenkins</a>
+					</li>
+					<li id="navKue">
+						<a href="http://honey-g:3000" target="_blank">Kue</a>
+					</li>
+					<li id="navKibana">
+						<a href="http://honey-g:9292" target="_blank">Kibana</a>
+					</li>
+				</ul>
+				<ul class="nav pull-right">
+					<li>
+						<div class="navbar-search">
+							<input class="input-medium span3" name="q" type="text" id="searchForm-query" placeholder="Search ...">
+						</div>
+					</li>
+					<li>
+						<a data-toggle="modal" href="#popupViewMail" name="mailToAdmin" id="mailToAdmin">Contact admin</a>
+					</li>
+				</ul>
+
+
+			</div>
+		</div>
+	</div>
 </div>
+
 <div id="container" class="fluid">
 $:content
 </div>
