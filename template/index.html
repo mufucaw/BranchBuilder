@@ -7,9 +7,11 @@ $var site_url: $site_url
 <form class="well" method="post" action="add" id="addBuildForm" name="addBuildForm">
 	<div class="row-fluid">
 		<div class="span2">
-			<select id="add-version" class="required version" name="version">
+			<select id="add-version" name="version">
 				<option selected="selected" value="blank">Please select a version</option>
-				$for ver in branchbuilder.keys():
+                $ ver_keys = branchbuilder.keys()
+                $ ver_keys.sort(reverse=True)
+				$for ver in ver_keys:
 					<option value="$ver">
 						$ver
 					</option>

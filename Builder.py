@@ -19,6 +19,7 @@ import ODDeploy
 import CIDeploy
 import Nomad
 import appconfig
+import versionconfig
 from models.branchbuilder import BranchBuilder
 
 #init the logging
@@ -40,7 +41,7 @@ urls = (
     '/fullview', 'FullView',
     '/logger', 'Logger',
     '/buildconfig', BuildConfig.app_BuildConfig,
-	'/mappedversion', MappedVersion,
+	'/mappedversion', 'MappedVersion',
     '/ODDeploy', ODDeploy.app_ODDeploy,
     '/CIDeploy', CIDeploy.app_CIDeploy,
     '/Nomad', Nomad.app_Nomad,
@@ -72,7 +73,7 @@ class Index:
         indexPage = branchBuilder.getIndexPage(pageNum, pageLimit)
 
         return render.index(indexPage["fix_builds"], appconfig.site_url, pageNum,
-                            indexPage["total_page"], appconfig.branchbuilder)
+                            indexPage["total_page"], versionconfig.branchbuilder)
 
     def update_status(self):
         builds_status = db.select('builds_status')
@@ -527,7 +528,7 @@ class MappedVersion:
 	def GET(self):
 		i = web.input(version="")
 		web.header('Content-type', 'application/json')
-		branchbuilder = appconfig.branchbuilder
+		branchbuilder = versionconfig.branchbuilder
 		
 		if i.version in branchbuilder.keys():       
 			return json.JSONEncoder().encode(branchbuilder[i.version])

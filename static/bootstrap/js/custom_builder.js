@@ -48,7 +48,6 @@ $(document).ready(
 				return trs;
 			}
 			
-			console.log($(self).find(":selected").val());
 			if ($(self).find(":selected").val() != "blank") {
 				$.get(
 					'./mappedversion',

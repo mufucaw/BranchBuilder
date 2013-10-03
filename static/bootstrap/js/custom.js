@@ -498,7 +498,7 @@ $(document).ready(function(){
                 {
                  "repos": $('#add-repos').val(),
                  "branch": $('#add-branch').val(), 
-                 "version": $('#add-version').val(), 
+                 "version": $('#add-version').find(":selected").val(), 
                  "author": $('#add-author').val(),
                  "styleguide_repo": $('#add-styleguide_repo').val(),
                  "styleguide_branch": $('#add-styleguide_branch').val(),
