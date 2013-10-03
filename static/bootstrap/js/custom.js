@@ -493,28 +493,32 @@ $(document).ready(function(){
             var self = this;
             event.preventDefault();
 
-            $.post(
-                './add', 
-                {
-                 "repos": $('#add-repos').val(),
-                 "branch": $('#add-branch').val(), 
-                 "version": $('#add-version').find(":selected").val(), 
-                 "author": $('#add-author').val(),
-                 "styleguide_repo": $('#add-styleguide_repo').val(),
-                 "styleguide_branch": $('#add-styleguide_branch').val(),
-                 "sidecar_repo": $('#add-sidecar_repo').val(),
-                 "sidecar_branch": $('#add-sidecar_branch').val()
-                 }
-            )
-            .done(function(build) {
-                build["username"] = get_username(build["author"]);
-                var new_build = build_render(build);
+            $(self).validate({
+                submitHandler: function(form) { 
+                    $.post(
+                        './add', 
+                        {
+                         "repos": $('#add-repos').val(),
+                         "branch": $('#add-branch').val(), 
+                         "version": $('#add-version').find(":selected").val(), 
+                         "author": $('#add-author').val(),
+                         "styleguide_repo": $('#add-styleguide_repo').val(),
+                         "styleguide_branch": $('#add-styleguide_branch').val(),
+                         "sidecar_repo": $('#add-sidecar_repo').val(),
+                         "sidecar_branch": $('#add-sidecar_branch').val()
+                         }
+                    )
+                    .done(function(build) {
+                        build["username"] = get_username(build["author"]);
+                        var new_build = build_render(build);
 
-                $("#buildList-tbody").prepend(new_build);
-                buildListEventBind();
-            })
-            .fail(function() {
-                alert("Failed to add a new build, please contact admin or retry!");
+                        $("#buildList-tbody").prepend(new_build);
+                        buildListEventBind();
+                    })
+                    .fail(function() {
+                        alert("Failed to add a new build, please contact admin or retry!");
+                    });
+                }
             });
         });
 
