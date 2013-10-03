@@ -3,6 +3,48 @@ $def with (builds, site_url, pageNum, total_page)
 $var cssfiles: /static/bootstrap/css/bootstrap.css /static/bootstrap/css/custom.css
 $var site_url: $site_url
 
+
+<form class="well" method="post" action ="add" id="addBuildForm">
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="span2">
+                <select>
+                    <option>Mappped Version</option>
+                    <option>7.0.0</option>
+                    <option>7.0.1</option>
+                    <option>6.7.4</option>
+                </select>
+            </div>
+            <div class="span6">
+                <table id="user" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                        <th>Label</th>
+                        <th>Value</th>
+                        <th>SubValue</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <tr>         
+                            <td width="40%">Username</td>
+                            <td width="40%">Username</td>
+                            <td width="40%">Username</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="span4">
+            <input type="text" id="add-repos" class="required github" name="repos" placeholder="Git Repository URI"/>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span3 offset8">
+            <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </div>
+</form>
+
 <form class="well form-inline" method="post" action ="add" id="addBuildForm">
 	<input type="text" id="add-repos" class="required github" name="repos" placeholder="Git Repository URI"/>
 	<input type="text" id="add-branch" class="required" name="branch" value="master" placeholder="Branch" />
