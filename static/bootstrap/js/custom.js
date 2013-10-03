@@ -493,8 +493,7 @@ $(document).ready(function(){
             var self = this;
             event.preventDefault();
 
-            $(self).validate({
-                submitHandler: function(form) { 
+            if ($(self).valid()) {
                     $.post(
                         './add', 
                         {
@@ -518,8 +517,9 @@ $(document).ready(function(){
                     .fail(function() {
                         alert("Failed to add a new build, please contact admin or retry!");
                     });
-                }
-            });
+            } else {
+                console.log("! form is not validate for submit");
+            }
         });
 
-	});
+});

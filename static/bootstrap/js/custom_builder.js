@@ -73,4 +73,9 @@ $(document).ready(
 
 		});
 
+        $("#add-cancel").click(function() {
+            $("#mapped_version").hide();
+            $("#add-version").val("blank");
+        });
+
 });

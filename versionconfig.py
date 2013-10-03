@@ -42,29 +42,12 @@ branchbuilder= {
 		{
 			'repo_name': 'Sidecar',
 			'repo_url': 'git@github.com:sugarcrm/sidecar.git',
-			'branch': '6_7_4'
+			'branch': 'nugmeg'
 		},
 		{
 			'repo_name': 'Styleguide',
 			'repo_url': 'git@github.com:sugarcrm/styleguide.git',
-			'branch': '6_7_4'
-		}
-	],
-	'6.5.16': [
-		{
-			'repo_name': 'Mango',
-			'repo_url': 'git@github.com:sugarcrm/Mango.git',
-			'branch': '6_5_16'
-		},
-		{
-			'repo_name': 'Sidecar',
-			'repo_url': 'git@github.com:sugarcrm/sidecar.git',
-			'branch': '6_5_16'
-		},
-		{
-			'repo_name': 'Styleguide',
-			'repo_url': 'git@github.com:sugarcrm/styleguide.git',
-			'branch': '6_5_16'
+			'branch': 'master_6_7'
 		}
 	]
 }
