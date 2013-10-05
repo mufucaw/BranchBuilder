@@ -34,7 +34,7 @@ $(document).ready(
 						value="' + item.repo_url + '"/> \
 					</td>';
 					trs +='<td width="40%"><input type="text" \
-						id="' + id_list["branch_id"] + '" class="span12 required" name="branch" placeholder="Branch" \
+						id="' + id_list["branch_id"] + '" class="span12 required branch" name="branch" placeholder="Branch" \
 						value="' + item.branch + '"/> \
 					</td>';
 					
