@@ -152,6 +152,13 @@ class BuildUtil:
     else:
       return styleguide_branch
 
+  def get_branch_name(self, ref):
+      m = re.search('^(?:https?://.*/pull/)(\d+)$', ref, flags = re.IGNORECASE)
+      if m is not None:
+          ref = 'pr' + m.groups()[0] 
+
+      return ref
+
   def generate_user_name(self, full_name):
       full_name = full_name.replace(".", "")
       full_name = full_name.replace("#", "")

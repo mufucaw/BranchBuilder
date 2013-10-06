@@ -77,6 +77,7 @@ class BranchBuilder:
 
         for build_index in range(0, len(builds_list)):
            builds_list[build_index]['username'] = self.buildUtil.generate_user_name(builds_list[build_index]['author'])
+           builds_list[build_index]['branch'] = self.buildUtil.get_branch_name(builds_list[build_index]['branch'])
            builds_list[build_index]["build_number"] = self.buildUtil.get_build_number(builds_list[build_index])
 
         return {"builds": builds_list, "builds_count": self.db.query(builds_count_sql)[0]["builds_count"]} 
@@ -92,6 +93,7 @@ class BranchBuilder:
         fix_builds = []
         for build in builds:
            build['username'] = self.buildUtil.generate_user_name(build['author'])
+           build['branch'] = self.buildUtil.get_branch_name(build['branch'])
            build["build_number"] = self.buildUtil.get_build_number(build)
            fix_builds.append(build)
 
