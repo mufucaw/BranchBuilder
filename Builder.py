@@ -49,7 +49,7 @@ urls = (
 
 web.config.smtp_server = 'localhost'
 web.config.smtp_port = 25
-web.config.debug = True
+web.config.debug = False
 app = web.application(urls, globals())
 
 db = web.database(dbn='sqlite', db='branchbuilder.sqlite3')
@@ -75,19 +75,6 @@ class Index:
         return render.index(indexPage["fix_builds"], appconfig.site_url, pageNum,
                             indexPage["total_page"], versionconfig.branchbuilder)
 
-    def update_status(self):
-        builds_status = db.select('builds_status')
-
-        for build_status in builds_status:
-            db.update('builds', where='task_id="'
-                      + str(build_status.task_id) + '"',
-                      status=build_status.status)
-
-    def get_job_name(self, string):
-        buildUtil = BuildUtil()
-        return buildUtil.get_job_name(repos=string)
-
-
 class SearchBuild:
 
     def GET(self):
@@ -107,7 +94,7 @@ class SearchBuild:
             return "[]"
 
 
-        return json.JSONEncoder().encode({"builds": builds["builds"], "builds_count": builds["builds_count"]})
+        return json.JSONEncoder().encode({"builds": list(builds["builds"]), "builds_count": builds["builds_count"]})
 
 
 class Add:
@@ -503,19 +490,13 @@ class BuildStatus:
 class BuildCron:
 
     def run_cron(self):
-        job_list = []
-
-
-        for x in db.select('builds_status', what='task_id, status, priority, kue_job_id'):
-            job_list.append(x)
-
-        return job_list
+        return db.select('builds_status', what='task_id, status, priority, kue_job_id')
 
     def GET(self):
         job_list = self.run_cron()
         web.header('Content-type', 'application/json')
 
-        return json.JSONEncoder().encode(job_list)
+        return json.JSONEncoder().encode(list(job_list))
 
 class SendMailToAdmin:
 

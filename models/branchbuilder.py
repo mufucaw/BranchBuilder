@@ -10,6 +10,14 @@ class BranchBuilder:
         self.db = db
         self.buildUtil = BuildUtil()
 
+    def get_builds(self, builds):
+        for build in builds:
+            build['username'] = self.buildUtil.generate_user_name(build['author'])
+            build['branch'] = self.buildUtil.get_branch_name(build['branch'])
+            build["build_number"] = self.buildUtil.get_build_number(build)
+
+            yield build
+    
     def searchBuilds(self, **params):
         params["q"] = urllib2.unquote(params["q"])
 
@@ -75,12 +83,7 @@ class BranchBuilder:
         except OperationalError as error:
             return {"builds": [], "builds_count": 0}
 
-        for build_index in range(0, len(builds_list)):
-           builds_list[build_index]['username'] = self.buildUtil.generate_user_name(builds_list[build_index]['author'])
-           builds_list[build_index]['branch'] = self.buildUtil.get_branch_name(builds_list[build_index]['branch'])
-           builds_list[build_index]["build_number"] = self.buildUtil.get_build_number(builds_list[build_index])
-
-        return {"builds": builds_list, "builds_count": self.db.query(builds_count_sql)[0]["builds_count"]} 
+        return {"builds": self.get_builds(builds_list), "builds_count": self.db.query(builds_count_sql)[0]["builds_count"]} 
 
     def getIndexPage(self, pageNum = 1, pageLimit = appconfig.per_page):
         offset = (pageNum - 1) * appconfig.per_page
@@ -90,13 +93,6 @@ class BranchBuilder:
           order by status desc, last_build_date desc \
           limit " + str(pageLimit) + ' offset ' + str(offset))
 
-        fix_builds = []
-        for build in builds:
-           build['username'] = self.buildUtil.generate_user_name(build['author'])
-           build['branch'] = self.buildUtil.get_branch_name(build['branch'])
-           build["build_number"] = self.buildUtil.get_build_number(build)
-           fix_builds.append(build)
-
         total_records_count = self.db.query('select count(*) as count from builds')[0].count
         plus_page = 0
         if total_records_count % appconfig.per_page != 0:
@@ -104,4 +100,4 @@ class BranchBuilder:
 
         total_page = total_records_count / appconfig.per_page + plus_page
 
-        return {"fix_builds": fix_builds, "total_page": total_page}
+        return {"fix_builds": self.get_builds(builds), "total_page": total_page}
