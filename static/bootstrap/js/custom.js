@@ -27,15 +27,28 @@ $(document).ready(function(){
             return username.toLowerCase().substr(0, 64);
         };
 
+        var get_branch_name = function (branch) {
+            if (/^https?:.*\/pull\/\d+$/.test(branch)) {
+                var pattern = /^https?:.*\/pull\/(\d+)$/g;
+                var matched = pattern.exec(branch);
+
+                branch = "pr" + matched[1];
+            } 
+
+            return branch;   
+        
+        };
+
         var tr_render = function (build) {
             var trBody = ' \
-                <td><a href="../build' + build["username"] + build["branch"] + '">' + build["branch"] + '</a></td> \
+                <td><a href="../build' + build["username"] + get_branch_name(build["branch"]) + '">' + get_branch_name(build["branch"]) + '</a></td> \
                 <td>' + build["version"] + '</td> \
-                <td><a href="../public/builds/' + build["username"] + build["branch"] + '/latest">' + build["last_build_date"] + '</a></td> \
+                <td><a href="../public/builds/' + build["username"] + get_branch_name(build["branch"]) + '/latest">' + build["last_build_date"] + '</a></td> \
                 <td>' + build["build_number"] + '</td> \
                 <td name="list_status" class="' + build["status"] + '"' + 'id="build_status_' + build["task_id"] + '">' + build["status"] + '</td> \
                 <td>' + build["repos"] + '</td> \
                 <td>' + build["author"] + '</td> \
+                <td><a href="/logs/builds/' + build["task_id"] + '.log" target="_blank">log</a></td> \
                 <td>' +  ' \
                     <input type="button" class="btn btn-success" name="rebuild" id="buildList-' + build["task_id"] + '"  value="Build" >  \
                     <input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-' + build["task_id"] + '" value="Edit" > \
@@ -62,9 +75,9 @@ $(document).ready(function(){
             }
             var renderBody = ' \
             <tr id="' + build["task_id"] + '"> \
-                <td><a href="../build' + build["username"] + build["branch"] + '">' + build["branch"] + '</a></td> \
+                <td><a href="../build' + build["username"] + get_branch_name(build["branch"]) + '">' + get_branch_name(build["branch"]) + '</a></td> \
                 <td>' + build["version"] + '</td> \
-                <td><a href="../public/builds/' + build["username"] + build["branch"] + '/latest">' + build["last_build_date"] + '</a></td> \
+                <td><a href="../public/builds/' + build["username"] + get_branch_name(build["branch"]) + '/latest">' + build["last_build_date"] + '</a></td> \
                 <td>' + build["build_number"] + '</td> \
                 <td name="list_status" class="' + build["status"] + '"' + 'id="build_status_' + build["task_id"] + '">' + build["status"] + '</td> \
                 <td>' + build["repos"] + '</td> \
