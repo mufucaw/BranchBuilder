@@ -177,6 +177,7 @@ class Add:
                 t.commit()
 
 
+            data["branch"] = BuildUtil().get_branch_name(data["branch"])
             logging.info("[Add Action:]" + json.dumps(data))
             web.header('Content-type', 'application/json')
 
@@ -403,15 +404,17 @@ class StopBuild:
         i = web.input()
         jobInQueue = \
             db.query('select * from builds_status where task_id="'
-                     + i.task_id + '" and status="InQueue"')
+                     + i.task_id )
         if len(jobInQueue.list()) > 0:
+            kue_job_id = jobInQueue.kue_job_id
             db.delete('builds_status', where='task_id="' + i.task_id + '"')
-            web.seeother('/')
 
-        selectedBuilds = db.query('select repos from builds where task_id="' + i.task_id + '"')
-        for x in selectedBuilds:
-            jobName = BuildUtil().get_job_name(repos=x.repos)
-            TaskBuilder(appconfig.jenkins_url).stop_jenkins_jobs(jobName)
+            try:
+                job_url = appconfig.kue_server + '/job'
+                r = requests.delete(job_url + '/' + str(kue_job_id))
+                kue_job_status = json.loads(r.text)['state']
+            except Exception as e:
+                web.debug('Failed to remove the job ' + str(kue_job_id))
 
         web.seeother('/')
 
