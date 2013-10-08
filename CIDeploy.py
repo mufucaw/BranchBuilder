@@ -29,7 +29,7 @@ urls = (
 #web.config.smtp_password = 'sugarcrm'
 #web.config.smtp_starttls = True
 
-web.config.debug = True
+web.config.debug = False
 
 db = web.database(dbn='sqlite', db='ci_deploy.sqlite3')
 
