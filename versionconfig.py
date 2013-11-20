@@ -1,5 +1,5 @@
 branchbuilder= {
-	'7.1.0': [
+	'7.1.5': [
 		{
 			'repo_name': 'Mango',
 			'repo_url': 'git@github.com:sugarcrm/Mango.git',
@@ -9,14 +9,9 @@ branchbuilder= {
 			'repo_name': 'Sidecar',
 			'repo_url': 'git@github.com:sugarcrm/sidecar.git',
 			'branch': 'master'
-		},
-		{
-			'repo_name': 'Styleguide',
-			'repo_url': 'git@github.com:sugarcrm/styleguide.git',
-			'branch': 'master'
 		}
 	],
-	'7.0.1': [
+	'7.1.0': [
 		{
 			'repo_name': 'Mango',
 			'repo_url': 'git@github.com:sugarcrm/Mango.git',
@@ -42,7 +37,7 @@ branchbuilder= {
 		{
 			'repo_name': 'Sidecar',
 			'repo_url': 'git@github.com:sugarcrm/sidecar.git',
-			'branch': 'nugmeg'
+			'branch': 'nutmeg'
 		},
 		{
 			'repo_name': 'Styleguide',

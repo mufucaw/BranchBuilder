@@ -1,7 +1,7 @@
 import logging
 logging_setting = {
     "filename" : "logger",
-    "level" : logging.INFO,
+    "level" : logging.DEBUG,
     "format" : '%(asctime)s %(message)s',
     "datefmt" : '%Y-%m-%d %H:%M:%S' 
 }
@@ -15,6 +15,7 @@ od_users = {
 		"betauser2": {"full_name": "Beta User2", "email": "quality-assurance@sugarcrm.com"} ,\
 		"cfox": {"full_name": "Chinghua Fox", "email": "cfox@sugarcrm.com"} ,\
 		"cyan": {"full_name": "Carmen Yan", "email": "cyan@sugarcrm.com"} ,\
+		"cwang": {"full_name": "Joe Wang", "email": "cwang@sugarcrm.com"} ,\
 		"dclunie": {"full_name": "David Clunie", "email": "dclunie@sugarcrm.com"} ,\
 		"dsafar": {"full_name": "David Safar", "email": "dsafar@sugarcrm.com"} ,\
 		"egan": {"full_name": "Emily Gan", "email": "egan@sugarcrm.com"} ,\
@@ -64,10 +65,11 @@ od_version = [
     '7.0.0RC1',
     '7.0.0RC2',
     '7.0.0RC3',
-    '7.1.0'
+    '7.1.0',
+    '7.1.5'
 ]
 ci_users = dict(od_users)
-ci_version = ['6.7.1', '6.7.2', '6.7.3', '6.7.4', '7.0.0', '7.0.1', '7.1.0']
+ci_version = ['6.7.1', '6.7.2', '6.7.3', '6.7.4', '7.0.0', '7.0.1', '7.1.0', '7.1.5']
 
 nomad_users = {
 		"builder": {"full_name": "Branch Builder", "email": "build@sugarcrm.com"} , \
