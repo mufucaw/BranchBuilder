@@ -100,7 +100,7 @@ class SearchBuild:
 class Add:
 
     def POST(self):
-        i = web.input()
+        i = web.input(styleguide_repo="", styleguide_branch="")
 
     # TODO
     # check duplicate
@@ -138,11 +138,6 @@ class Add:
             else:
                 package_list = 'ent'
 
-            buildUtil = BuildUtil()
-            i = buildUtil.sanitize_input(i)
-            styleguide_branch = \
-                buildUtil.determine_styleguide_branch(i.styleguide_repo,
-                    i.styleguide_branch, i.version)
             task_id  = uuid.uuid4()
             data = {
                 'task_id': str(task_id),

@@ -507,18 +507,21 @@ $(document).ready(function(){
             event.preventDefault();
 
             if ($(self).valid()) {
-                    $.post(
-                        './add', 
-                        {
+                    var styleguide_repo = $('#add-styleguide_repo').val() == undefined ? "" : $('#add-styleguide_repo').val(); 
+                    var styleguide_branch = $('#add-styleguide_repo').val() == undefined ? "" : $('#add-styleguide_branch').val();
+                    var data = {
                          "repos": $('#add-repos').val(),
                          "branch": $('#add-branch').val(), 
                          "version": $('#add-version').find(":selected").val(), 
                          "author": $('#add-author').val(),
-                         "styleguide_repo": $('#add-styleguide_repo').val(),
-                         "styleguide_branch": $('#add-styleguide_branch').val(),
+                         "styleguide_repo": styleguide_repo,
+                         "styleguide_branch": styleguide_branch,
                          "sidecar_repo": $('#add-sidecar_repo').val(),
                          "sidecar_branch": $('#add-sidecar_branch').val()
-                         }
+                         };
+                    $.post(
+                        './add', 
+                        data
                     )
                     .done(function(build) {
                         build["username"] = get_username(build["author"]);
@@ -526,6 +529,10 @@ $(document).ready(function(){
 
                         $("#buildList-tbody").prepend(new_build);
                         buildListEventBind();
+                        $("#mapped_version").hide();
+                        $("#add-version").val("blank");
+                        alert("Add new build successfully!");
+                        
                     })
                     .fail(function() {
                         alert("Failed to add a new build, please contact admin or retry!");
