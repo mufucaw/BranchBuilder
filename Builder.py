@@ -136,7 +136,7 @@ class Add:
             if hasattr(i, 'package_list'):
                 package_list = i.package_list
             else:
-                package_list = 'ent'
+                package_list = 'ent,pro'
 
             task_id  = uuid.uuid4()
             data = {
@@ -399,9 +399,10 @@ class StopBuild:
         i = web.input()
         jobInQueue = \
             db.query('select * from builds_status where task_id="'
-                     + i.task_id )
-        if len(jobInQueue.list()) > 0:
-            kue_job_id = jobInQueue.kue_job_id
+                     + i.task_id + '"')
+        job_inqueue_list = list(jobInQueue)
+        if len(job_inqueue_list) > 0:
+            kue_job_id = job_inqueue_list[0]["kue_job_id"]
             db.delete('builds_status', where='task_id="' + i.task_id + '"')
 
             try:
