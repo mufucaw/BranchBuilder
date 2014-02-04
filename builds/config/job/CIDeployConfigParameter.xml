@@ -46,8 +46,7 @@
   </axes>
   <builders>
     <hudson.tasks.Shell>
-      <command>
-shortVer=`echo $version | sed &apos;s/\.//g&apos;`
+      <command>shortVer=`echo $version | sed &apos;s/\.//g&apos;`
 sugarVer=`echo $version`
 echo &quot;shortVer is $shortVer \n&quot;
 lowerFlavor=`echo $flavor | tr &apos;[A-Z]&apos; &apos;[a-z]&apos; `
@@ -68,21 +67,19 @@ case &quot;$sugarShortVer&quot; in
     *) sodaBranch=`echo $sugarShortVer | tr &apos;.&apos; &apos;_&apos;`&quot;_0&quot; ;;
 esac
 echo &quot;sodaBranch is $sodaBranch&quot;
-GitSodaIceBox="ruby /srv/ci-tools/git_update.rb -r sugarcrm/SodaIceBox -b &amp;{sodaBranch} -p /srv/SodaIceBox"
+GitSodaIceBox=&quot;ruby /srv/ci-tools/git_update.rb -r sugarcrm/SodaIceBox -b ${sodaBranch} -p /srv/SodaIceBox&quot;
 firstChar=`echo $version | cut -c 1`
-if [ "&amp;firstChar" = "7" ]; then
-GitSodaIceBox="pwd"
+if [ &quot;$firstChar&quot; = &quot;7&quot; ]; then
+GitSodaIceBox=&quot;pwd&quot;
 fi
 echo $GitSodaIceBox
-
 ssh root@10.25.10.74 &quot; \
 ruby /srv/ci-tools/git_update.rb -r sugarcrm/AutoUtils -b master -p /srv/AutoUtils  &amp;&amp; \
-$GitSodaIceBox &amp;&amp; \
+$GitSodaIceBox  &amp;&amp; \
 cd /srv/AutoUtils/jobs-utils/slave/target  &amp;&amp; \
-ruby deploy.rb --version=\&quot;${version}\&quot; --flavor=${lowerFlavor} --env=stack94 --name=\&quot;${instanceName}\&quot;  --sodaicebox=/srv/SodaIceBox &amp;&amp; \
+ruby deploy.rb --version=\&quot;${version}\&quot; --flavor=${lowerFlavor} --env=stack94 --name=\&quot;${instanceName}\&quot; --sodaicebox=/srv/SodaIceBox &amp;&amp; \
 echo \&quot;${deploy_timestamp}\&quot; &gt; /usr/local/apache2/htdocs/${instanceName}/build_date.log
-&quot;
-</command>
+&quot;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

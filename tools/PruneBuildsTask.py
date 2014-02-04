@@ -43,7 +43,7 @@ class PruneBuildTask(BuildTask):
                 sugar_build = self.get_build_info(build_dir)
                 self.prune_sugar_build(sugar_build)
         
-        self.prune_builder_db()
+        #self.prune_builder_db()
                 
     
     def get_exempt_list(self):
@@ -55,7 +55,7 @@ class PruneBuildTask(BuildTask):
         if db != None:
             exempt_list_sql = """
             select * from  builds
-            where expired_tag = 1;
+            where expired_tag = \"1\";
             """
             
             for task in db.query(exempt_list_sql):
