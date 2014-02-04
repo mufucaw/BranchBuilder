@@ -531,7 +531,7 @@ $(document).ready(function(){
                         buildListEventBind();
                         $("#mapped_version").hide();
                         $("#add-version").val("blank");
-                        alert("Add new build successfully!");
+                        alert("Add a new build successfully!");
                         
                     })
                     .fail(function() {

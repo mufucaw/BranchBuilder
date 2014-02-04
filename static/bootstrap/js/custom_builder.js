@@ -69,6 +69,7 @@ $(document).ready(
 				});		
 			} else {
 				$("#mapped_version").hide();
+                $("#add-version").val("blank");
 			}
 
 		});
