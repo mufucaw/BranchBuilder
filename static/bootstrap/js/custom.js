@@ -41,7 +41,7 @@ $(document).ready(function(){
 
         var tr_render = function (build) {
             var trBody = ' \
-                <td><a href="../build' + build["username"] + get_branch_name(build["branch"]) + '">' + get_branch_name(build["branch"]) + '</a></td> \
+                <td><a href="../build' + build["username"] + get_branch_name(build["branch"]) + '.html">' + get_branch_name(build["branch"]) + '</a></td> \
                 <td>' + build["version"] + '</td> \
                 <td><a href="../public/builds/' + build["username"] + get_branch_name(build["branch"]) + '/latest">' + build["last_build_date"] + '</a></td> \
                 <td>' + build["build_number"] + '</td> \
@@ -75,7 +75,7 @@ $(document).ready(function(){
             }
             var renderBody = ' \
             <tr id="' + build["task_id"] + '"> \
-                <td><a href="../build' + build["username"] + get_branch_name(build["branch"]) + '">' + get_branch_name(build["branch"]) + '</a></td> \
+                <td><a href="../build' + build["username"] + get_branch_name(build["branch"]) + '.html">' + get_branch_name(build["branch"]) + '</a></td> \
                 <td>' + build["version"] + '</td> \
                 <td><a href="../public/builds/' + build["username"] + get_branch_name(build["branch"]) + '/latest">' + build["last_build_date"] + '</a></td> \
                 <td>' + build["build_number"] + '</td> \
