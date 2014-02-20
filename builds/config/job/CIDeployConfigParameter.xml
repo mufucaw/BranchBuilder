@@ -77,7 +77,7 @@ ssh root@10.25.10.74 &quot; \
 ruby /srv/ci-tools/git_update.rb -r sugarcrm/AutoUtils -b master -p /srv/AutoUtils  &amp;&amp; \
 $GitSodaIceBox  &amp;&amp; \
 cd /srv/AutoUtils/jobs-utils/slave/target  &amp;&amp; \
-ruby deploy.rb --version=\&quot;${version}\&quot; --flavor=${lowerFlavor} --env=stack94 --name=\&quot;${instanceName}\&quot; --sodaicebox=/srv/SodaIceBox &amp;&amp; \
+ruby deploy.rb --ci --version=\&quot;${version}\&quot; --flavor=${lowerFlavor} --env=stack94 --name=\&quot;${instanceName}\&quot; --sodaicebox=/srv/SodaIceBox &amp;&amp; \
 echo \&quot;${deploy_timestamp}\&quot; &gt; /usr/local/apache2/htdocs/${instanceName}/build_date.log
 &quot;</command>
     </hudson.tasks.Shell>
