@@ -40,6 +40,8 @@ $(document).ready(function(){
 						$('#popView-flavor').val(buildObj['flavor']); 
 						$('#popView-flavor_list').val(buildObj['deploy_config']);
 
+						$('#popView-build_number').val(buildObj['build_number']);
+
 						//Set selectAction as editBuild
 						$('#popView-selectAction').val('editDeploy');
 
@@ -66,6 +68,7 @@ $(document).ready(function(){
 					 "username": $('#popView-username').val(),
 					 "version": $('#popView-version').val(), 
 					 "deploy_config": $('#popView-flavor_list').val(),
+					 "build_number": $('#popView-build_number').val()
 					 },
 
 					 function(data){

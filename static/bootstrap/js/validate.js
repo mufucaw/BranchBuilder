@@ -50,6 +50,26 @@ $(document).ready(function(){
 			return isValidate;
 		}, "Not a valid sugar branch");
 
+		jQuery.validator.addMethod("build_number", function( value, element ) {
+			var isValidate = false;
+			if (/latest|^\d{4}$/.test(value)) {
+				console.log("find it");
+                isValidate = true;
+			} else {
+				isValidate = this.optional(element) || ! /\s/.test(value.trim());
+			}
+			if (! isValidate) {
+				//element.value = "";
+				var validator = this;
+				setTimeout(function() {
+					validator.blockFocusCleanup = true;
+					element.focus();
+					validator.blockFocusCleanup = false;
+				}, 1);
+			}
+			return isValidate;
+		}, "Not a valid sugar build number");
+
 		$("#addBuildForm").validate();
 		$("#popView-actionBuildForm").validate();
 		$("#popView-sendMailForm").validate();
