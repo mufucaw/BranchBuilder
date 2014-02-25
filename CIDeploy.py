@@ -82,10 +82,10 @@ class CIDeployUpdate:
       try: 
         i.id
       except NameError:
-        ci_deploys = db.insert('ci_deployer', username=i.username, version=i.version, status='Available', deploy_config=i.deploy_config)
+        ci_deploys = db.insert('ci_deployer', username=i.username, version=i.version, status='Available', deploy_config=i.deploy_config, build_number=i.build_number)
 	return "{}"
       else:
-        db.update('ci_deployer', where="id=" + i.id, username=i.username, version=i.version, deploy_config=i.deploy_config)
+        db.update('ci_deployer', where="id=" + i.id, username=i.username, version=i.version, deploy_config=i.deploy_config, build_number=i.build_number)
 
         raise web.seeother("/")
 
@@ -94,9 +94,9 @@ class CIDeployGet:
       i = web.input()
       try:
         i.id
-        ci_deploy = db.select("ci_deployer", where="id=" + i.id, what="id, username, version, deploy_config")
-	for x in  ci_deploy:
-	   deployString = json.JSONEncoder().encode({"username": x.username, "version": x.version, "deploy_config": x.deploy_config})
+        ci_deploy = db.select("ci_deployer", where="id=" + i.id, what="id, username, version, deploy_config, build_number")
+        for x in  ci_deploy:
+            deployString = json.JSONEncoder().encode({"username": x.username, "version": x.version, "deploy_config": x.deploy_config, "build_number": x.build_number})
       except Exception:
         return False
 
@@ -145,7 +145,8 @@ class RunDeploy:
         version = m.version
         webroot = m.webroot
         deploy_config = m.deploy_config
-	timeo = datetime.strptime(m.last_deploy_date, "%Y-%m-%d %H:%M:%S")
+        build_number = m.build_number
+        timeo = datetime.strptime(m.last_deploy_date, "%Y-%m-%d %H:%M:%S")
         deploy_timestamp = timeo.strftime("%Y%m%d%H%M%S")
 
       builder = JobBuilder(appconfig.jenkins_url)
@@ -156,32 +157,32 @@ class RunDeploy:
                 version=version, \
                 webroot=webroot, \
                 flavor=deploy_config, \
+                build_number=build_number, \
                 deploy_timestamp=deploy_timestamp)      
 
 class CIDeploy:
-        def GET(self):
+    def GET(self):
+        i = web.input()
+        selectedDeploys = db.select('ci_deployer', where="id=" + i.task_id, what="id")
 
-                i = web.input()
-                selectedDeploys = db.select('ci_deployer', where="id=" + i.task_id, what="id")
+        if selectedDeploys:
+            ci_deploys_status = db.select('ci_deploys_status')
 
-                if selectedDeploys:
-                        ci_deploys_status = db.select('ci_deploys_status')
+            if ci_deploys_status:
+                db.insert('ci_deploys_status', task_id=int(i.task_id), status="InQueue")
+                statusString = json.JSONEncoder().encode({"task_id": i.task_id, "status": "InQueue" })
+            else:
+                db.insert('ci_deploys_status',
+                        task_id=int(i.task_id),
+                        status="Running")
 
-                        if ci_deploys_status:
-                                db.insert('ci_deploys_status', task_id=int(i.task_id), status="InQueue")
-                                statusString = json.JSONEncoder().encode({"task_id": i.task_id, "status": "InQueue" })
-                        else:
-                                db.insert('ci_deploys_status',
-                                                        task_id=int(i.task_id),
-                                                        status="Running")
+        date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        db.update('ci_deployer', where='id=' + str(i.task_id), last_deploy_date=date_now)
 
-				date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-				db.update('ci_deployer', where='id=' + str(i.task_id), last_deploy_date=date_now)
+        RunDeploy().run(i.task_id)
+        statusString = json.JSONEncoder().encode({"task_id": i.task_id, "status": "Running" })
 
-                                RunDeploy().run(i.task_id)
-                                statusString = json.JSONEncoder().encode({"task_id": i.task_id, "status": "Running" })
-
-		return statusString
+        return statusString
 
 class CICron:
     def __init__(self):
@@ -296,7 +297,7 @@ class CIDeployAdd:
           if len(deploy_config) == 0 : deploy_config.append("Ent")
 
           deploy_config_new = "" ",".join(deploy_config)
-          db.insert('ci_deployer', username=i.username, version=i.version, webroot=i.webroot, status='Available', deploy_config=deploy_config_new)
+          db.insert('ci_deployer', username=i.username, version=i.version, webroot=i.webroot, status='Available', deploy_config=deploy_config_new, build_number=i.build_number)
           raise web.seeother("/")
 
 class ODFormat:
