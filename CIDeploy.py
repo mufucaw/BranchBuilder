@@ -82,10 +82,10 @@ class CIDeployUpdate:
       try: 
         i.id
       except NameError:
-        ci_deploys = db.insert('ci_deployer', username=i.username, version=i.version, status='Available', deploy_config=i.deploy_config, build_number=i.build_number)
+        ci_deploys = db.insert('ci_deployer', username=i.username, version=i.version, status='Available', deploy_config=i.deploy_config, sugar_build_number=i.sugar_build_number)
 	return "{}"
       else:
-        db.update('ci_deployer', where="id=" + i.id, username=i.username, version=i.version, deploy_config=i.deploy_config, build_number=i.build_number)
+        db.update('ci_deployer', where="id=" + i.id, username=i.username, version=i.version, deploy_config=i.deploy_config, sugar_build_number=i.sugar_build_number)
 
         raise web.seeother("/")
 
@@ -94,9 +94,9 @@ class CIDeployGet:
       i = web.input()
       try:
         i.id
-        ci_deploy = db.select("ci_deployer", where="id=" + i.id, what="id, username, version, deploy_config, build_number")
-        for x in  ci_deploy:
-            deployString = json.JSONEncoder().encode({"username": x.username, "version": x.version, "deploy_config": x.deploy_config, "build_number": x.build_number})
+        ci_deploy = db.select("ci_deployer", where="id=" + i.id, what="id, username, version, deploy_config, sugar_build_number")
+        for x in ci_deploy:
+            deployString = json.JSONEncoder().encode({"username": x.username, "version": x.version, "deploy_config": x.deploy_config, "sugar_build_number": x.sugar_build_number})
       except Exception:
         return False
 
@@ -145,7 +145,7 @@ class RunDeploy:
         version = m.version
         webroot = m.webroot
         deploy_config = m.deploy_config
-        build_number = m.build_number
+        sugar_build_number = m.sugar_build_number
         timeo = datetime.strptime(m.last_deploy_date, "%Y-%m-%d %H:%M:%S")
         deploy_timestamp = timeo.strftime("%Y%m%d%H%M%S")
 
@@ -157,7 +157,7 @@ class RunDeploy:
                 version=version, \
                 webroot=webroot, \
                 flavor=deploy_config, \
-                build_number=build_number, \
+                sugar_build_number=sugar_build_number, \
                 deploy_timestamp=deploy_timestamp)      
 
 class CIDeploy:
@@ -280,7 +280,7 @@ class CICron:
 
 class CIDeployAdd:
     def POST(self):
-      i = web.input()
+      i = web.input(sugar_build_number="latest")
       isDuplicate = db.select('ci_deployer', where='username=\"' + i.username + '\" AND version=\"' + i.version + '\"', what="count(*) as count")[0]
       deploy_config = []    
 
@@ -297,7 +297,7 @@ class CIDeployAdd:
           if len(deploy_config) == 0 : deploy_config.append("Ent")
 
           deploy_config_new = "" ",".join(deploy_config)
-          db.insert('ci_deployer', username=i.username, version=i.version, webroot=i.webroot, status='Available', deploy_config=deploy_config_new, build_number=i.build_number)
+          db.insert('ci_deployer', username=i.username, version=i.version, webroot=i.webroot, status='Available', deploy_config=deploy_config_new, sugar_build_number=i.sugar_build_number)
           raise web.seeother("/")
 
 class ODFormat:

@@ -27,9 +27,9 @@
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
-          <name>build_number</name>
+          <name>sugar_build_number</name>
           <description></description>
-          <defaultValue></defaultValue>
+          <defaultValue>latest</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
@@ -82,7 +82,7 @@ ssh root@10.25.10.74 &quot; \
 ruby /srv/ci-tools/git_update.rb -r sugarcrm/AutoUtils -b master -p /srv/AutoUtils  &amp;&amp; \
 $GitSodaIceBox  &amp;&amp; \
 cd /srv/AutoUtils/jobs-utils/slave/target  &amp;&amp; \
-ruby deploy.rb --ci --version=\&quot;${version}\&quot; --flavor=${lowerFlavor} --env=stack94 --name=\&quot;${instanceName}\&quot; --sodaicebox=/srv/SodaIceBox  --source=&quot;http://honey-b/builds/${version}/${build_number}/SugarEnt-${version}.zip&quot; &amp;&amp; \
+ruby deploy.rb --ci --version=\&quot;${version}\&quot; --flavor=${lowerFlavor} --env=stack94 --name=\&quot;${instanceName}\&quot; --sodaicebox=/srv/SodaIceBox  --source=&quot;http://honey-b/builds/${version}/${sugar_build_number}/Sugar${flavor}-${version}.zip&quot; &amp;&amp; \
 echo \&quot;${deploy_timestamp}\&quot; &gt; /usr/local/apache2/htdocs/${instanceName}/build_date.log
 &quot;</command>
     </hudson.tasks.Shell>

@@ -52,7 +52,7 @@ $(document).ready(function(){
 
 		jQuery.validator.addMethod("build_number", function( value, element ) {
 			var isValidate = false;
-			if (/latest|^\d{4}$/.test(value)) {
+			if (/^latest$|^\d{4}$/.test(value)) {
 				console.log("find it");
                 isValidate = true;
 			} else {
