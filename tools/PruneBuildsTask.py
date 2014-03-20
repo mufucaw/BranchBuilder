@@ -43,7 +43,7 @@ class PruneBuildTask(BuildTask):
                 sugar_build = self.get_build_info(build_dir)
                 self.prune_sugar_build(sugar_build)
         
-        #self.prune_builder_db()
+        self.prune_builder_db()
                 
     
     def get_exempt_list(self):
@@ -212,8 +212,8 @@ class PruneBuildTask(BuildTask):
         @param sugar_build build object
         @return None
         """
-        self.prune_build_dir(sugar_build)
-        self.prune_build_db(sugar_build)
+        #self.prune_build_dir(sugar_build)
+        #self.prune_build_db(sugar_build)
         self.prune_build_installer(sugar_build)
         self.prune_build_summary_page(sugar_build)
 
@@ -266,7 +266,9 @@ class PruneBuildTask(BuildTask):
         @return None
         """
         logging.info("Start to prune sugar instance {}".format(sugar_build["build_dir"]))
-        shutil.rmtree(sugar_build["build_dir"]) 
+        
+        if os.path.isdir(sugar_build["build_dir"]):
+            shutil.rmtree(sugar_build["build_dir"]) 
 
     
     def prune_build_db(self, sugar_build):
