@@ -14,7 +14,7 @@
         <hudson.model.StringParameterDefinition>
           <name>flavor</name>
           <description></description>
-          <defaultValue>ent</defaultValue>
+          <defaultValue>Ent</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>username</name>
@@ -78,11 +78,11 @@ if [ &quot;$firstChar&quot; = &quot;7&quot; ]; then
 GitSodaIceBox=&quot;pwd&quot;
 fi
 echo $GitSodaIceBox
-ssh root@10.25.10.74 &quot; \
+ssh root@10.25.10.15 &quot; \
 ruby /srv/ci-tools/git_update.rb -r sugarcrm/AutoUtils -b master -p /srv/AutoUtils  &amp;&amp; \
 $GitSodaIceBox  &amp;&amp; \
 cd /srv/AutoUtils/jobs-utils/slave/target  &amp;&amp; \
-ruby deploy.rb --ci --version=\&quot;${version}\&quot; --flavor=${lowerFlavor} --env=stack94 --name=\&quot;${instanceName}\&quot; --sodaicebox=/srv/SodaIceBox  --source=&quot;http://honey-b/builds/${version}/${sugar_build_number}/Sugar${flavor}-${version}.zip&quot; &amp;&amp; \
+ruby deploy.rb --ci --version=\&quot;${version}\&quot; --flavor=${lowerFlavor} --env=stack94 --name=\&quot;${instanceName}\&quot;  --source=&quot;http://honey-b/builds/${version}/${sugar_build_number}/Sugar${flavor}-${version}.zip&quot; &amp;&amp; \
 echo \&quot;${deploy_timestamp}\&quot; &gt; /usr/local/apache2/htdocs/${instanceName}/build_date.log
 &quot;</command>
     </hudson.tasks.Shell>
