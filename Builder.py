@@ -375,6 +375,7 @@ class GetBuild:
         if selectedBuilds:
             for x in selectedBuilds:
                 buildString = json.JSONEncoder().encode({
+                    'task_id': i.task_id,
                     'repos': x.repos,
                     'branch': x.branch,
                     'version': x.version,
