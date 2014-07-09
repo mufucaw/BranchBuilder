@@ -31,6 +31,11 @@
           <description></description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>demo_data</name>
+          <description></description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -55,6 +60,7 @@ ssh eyang@qatest-web1.sjc.sugarcrm.pvt "cd ~/deployer; php ~/deployer/main.php \
 -h qatest-db1  \
 -u qatest  \
 -p qatest  \
+-m $demo_data \
 "
 if [ $? -gt 0 ] ; then
 	exit $?

@@ -39,6 +39,22 @@ od_users = {
 		"support4": {"full_name": "Support 4", "email": "support@sugarcrm.com"} ,\
 		"support5": {"full_name": "Support 5", "email": "support@sugarcrm.com"} ,\
 		"phuang": {"full_name": "Paul Huang", "email": "phuang@sugarcrm.com"} ,\
+		"ajauhari": {"full_name": "Ankita Jauhari", "email": "ajauhari@sugarcrm.com"} ,\
+		"pgarg": {"full_name": "Praveen Garg", "email": "pgarg@sugarcrm.com"} ,\
+		"rgupta": {"full_name": "Rohit Gupta", "email": "rgupta@sugarcrm.com"} ,\
+		"sshukla": {"full_name": "Sourabh Shukla", "email": "sshukla@sugarcrm.com"} ,\
+		"sarya": {"full_name": "Stuti Arya", "email": "sarya@sugarcrm.com"}, \
+		"rtayal": {"full_name": "Rahul Tayal", "email": "rtayal@sugarcrm.com"}, \
+		"dpareek": {"full_name": "Dheeraj Pareek", "email": "dpareek@sugarcrm.com"}, \
+		"asinha": {"full_name": "Amarendra Sinha", "email": "asinha@sugarcrm.com"}, \
+		"ajabble": {"full_name": "Ashish Jabble", "email": "ajabble@sugarcrm.com"}, \
+		"mshariq": {"full_name": "Mohammed Shariq", "email": "mshariq@sugarcrm.com"}, \
+		"msharma": {"full_name": "Monika Sharma", "email": "rma@sugarcrm.com"}, \
+		"rthakur": {"full_name": "Raj Thakur", "email": "rthakur@sugarcrm.com"}, \
+		"asharma": {"full_name": "Akshat Sharma", "email": "asharma@sugarcrm.com"}, \
+		"bchandak": {"full_name": "Basant Chandak", "email": "bchandak@sugarcrm.com"}, \
+		"msehra": {"full_name": "Mukul Sehra", "email": "msehra@sugarcrm.com"}, \
+		"sgupta": {"full_name": "Sanket Gupta", "email": "sgupta@sugarcrm.com"}
 	}
 od_users["tester"] =  {"full_name": "QA Tester", "email": "oyang@sugarcrm.com"}
 od_version = [
@@ -51,6 +67,7 @@ od_version = [
     '6.5.15',
     '6.5.16',
     '6.5.17',
+    '6.5.18',
     '6.6.0',
     '6.6.1',
     '6.6.2',
@@ -75,10 +92,11 @@ od_version = [
     '7.1.5RC2',
     '7.2.0',
     '7.2.0.1',
-    '7.2.1'
+    '7.2.1',
+    '7.2.2.0'
 ]
 ci_users = dict(od_users)
-ci_version = ['6.5.17', '6.7.1', '6.7.2', '6.7.3', '6.7.4', '6.7.5', '6.7.6', '7.0.0', '7.0.1', '7.1.0', '7.1.5','7.1.6', '7.1.5RC1', '7.1.5RC2', '7.2.0', '7.2.0.1', '7.2.1']
+ci_version = ['6.5.17', '6.5.18', '6.7.1', '6.7.2', '6.7.3', '6.7.4', '6.7.5', '6.7.6', '7.0.0', '7.0.1', '7.1.0', '7.1.5','7.1.6', '7.1.5RC1', '7.1.5RC2', '7.2.0', '7.2.0.1', '7.2.1', '7.2.2.0']
 
 nomad_users = {
 		"builder": {"full_name": "Branch Builder", "email": "build@sugarcrm.com"} , \

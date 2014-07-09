@@ -15,7 +15,7 @@ $(document).ready(function(){
 
         var get_username = function(author) {
             var username = "";
-            author = author.replace(/\.|_|-|#|(|)/, "");
+            author = author.replace(/\.|_|-|#|(|)/g, "");
             var part_list = author.trim().split(/\s+/);
 
             if (part_list.length > 1) {
@@ -23,6 +23,7 @@ $(document).ready(function(){
             } else {
                 username = part_list[0];
             }
+            console.log(username);
 
             return username.toLowerCase().substr(0, 64);
         };
