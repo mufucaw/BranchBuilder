@@ -75,6 +75,42 @@ branchbuilder= {
 		{
 			'repo_name': 'Mango',
 			'repo_url': 'git@github.com:sugarcrm/Mango.git',
+			'branch': '7_2'
+		},
+		{
+			'repo_name': 'Sidecar',
+			'repo_url': 'git@github.com:sugarcrm/sidecar.git',
+			'branch': '7_2'
+		}
+	],
+    '7.2.2.1': [
+		{
+			'repo_name': 'Mango',
+			'repo_url': 'git@github.com:sugarcrm/Mango.git',
+			'branch': '7_2'
+		},
+		{
+			'repo_name': 'Sidecar',
+			'repo_url': 'git@github.com:sugarcrm/sidecar.git',
+			'branch': '7_2'
+		}
+	],
+	'7.5.0.0beta2': [
+		{
+			'repo_name': 'Mango',
+			'repo_url': 'git@github.com:sugarcrm/Mango.git',
+			'branch': '7_5'
+		},
+		{
+			'repo_name': 'Sidecar',
+			'repo_url': 'git@github.com:sugarcrm/sidecar.git',
+			'branch': '7_5'
+		}
+	],
+	'7.6.0.0': [
+		{
+			'repo_name': 'Mango',
+			'repo_url': 'git@github.com:sugarcrm/Mango.git',
 			'branch': 'master'
 		},
 		{
@@ -83,16 +119,16 @@ branchbuilder= {
 			'branch': 'master'
 		}
 	],
-	'7.5.0.0': [
+	'7.7.0.0a': [
 		{
 			'repo_name': 'Mango',
 			'repo_url': 'git@github.com:sugarcrm/Mango.git',
-			'branch': 'kiwi'
+			'branch': 'master_platform'
 		},
 		{
 			'repo_name': 'Sidecar',
 			'repo_url': 'git@github.com:sugarcrm/sidecar.git',
-			'branch': 'kiwi'
+			'branch': 'master'
 		}
 	],
 	'7.1.5RC2': [
@@ -131,11 +167,11 @@ branchbuilder= {
 			'branch': '6_5_18'
 		}
     ],
-	'6.7.6': [
+	'6.7.7': [
 		{
 			'repo_name': 'Mango',
 			'repo_url': 'git@github.com:sugarcrm/Mango.git',
-			'branch': '6_7_6'
+			'branch': '6_7_7'
 		},
 		{
 			'repo_name': 'Sidecar',

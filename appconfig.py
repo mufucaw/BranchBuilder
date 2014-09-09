@@ -54,7 +54,8 @@ od_users = {
 		"asharma": {"full_name": "Akshat Sharma", "email": "asharma@sugarcrm.com"}, \
 		"bchandak": {"full_name": "Basant Chandak", "email": "bchandak@sugarcrm.com"}, \
 		"msehra": {"full_name": "Mukul Sehra", "email": "msehra@sugarcrm.com"}, \
-		"sgupta": {"full_name": "Sanket Gupta", "email": "sgupta@sugarcrm.com"}
+		"sgupta": {"full_name": "Sanket Gupta", "email": "sgupta@sugarcrm.com"}, \
+		"sparsuram": {"full_name": "Suresh Parsuram", "email": "sparsuram@sugarcrm.com"}
 	}
 od_users["tester"] =  {"full_name": "QA Tester", "email": "oyang@sugarcrm.com"}
 od_version = [
@@ -80,6 +81,7 @@ od_version = [
     '6.7.4',
     '6.7.5',
     '6.7.6',
+    '6.7.7',
     '7.0.0',
     '7.0.1',
     '7.0.0RC1',
@@ -88,15 +90,48 @@ od_version = [
     '7.1.0',
     '7.1.5',
     '7.1.6',
+    '7.1.7',
     '7.1.5RC1',
     '7.1.5RC2',
     '7.2.0',
     '7.2.0.1',
     '7.2.1',
-    '7.2.2.0'
+    '7.2.2.0',
+    '7.2.2.1',
+    '7.5.0.0',
+    '7.5.0.0beta1',
+    '7.5.0.0beta2',
+    '7.6.0.0'
 ]
 ci_users = dict(od_users)
-ci_version = ['6.5.17', '6.5.18', '6.7.1', '6.7.2', '6.7.3', '6.7.4', '6.7.5', '6.7.6', '7.0.0', '7.0.1', '7.1.0', '7.1.5','7.1.6', '7.1.5RC1', '7.1.5RC2', '7.2.0', '7.2.0.1', '7.2.1', '7.2.2.0']
+ci_version = [
+    '6.5.17',
+    '6.5.18',
+    '6.7.1',
+    '6.7.2',
+    '6.7.3',
+    '6.7.4',
+    '6.7.5',
+    '6.7.6',
+    '6.7.7',
+    '7.0.0',
+    '7.0.1',
+    '7.1.0',
+    '7.1.5',
+    '7.1.6',
+    '7.1.7',
+    '7.1.5RC1',
+    '7.1.5RC2',
+    '7.2.0',
+    '7.2.0.1',
+    '7.2.1',
+    '7.2.2.0',
+    '7.2.2.1',
+    '7.5.0.0',
+    '7.5.0.0beta1',
+    '7.5.0.0beta2',
+    '7.6.0.0'
+]
 
 nomad_users = {
 		"builder": {"full_name": "Branch Builder", "email": "build@sugarcrm.com"} , \

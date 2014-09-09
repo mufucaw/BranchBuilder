@@ -51,40 +51,11 @@
   </axes>
   <builders>
     <hudson.tasks.Shell>
-      <command>shortVer=`echo $version | sed &apos;s/\.//g&apos;`
-sugarVer=`echo $version`
-echo &quot;shortVer is $shortVer \n&quot;
-lowerFlavor=`echo $flavor | tr &apos;[A-Z]&apos; &apos;[a-z]&apos; `
-echo &quot;lowerFlavor is $lowerFlavor \n&quot;
-echo &quot;deploy timestamp is $deploy_timestamp \n&quot;
+      <command>ruby /srv/ci-tools/git_update.rb -r sugarcrm/AutoUtils -b master -p /srv/AutoUtils
 
-if [ &quot;$username&quot; != &quot;&quot; ]; then
-  instanceName=${username}_${shortVer}${lowerFlavor}
-else
-  instanceName=${lowerFlavor}${shortVer}
-fi
-echo &quot;instanceName is $instanceName&quot;
+cd /srv/AutoUtils/od_deployer
 
-sugarShortVer=`echo $version | cut -c 1,2,3`
-echo &quot;sugarShortVer is $sugarShortVer&quot;
-case &quot;$sugarShortVer&quot; in
-    &quot;6.5&quot;) sodaBranch=&quot;6_5_0-voodoo&quot;;;
-    *) sodaBranch=`echo $sugarShortVer | tr &apos;.&apos; &apos;_&apos;`&quot;_0&quot; ;;
-esac
-echo &quot;sodaBranch is $sodaBranch&quot;
-GitSodaIceBox=&quot;ruby /srv/ci-tools/git_update.rb -r sugarcrm/SodaIceBox -b ${sodaBranch} -p /srv/SodaIceBox&quot;
-firstChar=`echo $version | cut -c 1`
-if [ &quot;$firstChar&quot; = &quot;7&quot; ]; then
-GitSodaIceBox=&quot;pwd&quot;
-fi
-echo $GitSodaIceBox
-ssh root@10.25.10.15 &quot; \
-ruby /srv/ci-tools/git_update.rb -r sugarcrm/AutoUtils -b master -p /srv/AutoUtils  &amp;&amp; \
-$GitSodaIceBox  &amp;&amp; \
-cd /srv/AutoUtils/jobs-utils/slave/target  &amp;&amp; \
-ruby deploy.rb --ci --version=\&quot;${version}\&quot; --flavor=${lowerFlavor} --env=stack94 --name=\&quot;${instanceName}\&quot;  --source=&quot;http://honey-b/builds/${version}/${sugar_build_number}/Sugar${flavor}-${version}.zip&quot; &amp;&amp; \
-echo \&quot;${deploy_timestamp}\&quot; &gt; /usr/local/apache2/htdocs/${instanceName}/build_date.log
-&quot;</command>
+php deploy_ci.php --version $version --flavor $flavor --username $username --deploy_timestamp $deploy_timestamp --sugar_build_number $sugar_build_number</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
