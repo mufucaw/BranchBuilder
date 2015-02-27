@@ -170,7 +170,7 @@ class BuildUtil:
       if full_name == "":
           return ""
       else:
-          full_name_list = full_name.split(" ")	
+          full_name_list = full_name.split()	
           if len(full_name_list) > 1:
               user_name = full_name_list[0][0] + full_name_list[-1]
           else:

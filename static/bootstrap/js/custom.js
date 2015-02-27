@@ -430,12 +430,26 @@ $(document).ready(function(){
              });
         }
 
+        function executeFullSearch() {
+            var q = encodeURIComponent($("#searchForm-query").val().trim());
+            var queryURL = "./searchbuild";
+            if (_.isNull(q.match(/^["]/)) && q.match(/[-\_\s]/)) {
+                q = '"' + q + '"';
+            }
+
+            renderBuildList(q, queryURL, 1);
+        }
+        
+        $("#searchForm-query").on('keyup', _.debounce(executeFullSearch, 500, false));
+        /*
+
         $("#searchForm-query").keyup(function(){
             var q = encodeURIComponent($(this).val().trim());
             var queryURL = "./searchbuild";
 
             renderBuildList(q, queryURL, 1);
         });
+        */
 
         $("#buildList-firstPage-link").click(function(){
             if ($("#buildList-pageNum").val() > 1) {

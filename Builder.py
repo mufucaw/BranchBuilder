@@ -501,9 +501,12 @@ class BuildCron:
 class SendMailToAdmin:
 
     def POST(self):
+        """
         i = web.input()
         web.sendmail(i.from_address, 'oyang@sugarcrm.com',
                      'BranchBuilder - ' + i.subject, i.message)
+        """
+        pass
 
 class MappedVersion:
 	def GET(self):
