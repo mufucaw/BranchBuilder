@@ -153,6 +153,7 @@ class Add:
                 'last_build_date': '',
                 'start_time': '',
                 'status': 'Available',
+                'deploy_status': 'Unknown',
                 'package_list': package_list,
                 'upgrade_package': upgrade_package,
                 'latin': latin,
@@ -420,6 +421,7 @@ class BuildStatus:
     def POST(self):
         i = web.input()
         job_status = 'Available'
+        deploy_status = 'Unknown'
         final_status = 'Available'
 
         if i.status :
@@ -473,10 +475,13 @@ class BuildStatus:
             try:
                 if i.status != 'progress':
                     date_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    if i.deploy_status:
+                        deploy_status = i.deploy_status
                     n = db.update(
                         'builds',
                         where='task_id="' + i.task_id + '"',
                         status=final_status,
+                        deploy_status=deploy_status,
                         last_build_date=date_now
                         )
             except:
