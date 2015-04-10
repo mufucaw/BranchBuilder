@@ -63,6 +63,7 @@ $var site_url: $site_url
 		<th>Latest Build</th>
 		<th>Build #</th>
 		<th>Status</th>
+		<th>Deploy</th>
 		<th>Repository URI</th>
 		<th>Author</th>
 		<th>Log</th>
@@ -88,6 +89,7 @@ $var site_url: $site_url
             <td><a href="../public/builds/${build.username}${build.branch}/latest">${build.last_build_date}</a></td>
             <td>${build.build_number}</td>
 			<td name="list_status" class="${build.status}" id="build_status_${build.task_id}">$build.status</td>
+			<td name="list_deploy_status" class="${build.deploy_status}" id="deploy_status_${build.task_id}">$build.deploy_status</td>
 			<td>$build.repos</td>
 			<td>$build.author</td>
 			<td><a href="/logs/builds/${build.task_id}.log" target="_blank">log</a></td>
