@@ -8,7 +8,6 @@ create virtual table builds using fts4 (
     start_time text,
     build_number integer,
     status text,
-    deploy_status text,
     package_list text,
     upgrade_package integer default 0,
     styleguide_repo text,
@@ -18,6 +17,7 @@ create virtual table builds using fts4 (
     latin integer,
     demo_data integer,
     expired_tag text default 1
+    deploy_status text
 );
 create table if not exists builds_status(
     id integer primary key,
