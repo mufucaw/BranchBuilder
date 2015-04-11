@@ -16,7 +16,7 @@ create virtual table builds using fts4 (
     sidecar_branch text,
     latin integer,
     demo_data integer,
-    expired_tag text default 1
+    expired_tag text default 1,
     deploy_status text
 );
 create table if not exists builds_status(
