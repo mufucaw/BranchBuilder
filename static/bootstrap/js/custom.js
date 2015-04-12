@@ -131,6 +131,7 @@ $(document).ready(function(){
                         {"task_id": task_id},
                         function(data){
                             $('#build_status_' + data.task_id).text(data.status);
+                            $('#build_status_' + data.task_id).attr("class", data.status);
                             //window.location.reload(true);
                         }
                     )
