@@ -476,7 +476,7 @@ class BuildStatus:
                 if i.status != 'progress':
                     date_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                     if i.deploy_status:
-                        deploy_status = i.deploy_status
+                        deploy_status = i.deploy_status.lower().title()
                     n = db.update(
                         'builds',
                         where='task_id="' + i.task_id + '"',
