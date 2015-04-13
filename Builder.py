@@ -406,6 +406,7 @@ class StopBuild:
         if len(job_inqueue_list) > 0:
             kue_job_id = job_inqueue_list[0]["kue_job_id"]
             db.delete('builds_status', where='task_id="' + i.task_id + '"')
+            db.update('builds', where='task_id="' + i.task_id + '"', deploy_status='Canceled', status='Canceled')
 
             try:
                 job_url = appconfig.kue_server + '/job'
