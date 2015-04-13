@@ -264,7 +264,7 @@ class Build:
                     'data': dict(selectedBuilds),
                     'options': {
                         'priority': priority,
-                        'attempts': 2
+                        'attempts': 1
                         }
                     }
             headers = {'content-type': 'application/json'}
@@ -497,9 +497,10 @@ class BuildCron:
 
     def run_cron(self):
         build_query = """
-        select * from builds_status
-        left join builds
-        where builds_status.task_id=builds.task_id
+        select a.id, a.task_id,a.status,a.kue_job_id,b.deploy_status
+        from builds_status as a
+        left join builds as b
+        where a.task_id=b.task_id
         """
         return db.query(build_query)
 
