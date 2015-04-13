@@ -287,7 +287,7 @@ class Build:
 
             t = db.transaction()
             try:
-                n = db.insert('builds_status', 
+                n = db.insert('builds_status',
                         task_id=str(i.task_id),
                         priority=priority, status=job_status,
                         kue_job_id=kue_job_id)
@@ -496,7 +496,12 @@ class BuildStatus:
 class BuildCron:
 
     def run_cron(self):
-        return db.select('builds_status', what='task_id, status, priority, kue_job_id')
+        build_query = """
+        select * from builds_status
+        left join builds
+        where builds_status.task_id=builds.task_id
+        """
+        return db.query(build_query)
 
     def GET(self):
         job_list = self.run_cron()
@@ -519,8 +524,8 @@ class MappedVersion:
 		i = web.input(version="")
 		web.header('Content-type', 'application/json')
 		branchbuilder = versionconfig.branchbuilder
-		
-		if i.version in branchbuilder.keys():       
+
+		if i.version in branchbuilder.keys():
 			return json.JSONEncoder().encode(branchbuilder[i.version])
 		else:
 			return '{}'

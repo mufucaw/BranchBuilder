@@ -67,7 +67,9 @@ $(document).ready(function(){
                     <a data-toggle="modal" name="duplicateBuild" class="btn" data-target="#popupViewBuild" id="dupList-' + build["task_id"] + '" >Duplicate</a> \
                     <input type="button" class="btn btn-danger" name="removeBuild" id="buildListRemove-' + build["task_id"] + '" value="Remove"> \
                     ';
-            if (build["status"] == "Running" || build["status"] == "InQueue") {
+            if (build["status"] == "Running" || build["status"] == "InQueue"
+            ||  build["deploy_status"] == "Running" || build["deploy_status"] == "InQueue"
+            ) {
                 actionPart = ' \
                     <input type="button" class="btn btn-success" name="rebuild" id="buildList-' + build["task_id"] + '"  value="Build" >  \
                     <input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-' + build["task_id"] + '" value="Edit" > \
@@ -322,6 +324,7 @@ $(document).ready(function(){
                             $('#buildList-' + data[x].task_id).attr("disabled", "disabled");
                             $('#build_status_' + data[x].task_id).text(data[x].status);
                             $('#build_status_' + data[x].task_id).attr("class", data[x].status);
+                            $('#deploy_status_' + data[x].task_id).attr("class", data[x].deploy_status);
                             
                             //Disable the edit button
                             $('#editList-' + data[x].task_id).attr("disabled", "disabled");
