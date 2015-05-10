@@ -36,6 +36,7 @@ $(document).ready(function(){
 						$('#popView-version').val(buildObj['version']); 
 						$('#popView-flavor').val(buildObj['flavor']); 
 						$('#popView-flavor_list').val(buildObj['deploy_config']);
+                        $('#popView-demo_data').attr("checked", buildObj['demo_data'] == "1" ? true : false);
 
 						//Set selectAction as editBuild
 						$('#popView-selectAction').val('editDeploy');
@@ -56,6 +57,7 @@ $(document).ready(function(){
 			*/
 
 			if ($('#popView-selectAction').val() == 'editDeploy'){
+                var demo_data = $('#popView-demo_data').attr('checked') ? "1" : "0";
 				$.post('/BranchBuilder/ODDeploy/oddeploy_update', 
 
 					{
@@ -63,6 +65,7 @@ $(document).ready(function(){
 					 "username": $('#popView-username').val(),
 					 "version": $('#popView-version').val(), 
 					 "deploy_config": $('#popView-flavor_list').val(),
+					 "demo_data": demo_data
 					 },
 
 					 function(data){
@@ -109,7 +112,7 @@ $(document).ready(function(){
 				}
 			);
 
-		}, 5000);
+		}, 10000);
 
 		/*
 		setInterval(function(){

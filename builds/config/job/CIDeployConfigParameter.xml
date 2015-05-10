@@ -9,12 +9,12 @@
         <hudson.model.StringParameterDefinition>
           <name>version</name>
           <description></description>
-          <defaultValue>6.6.2</defaultValue>
+          <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>flavor</name>
           <description></description>
-          <defaultValue>ent</defaultValue>
+          <defaultValue>Ent</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>username</name>
@@ -25,6 +25,11 @@
           <name>deploy_timestamp</name>
           <description></description>
           <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>sugar_build_number</name>
+          <description></description>
+          <defaultValue>latest</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
@@ -40,44 +45,17 @@
     <hudson.matrix.LabelAxis>
       <name>label</name>
       <values>
-        <string>CIDeploy</string>
+        <string>master</string>
       </values>
     </hudson.matrix.LabelAxis>
   </axes>
   <builders>
     <hudson.tasks.Shell>
-      <command>
-shortVer=`echo $version | sed &apos;s/\.//g&apos;`
-sugarVer=`echo $version`
-echo &quot;shortVer is $shortVer \n&quot;
-lowerFlavor=`echo $flavor | tr &apos;[A-Z]&apos; &apos;[a-z]&apos; `
-echo &quot;lowerFlavor is $lowerFlavor \n&quot;
-echo &quot;deploy timestamp is $deploy_timestamp \n&quot;
+      <command>ruby /srv/ci-tools/git_update.rb -r sugarcrm/AutoUtils -b master -p /srv/AutoUtils
 
-if [ &quot;$username&quot; != &quot;&quot; ]; then
-  instanceName=${username}_${shortVer}${lowerFlavor}
-else
-  instanceName=${lowerFlavor}${shortVer}
-fi
-echo &quot;instanceName is $instanceName&quot;
+cd /srv/AutoUtils/od_deployer
 
-sugarShortVer=`echo $version | cut -c 1,2,3`
-echo &quot;sugarShortVer is $sugarShortVer&quot;
-case &quot;$sugarShortVer&quot; in
-    &quot;6.5&quot;) sodaBranch=&quot;6_5_0-voodoo&quot;;;
-    *) sodaBranch=`echo $sugarShortVer | tr &apos;.&apos; &apos;_&apos;`&quot;_0&quot; ;;
-esac
-echo &quot;sodaBranch is $sodaBranch&quot;
-ruby /srv/ci-tools/git_update.rb -r sugarcrm/SodaIceBox -b $sodaBranch -p /srv/SodaIceBox 
-cd /srv/AutoUtils/jobs-utils/slave/target 
-ruby deploy.rb --version=&quot;${version}&quot; --flavor=${lowerFlavor} --env=ec2-trg-01 --xoverride --noautocomplete --nosprites --savequery --portalenv=&quot;test&quot; --name=&quot;${instanceName}&quot;
-
-echo &quot;${deploy_timestamp}&quot; &gt; /var/www/${instanceName}/build_date.log
-cp -r /srv/SodaIceBox  /var/www/${instanceName}/
-chmod -R 777 /var/www/${instanceName}/SodaIceBox
-chown -R www-data:www-data /var/www/${instanceName}/SodaIceBox
-
-</command>
+php deploy_ci.php --version $version --flavor $flavor --username $username --deploy_timestamp $deploy_timestamp --sugar_build_number $sugar_build_number</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

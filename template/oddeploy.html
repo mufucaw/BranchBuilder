@@ -63,8 +63,9 @@ $var site_url: $site_url
 	</div>
 	<label><b><u>OnDemand Deployment Configuration</u></b></label>
 		<input type="hidden" id="lockStatus" value="0" />
-		<strong>Old domain qatest.sugarcrm.pvt instance list: <a href="http://qatest.sugarcrm.pvt/instances.php" target="_blank">Instances list</a></strong>
+	<div class="alert">
 		<strong>New domain sugar123.me instance list: <a href="http://qatest.sugarcrm.pvt/instances2.php" target="_blank">Instances list</a></strong>
+    </div>
 	<form class="well form-inline" method="post" action ="${site_url}/ODDeploy/oddeploy_add" id="addBuildForm">
 		<select name="username">
 		$ userKey = od_users.keys()
@@ -74,7 +75,7 @@ $var site_url: $site_url
 		</select>
 		<select name="version">
 		$for version in od_version: 
-			$if version == "6.7.1":
+			$if version == "7.2.0":
 				<option value="$version" selected="selected">${version}</option>
 			$else:
 				<option value="$version">${version}</option>
@@ -187,6 +188,12 @@ $var site_url: $site_url
 						<label class="control-label" for="popView-flavor_list">Flavors:</label>
 						<div class="controls">
 							<input type="text" id="popView-flavor_list" class="required" name="flavor_list" /><a href="#" id="flavor-help-info"><i class="icon-info-sign"></i></a>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-demo_data">Demo data:</label>
+						<div class="controls">
+							<input type="checkbox" id="popView-demo_data" class="required" name="demo_data" />
 						</div>
 					</div>
 				</fieldset>

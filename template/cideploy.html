@@ -15,7 +15,10 @@ $var site_url: $site_url
 		</select>
 		<select name="version">
 		$for version in ci_version: 
-			<option value="$version">${version}</option>
+			$if version == "7.2.0":
+				<option value="$version" selected="selected">${version}</option>
+			$else:
+				<option value="$version">${version}</option>
 		</select>
 		<input name="webroot" type="hidden"  value="qatest-web1.sjc.sugarcrm.pvt" >
 		<select name="flavor1">
@@ -116,6 +119,12 @@ $var site_url: $site_url
 								<option value="Pro">Pro</option>
 								<option value="CE">CE</option>
 							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-build_number">Build number:</label>
+						<div class="controls">
+							<input type="text" id="popView-build_number"  class="required build_number" name="build_number" />
 						</div>
 					</div>
 				</fieldset>

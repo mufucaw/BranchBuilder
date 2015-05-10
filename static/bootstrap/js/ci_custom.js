@@ -40,6 +40,8 @@ $(document).ready(function(){
 						$('#popView-flavor').val(buildObj['flavor']); 
 						$('#popView-flavor_list').val(buildObj['deploy_config']);
 
+						$('#popView-build_number').val(buildObj['sugar_build_number']);
+
 						//Set selectAction as editBuild
 						$('#popView-selectAction').val('editDeploy');
 
@@ -53,10 +55,10 @@ $(document).ready(function(){
 		$('#popView-Save').click(function(){
 			//Check form validate firstly
 			/*
+			*/
 			if (! $('#popView-actionDeployForm').valid()){
 				return false;
 			}
-			*/
 
 			if ($('#popView-selectAction').val() == 'editDeploy'){
 				$.post('./cideploy_update', 
@@ -66,6 +68,7 @@ $(document).ready(function(){
 					 "username": $('#popView-username').val(),
 					 "version": $('#popView-version').val(), 
 					 "deploy_config": $('#popView-flavor_list').val(),
+					 "sugar_build_number": $('#popView-build_number').val()
 					 },
 
 					 function(data){

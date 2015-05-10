@@ -1,2 +1,3 @@
-branchBuilder
 *.pyc
+*.bak
+*.sqlite3

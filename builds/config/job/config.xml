@@ -27,6 +27,16 @@
           <defaultValue>0</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
+          <name>latin</name>
+          <description></description>
+          <defaultValue>0</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>demo_data</name>
+          <description></description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
           <name>author</name>
           <description></description>
           <defaultValue></defaultValue>
@@ -125,7 +135,6 @@ cd ../..
 mkdir /dev/shm/sugarbuild-$version
 cp -r sugarcrm /dev/shm/sugarbuild-$version/
 cp -r build /dev/shm/sugarbuild-$version/
-cp -r sugarportal /dev/shm/sugarbuild-$version/
 
 cd /home/build/sugarsvn/Mango/build_clean
 svn revert build_config.json
@@ -133,7 +142,7 @@ if [ &quot;$upgrade_package&quot; = &quot;1&quot; ]; then
   wget http://honey-g/BranchBuilder/buildconfig/buildconfig_get?version=$version -O build_config.json
   chmod 777 build_config.json
 fi
-./build_sugar_30.php --version $version --branch $branch  --deploy --packages &quot;$package_list&quot; --upgrades $upgrade_package --author &quot;$author&quot;
+./build_sugar_30.php --version $version --branch $branch  --deploy --packages &quot;$package_list&quot; --upgrades $upgrade_package --author &quot;$author&quot; --latin $latin --demo-data $demo_data
 
 rm -rf /dev/shm/sugarbuild-$version
 

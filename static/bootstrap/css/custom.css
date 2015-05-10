@@ -1,6 +1,9 @@
 .Running {
 	color: red
 }
+.Failed {
+	color: #f15501
+}
 .InQueue {
 	color: green
 }

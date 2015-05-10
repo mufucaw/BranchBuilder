@@ -1,69 +1,106 @@
-$def with (builds, site_url)
+$def with (builds, site_url, pageNum, total_page, branchbuilder)
 
-$var cssfiles: /static/bootstrap/css/bootstrap.css /static/bootstrap/css/custom.css
+$var cssfiles: /static/bootstrap/css/bootstrap.min.css /static/bootstrap/css/bootstrap-responsive.css /static/bootstrap/css/custom.css
 $var site_url: $site_url
-$code:
-	def generate_user_name(full_name):
-		full_name = full_name.replace(".", "")
-		full_name = full_name.replace("#", "")
-		full_name = full_name.replace("_", "")
-		full_name = full_name.replace("-", "")
-		if full_name == "":
-			return ""
-		else:
-			full_name_list = full_name.split(" ")	
-			if len(full_name_list) > 1:
-				user_name = full_name_list[0][0] + full_name_list[-1]
-			else:
-				user_name = full_name_list[0]
 
-		return user_name[0:16].lower()
 
-<form class="well form-inline" method="post" action ="add" id="addBuildForm">
-	<input type="text" id="add-repos" class="required github" name="repos" placeholder="Git Repository URI"/>
-	<input type="text" id="add-branch" class="required" name="branch" placeholder="Branch" />
-	<input type="text" id="add-version" class="required version" name="version" placeholder="Mapped Version" />
-	<input type="text" id="add-author" class="required" name="author" placeholder="Author" />
-	<button type="submit" class="btn btn-primary">Add</button>
-  <br />
-	<input type="text" id="add-styleguide_repo" class="required SubmoduleInput" name="styleguide_repo" value="git@github.com:sugarcrm/styleguide.git" />
-	<input type="text" id="add-styleguide_branch" class="required SubmoduleInput" name="styleguide_branch" value="master" />
-	<input type="text" id="add-sidecar_repo" class="required SubmoduleInput" name="sidecar_repo" value="git@github.com:sugarcrm/sidecar.git" />
-	<input type="text" id="add-sidecar_branch" class="required SubmoduleInput" name="sidecar_branch" value="master" />
+<form class="well" method="post" action="add" id="addBuildForm" name="addBuildForm">
+	<div class="row-fluid">
+		<div class="span2">
+			<select id="add-version" name="version">
+				<option selected="selected" value="blank">Please select a version</option>
+                $ ver_keys = branchbuilder.keys()
+                $ ver_keys.sort(reverse=True)
+				$for ver in ver_keys:
+					<option value="$ver">
+						$ver
+					</option>
+			</select>
+		</div>
+		<div class="span8 hide" id="mapped_version">
+			<table id="user" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th width="15%">
+							Name
+						</th>
+						<th width="45%">
+							Repo URL
+						</th>
+						<th width="40%">
+							Branch
+						</th>
+					</tr>
+				</thead>
+				<tbody id="mapped_version_list">
+				</tbody>
+			</table>
+			<div class="row-fluid">
+				<div class="span2">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                        <div class="span6">
+                            <button type="button" id="add-cancel" class="btn">Cancel</button>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </form>
-	<div class="alert">
-		<button type="button" class="close" data-dismiss="alert">×</button>
-		<strong>Notice!</strong> Build will start without --latin=1 option, so only English language  will be applied!.
-	</div>
-	<div class="alert">
-		<button type="button" class="close" data-dismiss="alert">×</button>
-		<strong>Notice!</strong> Now with the ability to specify styleguide and sidecar repositories and branches! Leave defaults if you don't need these fields or don't know what they are.
-	</div>
 
+ <div class="alert">
+     <button type="button" class="close" data-dismiss="alert">×</button>
+     <strong>Notice!</strong> Build will be pruned automatically every 2 weeks for every build doesn't stay active in 2 weeks! And you can uncheck expired checkbox in build edit page to make build live forever.
+</div>
 	<table class="table table-condensed">
 	<thead>
 		<tr>
 		<th>Branch</th>
 		<th>Version</th>
 		<th>Latest Build</th>
-		<th>Status</th>
+		<th>#.</th>
+		<th>Build</th>
+		<th>Deploy</th>
 		<th>Repository URI</th>
 		<th>Author</th>
+		<th>Log</th>
 		<th>Actions</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody id="buildList-tbody">
+        <div class="pagination pagination-right">
+            <ul>
+                <li id="buildList-firstPage" class="active"><a id="buildList-firstPage-link" href="#">&laquo;</a></li>
+                <li id="buildList-prePage" class="active"><a id="buildList-prePage-link" href="#">&lt;</a></li>
+                <li class="disabled"><a id="buildList-pageNum-link" href="#">$pageNum of ${total_page}</a></li>
+                <input type="hidden" id="buildList-pageNum" value="${pageNum}" />
+                <input type="hidden" id="buildList-totalPage" value="${total_page}" />
+                <li id="buildList-nextPage" class="active"><a id="buildList-nextPage-link" href="#">&gt;</a></li>
+                <li id="buildList-lastPage" class="active"><a id="buildList-lastPage-link" href="#">&raquo;</a></li>
+            </ul>
+        </div>
 	$for build in builds:
-		<tr id="t$build.task_id">
-			<td><a href="../build${generate_user_name(build.author)}${build.branch}">$build.branch</a></td>
+		<tr id="$build.task_id">
+			<td><a href="../build${build.username}${build.branch}.html">$build.branch</a></td>
 			<td>$build.version</td>
-			<td><a href="../public/builds/${build.branch}/latest">$build.last_build_date</a></td>
+            <td><a href="../public/builds/${build.username}${build.branch}/latest">${build.last_build_date}</a></td>
+            <td>${build.build_number}</td>
 			<td name="list_status" class="${build.status}" id="build_status_${build.task_id}">$build.status</td>
+			<td name="list_deploy_status" class="${build.deploy_status}" id="deploy_status_${build.task_id}">$build.deploy_status</td>
 			<td>$build.repos</td>
 			<td>$build.author</td>
+			<td><a href="/logs/builds/${build.task_id}.log" target="_blank">log</a></td>
 			<td>
 			<input type="button" class="btn btn-success" name="rebuild" id="buildList-$build.task_id"  value="Build" >
 			<input type="button" data-toggle="modal" name="editBuild" class="btn" data-target="#popupViewBuild" id="editList-$build.task_id" value="Edit" >
+            $if build.status == 'Running' or build.status == 'InQueue':
+                <a href="stopbuild?task_id=${build.task_id}" name="stopBuild" class="btn" id="stopList-$build.task_id" >Stop</a>
+            $else:
+                $pass
+
 			<a data-toggle="modal" name="duplicateBuild" class="btn" data-target="#popupViewBuild" id="dupList-$build.task_id" >Duplicate</a>
 			<input type="button" class="btn btn-danger" name="removeBuild" id="buildListRemove-$build.task_id" value="Remove">
 			</td>
@@ -84,7 +121,7 @@ $code:
 					<div class="control-group">
 						<label class="control-label" for="popView-repos">Repository URL:</label>
 						<div class="controls">
-							<input type="text" class="required" id="popView-repos" name="repos" />
+							<input type="text" class="required github" id="popView-repos" name="repos" />
 						</div>
 					</div>
 					<div class="control-group">
@@ -96,7 +133,7 @@ $code:
 					<div class="control-group">
 						<label class="control-label" for="popView-version">Mapped Version:</label>
 						<div class="controls">
-							<input type="text" id="popView-version" class="required" name="version" />
+							<input type="text" id="popView-version" class="required version" name="version" />
 						</div>
 					</div>
 					<div class="control-group">
@@ -112,21 +149,21 @@ $code:
 						</div>
 					</div>
 					<div class="control-group">
+						<label class="control-label" for="popView-latin">Latin:</label>
+						<div class="controls">
+							<input type="checkbox" id="popView-latin" name="latin" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-demo_data">Demo data:</label>
+						<div class="controls">
+							<input type="checkbox" id="popView-demo_data" name="demo_data" />
+						</div>
+					</div>
+					<div class="control-group">
 						<label class="control-label" for="popView-author">Author:</label>
 						<div class="controls">
 							<input type="text" id="popView-author" class="required" name="author" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="popView-styleguide_repo">Styleguide Repository:</label>
-						<div class="controls">
-							<input type="text" id="popView-styleguide_repo" class="required" name="styleguide_repo" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="popView-styleguide_repo">Styleguide Branch:</label>
-						<div class="controls">
-							<input type="text" id="popView-styleguide_branch" class="required" name="styleguide_branch" />
 						</div>
 					</div>
 					<div class="control-group">
@@ -139,6 +176,24 @@ $code:
 						<label class="control-label" for="popView-sidecar_branch">Sidecar Branch:</label>
 						<div class="controls">
 							<input type="text" id="popView-sidecar_branch" class="required" name="sidecar_branch" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-styleguide_repo">Styleguide Repository:</label>
+						<div class="controls">
+							<input type="text" id="popView-styleguide_repo" name="styleguide_repo" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-styleguide_branch">Styleguide Branch:</label>
+						<div class="controls">
+							<input type="text" id="popView-styleguide_branch" name="styleguide_branch" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="popView-expired_tag">Expired:</label>
+						<div class="controls">
+							<input type="checkbox" id="popView-expired_tag" name="expired_tag" />
 						</div>
 					</div>
 				</fieldset>
@@ -191,10 +246,14 @@ $code:
 			<a class="btn btn-primary" id="popView-Send" href="#">Send</a>
 		</div>
 	</div>
+    <script src="/static/bootstrap/js/underscore-min.js"></script>
     <script src="/static/bootstrap/js/jquery.min.js"></script>
     <script src="/static/bootstrap/js/jquery.validate.min.js"></script>
     <script src="/static/bootstrap/js/validate.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap-tooltip.js"></script>
     <script src="/static/bootstrap/js/bootstrap-popover.js"></script>
+    <script src="/static/favico.js/favico-0.1.1.min.js"></script>
     <script src="/static/bootstrap/js/custom.js"></script>
+    <script src="/static/bootstrap/js/custom_builder.js"></script>
+

@@ -1,10 +1,17 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
+import os
+import uuid
 import web
 from jenkins import Jenkins
 
-import json, urllib2, re
+import json
+import urllib2
+import re
 from datetime import datetime
+import logging
+import requests
 
 from buildutil import *
 import BuildConfig
@@ -12,330 +19,525 @@ import ODDeploy
 import CIDeploy
 import Nomad
 import appconfig
+import versionconfig
+from models.branchbuilder import BranchBuilder
+
+#init the logging
+logging.basicConfig(**appconfig.logging_setting)
 
 render = web.template.render('template/', base='layout')
 urls = (
-  '/', 'Index',
-  '/add', 'Add',
-  '/build', 'Build',
-  '/getbuild', 'GetBuild',
-  '/updatebuild', 'UpdateBuild',
-  '/remove', 'Remove',
-  '/sendmail', 'SendMailToAdmin',
-  '/cron', 'BuildCron',
-  '/fullview', 'FullView',
-  '/logger', 'Logger',
-  '/buildconfig', BuildConfig.app_BuildConfig,
-  '/ODDeploy', ODDeploy.app_ODDeploy,
-  '/CIDeploy', CIDeploy.app_CIDeploy,
-  '/Nomad', Nomad.app_Nomad,
-)
+    '/', 'Index',
+    '/add', 'Add',
+    '/build', 'Build',
+    '/buildstatus', 'BuildStatus',
+    '/cron', 'BuildCron',
+    '/getbuild', 'GetBuild',
+    '/stopbuild', 'StopBuild',
+    '/searchbuild', 'SearchBuild',
+    '/updatebuild', 'UpdateBuild',
+    '/remove', 'Remove',
+    '/sendmail', 'SendMailToAdmin',
+    '/fullview', 'FullView',
+    '/logger', 'Logger',
+    '/buildconfig', BuildConfig.app_BuildConfig,
+	'/mappedversion', 'MappedVersion',
+    '/ODDeploy', ODDeploy.app_ODDeploy,
+    '/CIDeploy', CIDeploy.app_CIDeploy,
+    '/Nomad', Nomad.app_Nomad,
+    )
 
 web.config.smtp_server = 'localhost'
 web.config.smtp_port = 25
-web.config.debug = True
+web.config.debug = False
 app = web.application(urls, globals())
 
-
-db = web.database(dbn='sqlite', db='branchBuilder')
+db = web.database(dbn='sqlite', db='branchbuilder.sqlite3')
 
 class Index:
-  def GET(self):
-    #self.update_status()
-    #builds = db.select('builds', order="last_build_date DESC", where="repos is not null")
-    builds = db.query("select a.task_id, a.author, a.branch, a.repos, a.version, a.author, \
-      a.styleguide_repo, a.styleguide_branch, a.sidecar_repo, a.sidecar_branch, a.last_build_date, \
-      ifnull(b.status, a.status) as status \
-      from builds as a \
-      left join  builds_status as b \
-      on a.task_id=b.task_id \
-      order by b.status desc,a.last_build_date desc")
 
-    return render.index(builds, appconfig.site_url)
+    def GET(self):
 
-  def update_status(self):
-    builds_status = db.select('builds_status')
+        i = web.input()
+        if hasattr(i, 'pageLimit') and int(i.pageLimit) > 0:
+            pageLimit = int(i.pageLimit)
+        else:
+            pageLimit = appconfig.per_page
 
-    for build_status in builds_status:
-      db.update('builds', where="task_id=" + str(build_status.task_id), status=build_status.status)
+        if hasattr(i, 'pageNum') and i.pageNum != ""  and int(i.pageNum) > 0:
+            pageNum = int(i.pageNum)
+        else:
+            pageNum = 1
 
-  def get_job_name(self, string):
-    buildUtil = BuildUtil()
-    return buildUtil.get_job_name(repos=string)
-      
+        branchBuilder = BranchBuilder(db)
+        indexPage = branchBuilder.getIndexPage(pageNum, pageLimit)
+
+        return render.index(indexPage["fix_builds"], appconfig.site_url, pageNum,
+                            indexPage["total_page"], versionconfig.branchbuilder)
+
+class SearchBuild:
+
+    def GET(self):
+        i = web.input()
+        web.header('Content-type', 'application/json')
+
+        branchBuilder = BranchBuilder(db)
+
+        if not hasattr(i, "pageNum"):
+            pageNum = 1
+        else:
+            pageNum = i.pageNum
+
+        if hasattr(i, "q"):
+            builds = branchBuilder.searchBuilds(**dict(i))
+        else:
+            return "[]"
+
+
+        return json.JSONEncoder().encode({"builds": list(builds["builds"]), "builds_count": builds["builds_count"]})
+
+
 class Add:
-  def POST(self):
-    i = web.input()
 
-    #TODO
-    #check duplicate
-    #if found duplicate then build
-    isDuplicate = False
-    if isDuplicate:
-      pass
-    #else add a new build
-    else:
-      if (hasattr(i, 'upgrade_package')):
-        upgrade_package = i.upgrade_package 
-      else:
-        upgrade_package = 0
+    def POST(self):
+        i = web.input(styleguide_repo="", styleguide_branch="")
 
-      buildUtil = BuildUtil()
-      i = buildUtil.sanitize_input(i)
-      styleguide_branch = buildUtil.determine_styleguide_branch(i.styleguide_repo, i.styleguide_branch, i.version)
-      n = db.insert('builds',  repos=i.repos, branch=i.branch, version=i.version, author=i.author,
-            styleguide_repo=i.styleguide_repo, styleguide_branch=styleguide_branch, sidecar_repo=i.sidecar_repo,
-            sidecar_branch=i.sidecar_branch,
-            last_build_number=1000,
-            last_build_date="",
-            start_time="",
-            status="Available",
-            package_list="ent",
-            upgrade_package = upgrade_package)
+    # TODO
+    # check duplicate
+    # if found duplicate then build
 
-      date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-      f = open("logger", "a")
-      f.write(date_now + " [Add Action:]," + i.repos + "," + i.branch + "," + i.version + "," + i.author + "," + i.styleguide_repo + "," + i.styleguide_branch + "," + i.sidecar_repo + "," + i.sidecar_branch + ", ent, Available" + str(upgrade_package) + "\n")
-      f.close()
-      raise web.seeother('/')
+        isDuplicate = False
+        if isDuplicate:
+            pass
+        else:
+
+    # else add a new build
+
+            if hasattr(i, 'upgrade_package'):
+                upgrade_package = i.upgrade_package
+            else:
+                upgrade_package = '0'
+
+            if hasattr(i, 'latin'):
+                latin = i.latin
+            else:
+                latin = '0'
+
+            if hasattr(i, 'demo_data'):
+                demo_data = i.demo_data
+            else:
+                demo_data = '1'
+
+            if hasattr(i, 'expired_tag'):
+                expired_tag = i.expired_tag
+            else:
+                expired_tag = '1'
+
+            if hasattr(i, 'package_list'):
+                package_list = i.package_list
+            else:
+                package_list = 'ent,pro'
+
+            task_id  = uuid.uuid4()
+            data = {
+                'task_id': str(task_id),
+                'repos': i.repos,
+                'branch': i.branch,
+                'version': i.version,
+                'author': i.author,
+                'styleguide_repo': i.styleguide_repo,
+                'styleguide_branch': i.styleguide_branch,
+                'sidecar_repo': i.sidecar_repo,
+                'sidecar_branch': i.sidecar_branch,
+                'build_number': '',
+                'last_build_date': '',
+                'start_time': '',
+                'status': 'Available',
+                'deploy_status': 'Unknown',
+                'package_list': package_list,
+                'upgrade_package': upgrade_package,
+                'latin': latin,
+                'demo_data': demo_data,
+                'expired_tag': expired_tag
+                }
+            t = db.transaction()
+            try:
+                n = db.insert(
+                    'builds',
+                    **data
+                    )
+            except:
+                t.rollback()
+                raise
+            else:
+                t.commit()
+
+
+            data["branch"] = BuildUtil().get_branch_name(data["branch"])
+            logging.info("[Add Action:]" + json.dumps(data))
+            web.header('Content-type', 'application/json')
+
+            return json.dumps(data)
+
 
 class Remove:
-  def GET(self):
-    i = web.input()
-    date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    f = open("logger", "a")
-    for m in db.select('builds', where="task_id =" +  i.task_id):
-      f.write(date_now + " [Delete Action:]" + str(m.task_id) + "," + m.repos + "," + m.branch + "," + m.version + "," + m.author + "," + m.styleguide_repo + "," + m.styleguide_branch + "," + m.sidecar_repo + "," + m.sidecar_branch + "," + m.package_list + "\n")
-    f.close()
+    def GET(self):
+        i = web.input()
 
-    n = db.delete('builds', where="task_id =" +  i.task_id)
-    raise web.seeother('/')
+        for m in db.select('builds', where='task_id ="' + i.task_id + '"'):
+            logging.info("[Delete Action:]" + json.dumps(m))
+
+        t = db.transaction()
+        try:
+            n = db.delete('builds', where='task_id ="' + i.task_id + '"')
+        except:
+            t.rollback()
+            raise
+        else:
+            t.commit()
+
 
 class RunBuild:
-  def run(self, task_id):
-    #i = web.input()
-    i = {"task_id": task_id}
-    selectedBuilds = db.select('builds', where="task_id=" + str(i["task_id"]))
 
-    date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    if selectedBuilds:
-      db.update('builds', where="task_id=" + str(i["task_id"]), last_build_date=date_now)
+    def run(self, task_id):
 
-    taskBuilder = TaskBuilder('http://localhost:8080')
+    # i = web.input()
 
-    for build in selectedBuilds:
-      taskBuilder.add_build(repos=build.repos, branch=build.branch, version=build.version, author=build.author, styleguide_repo=build.styleguide_repo,
-        styleguide_branch=build.styleguide_branch, sidecar_repo=build.sidecar_repo, sidecar_branch=build.sidecar_branch,
-        package_list=build.package_list, upgrade_package=build.upgrade_package)
-    #raise web.seeother('/')
+        i = {'task_id': task_id}
+        selectedBuilds = db.select('builds', where='task_id="'
+                                   + str(i['task_id']) + '"')
+
+        date_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        if selectedBuilds:
+            db.update('builds', where='task_id="' + str(i['task_id']) + '"',
+                      last_build_date=date_now)
+
+        taskBuilder = TaskBuilder('http://localhost:8080')
+
+        for build in selectedBuilds:
+            taskBuilder.add_build(
+                repos=build.repos,
+                branch=build.branch,
+                version=build.version,
+                author=build.author,
+                styleguide_repo=build.styleguide_repo,
+                styleguide_branch=build.styleguide_branch,
+                sidecar_repo=build.sidecar_repo,
+                sidecar_branch=build.sidecar_branch,
+                package_list=build.package_list,
+                upgrade_package=build.upgrade_package,
+                latin=build.latin,
+                demo_data=build.demo_data,
+                )
+
+
+    # raise web.seeother('/')
 
 class Build:
-  def GET(self):
 
-    i = web.input()
-    selectedBuilds = db.select('builds', where="task_id=" + i.task_id, what="task_id")
+    def GET(self):
 
-    if selectedBuilds:
-      builds_status = db.select('builds_status')
+        i = web.input()
+        selected_fileds = ' \
+            task_id, repos, branch, version, author, package_list, \
+            upgrade_package, styleguide_repo, styleguide_branch, sidecar_repo, \
+            sidecar_branch, demo_data, latin'
+        selectedBuilds = db.select('builds', where='task_id="'
+                                   + str(i.task_id) + '"', what=selected_fileds)[0]
 
-      if builds_status:
-        max_priority_records = db.query('select max(priority) as priority from builds_status')
-        new_max_priority = max_priority_records[0].priority + 1
+        if selectedBuilds:
+            builds_status = db.query('select * from builds_status')
+            priority = 1;
 
-        db.insert('builds_status', task_id=int(i.task_id), priority=new_max_priority, status="InQueue")
-        statusString = json.JSONEncoder().encode({"task_id": i.task_id, "status": "InQueue" })
-      else:
-        db.insert('builds_status',
-              task_id=int(i.task_id),
-              status="Running",
-              priority=1)
-        RunBuild().run(i.task_id)
-        statusString = json.JSONEncoder().encode({"task_id": i.task_id, "status": "Running" })
+            if builds_status:
+                existing_build = db.query('select task_id from builds_status where task_id="' + i.task_id + '"')
+                if len(list(existing_build)) == 0:
+                    max_priority_records = \
+                        db.query('select max(priority) as priority from builds_status')
+                    priority = max_priority_records[0].priority + 1
 
-      return statusString
+            kue_job_id,kue_job_status = None, None
+            job_url = appconfig.kue_server + '/job'
+            playload = {
+                    'type': 'sugarbuild',
+                    'data': dict(selectedBuilds),
+                    'options': {
+                        'priority': priority,
+                        'attempts': 1
+                        }
+                    }
+            headers = {'content-type': 'application/json'}
+            job_status = 'InQueue'
+
+            try:
+                r = requests.post(job_url, data = json.dumps(playload), headers = headers)
+                kue_job_id = json.loads(r.text)['id']
+            except Exception as e:
+                web.debug('Failed to create kue job')
+
+            try:
+                r = requests.get(job_url + '/' + str(kue_job_id))
+                kue_job_status = json.loads(r.text)['state']
+            except Exception as e:
+                web.debug('Failed to retrieve the job ' + str(kue_job_id))
+
+            if kue_job_status == 'active':
+                job_status = 'Running'
+
+            t = db.transaction()
+            try:
+                n = db.insert('builds_status',
+                        task_id=str(i.task_id),
+                        priority=priority, status=job_status,
+                        kue_job_id=kue_job_id)
+            except:
+                t.rollback()
+                raise
+            else:
+                t.commit()
+
+            statusString = \
+                json.JSONEncoder().encode({'task_id': i.task_id,
+                    'status': job_status})
+
+            web.header('Content-type', 'application/json')
+
+            return statusString
+
 
 class UpdateBuild:
-  def POST(self):
-    i = web.input(all_language_packs="0")
 
-    date_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    #Before update
-    f = open("logger", "a")
-    for m in db.select('builds', where="task_id =" +  i.task_id):
-      f.write(date_now + " [Before Update Action:]" + str(m.task_id) + "," + m.repos + "," + m.branch + "," + m.version + "," + m.author + "," + m.styleguide_repo + "," + m.styleguide_branch + "," + m.sidecar_repo + "," + m.sidecar_branch + "," + m.package_list + "," + "\n")
+    def POST(self):
+        i = web.input(all_language_packs='0')
 
-    selectedBuilds = db.select('builds', where="task_id=" + i.task_id)
+        date_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    buildUtil = BuildUtil()
-    i = buildUtil.sanitize_input(i)
-    styleguide_branch = buildUtil.determine_styleguide_branch(i.styleguide_repo, i.styleguide_branch, i.version)
+    # Before update
 
-    if selectedBuilds:
-      db.update('builds', where="task_id=" + i.task_id, repos=i.repos, branch=i.branch, version=i.version, author=i.author,
-        styleguide_repo=i.styleguide_repo, styleguide_branch=styleguide_branch, sidecar_repo=i.sidecar_repo,
-        sidecar_branch=i.sidecar_branch, package_list=i.package_list, upgrade_package=i.upgrade_package)
+        for m in db.select('builds', where='task_id ="' + i.task_id + '"'):
+            logging.info("[Before Update Action:]" + json.dumps(m))
 
-      #After update
-      for k in db.select('builds', where="task_id =" +  i.task_id):
-        f.write(date_now + " [After Update Action:]" + str(k.task_id) + "," + k.repos + "," + k.branch + "," + k.version + "," + k.author + "," + k.styleguide_repo + "," + k.styleguide_branch + "," + k.sidecar_repo + "," + k.sidecar_branch + "," + k.package_list + "\n")
+        selectedBuilds = db.select('builds', where='task_id="'
+                                   + i.task_id + '"')
 
-    f.close()
-    #End logger
+        buildUtil = BuildUtil()
+        i = buildUtil.sanitize_input(i)
+        styleguide_branch = \
+            buildUtil.determine_styleguide_branch(i.styleguide_repo,
+                i.styleguide_branch, i.version)
 
-    raise web.seeother('/')
+        build_string = json.dumps([])
+        if selectedBuilds:
+            t = db.transaction()
+            try:
+                db.update(
+                    'builds',
+                    where='task_id="' + i.task_id + '"',
+                    repos=i.repos,
+                    branch=i.branch,
+                    version=i.version,
+                    author=i.author,
+                    styleguide_repo=i.styleguide_repo,
+                    styleguide_branch=styleguide_branch,
+                    sidecar_repo=i.sidecar_repo,
+                    sidecar_branch=i.sidecar_branch,
+                    package_list=i.package_list,
+                    upgrade_package=i.upgrade_package,
+                    latin=i.latin,
+                    demo_data=i.demo_data,
+                    expired_tag=i.expired_tag
+                    )
+            except:
+                t.rollback()
+                raise
+            else:
+                t.commit()
+
+          # After update
+
+            for k in db.select('builds', where='task_id ="' + i.task_id + '"'):
+                build_string = json.dumps(dict(k))
+                logging.info("[After Update Action:]" + json.dumps(k))
+
+        # End logger
+        web.header('Content-type', 'application/json')
+        return build_string
+
 
 class GetBuild:
-  def GET(self):
-    i = web.input()
-    buildString = ""
-    selectedBuilds = db.select('builds', where="task_id=" + i.task_id)
 
-    if selectedBuilds:
-      for x in  selectedBuilds:
-        buildString = json.JSONEncoder().encode({"repos": x.repos, "branch": x.branch, "version": x.version, "author": x.author,
-          "styleguide_repo": x.styleguide_repo, "styleguide_branch": x.styleguide_branch, "sidecar_repo": x.sidecar_repo,
-          "sidecar_branch": x.sidecar_branch, "package_list": x.package_list, "upgrade_package": x.upgrade_package})
-      web.header('Content-type', 'application/json')
-      return buildString
+    def GET(self):
+        i = web.input()
+        buildString = ''
+        selectedBuilds = db.select('builds', where='task_id="'
+                                   + str(i.task_id) + '"')
+
+        if selectedBuilds:
+            for x in selectedBuilds:
+                buildString = json.JSONEncoder().encode({
+                    'task_id': i.task_id,
+                    'repos': x.repos,
+                    'branch': x.branch,
+                    'version': x.version,
+                    'author': x.author,
+                    'latin': x.latin,
+                    'demo_data': x.demo_data,
+                    'styleguide_repo': x.styleguide_repo,
+                    'styleguide_branch': x.styleguide_branch,
+                    'sidecar_repo': x.sidecar_repo,
+                    'sidecar_branch': x.sidecar_branch,
+                    'package_list': x.package_list,
+                    'upgrade_package': x.upgrade_package,
+                    'expired_tag': x.expired_tag
+                    })
+            web.header('Content-type', 'application/json')
+            return buildString
+
+
+class StopBuild:
+
+    def GET(self):
+        i = web.input()
+        jobInQueue = \
+            db.query('select * from builds_status where task_id="'
+                     + i.task_id + '"')
+        job_inqueue_list = list(jobInQueue)
+        if len(job_inqueue_list) > 0:
+            kue_job_id = job_inqueue_list[0]["kue_job_id"]
+            db.delete('builds_status', where='task_id="' + i.task_id + '"')
+            db.update('builds', where='task_id="' + i.task_id + '"', deploy_status='Canceled', status='Canceled')
+
+            try:
+                job_url = appconfig.kue_server + '/job'
+                r = requests.delete(job_url + '/' + str(kue_job_id))
+                kue_job_status = json.loads(r.text)['state']
+            except Exception as e:
+                web.debug('Failed to remove the job ' + str(kue_job_id))
+
+        web.seeother('/')
+
+class BuildStatus:
+
+    def POST(self):
+        i = web.input()
+        job_status = 'Available'
+        deploy_status = 'Unknown'
+        final_status = 'Available'
+
+        if i.status :
+            if i.status == 'complete' :
+                job_status = 'Available'
+                final_status = 'Available'
+                t = db.transaction()
+                try:
+                    n = db.delete(
+                        'builds_status',
+                        where='task_id="' + i.task_id + '"'
+                        )
+                except:
+                    t.rollback()
+                    raise
+                else:
+                    t.commit()
+            elif i.status == 'failed' :
+                job_status = 'Failed'
+                final_status = 'Failed'
+                t = db.transaction()
+                try:
+                    n = db.delete(
+                        'builds_status',
+                        where='task_id="' + i.task_id + '"'
+                        )
+                except:
+                    t.rollback()
+                    raise
+                else:
+                    t.commit()
+            elif i.status == 'progress' :
+                if i.progress and int(i.progress) < 100:
+                    job_status = 'Running'
+                    t = db.transaction()
+                    try:
+                        n = db.update(
+                            'builds_status',
+                            where='task_id="' + i.task_id + '"',
+                            status=job_status
+                            )
+                    except:
+                        t.rollback()
+                        raise
+                    else:
+                        t.commit()
+                else:
+                    job_status = 'Available'
+
+            t = db.transaction()
+            try:
+                if i.status != 'progress':
+                    date_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    if i.deploy_status:
+                        deploy_status = i.deploy_status.lower().title()
+                    n = db.update(
+                        'builds',
+                        where='task_id="' + i.task_id + '"',
+                        status=final_status,
+                        deploy_status=deploy_status,
+                        last_build_date=date_now
+                        )
+            except:
+                t.rollback()
+                raise
+            else:
+                t.commit()
+        else:
+            pass
 
 class BuildCron:
-  def __init__(self):
-    self.taskBuilder = TaskBuilder(appconfig.jenkins_url)
 
-  def check_queue(self):
-    #Check queue jobs
-    j = self.taskBuilder.j
+    def run_cron(self):
+        build_query = """
+        select a.id, a.task_id,a.status,a.kue_job_id,b.deploy_status
+        from builds_status as a
+        left join builds as b
+        where a.task_id=b.task_id
+        """
+        return db.query(build_query)
 
-    return j.get_queue_info()
+    def GET(self):
+        job_list = self.run_cron()
+        web.header('Content-type', 'application/json')
 
-  def is_building_job(self, jobName):
-    if str(jobName) in self.get_building_job():
-      return True
-    else:
-      return False
-
-  def get_building_job(self):
-    #Check building job
-
-    j = self.taskBuilder.j
-    job_list = j.get_jobs()
-    job_queue_list = j.get_queue_info()
-    running_job = []
-
-    for job in job_list:
-      if re.search('anime', job['color']) and re.match('^Build_', job['name']):
-        running_job.append(job['name'])
-
-    for queue_item in job_queue_list:
-      if re.match('^Build_', queue_item['task']['name']):
-          running_job.append(queue_item['task']['name'])
-
-    return running_job
-
-  def get_lowest_build(self):
-    min_builds = db.query('select task_id, status, priority \
-           from builds_status \
-           where priority=(select min(b.priority) from builds_status as b)')
-    if min_builds:
-      for min_build in min_builds:
-        return {"task_id":min_build.task_id, "status": min_build.status, "priority": min_build.priority}
-
-    #min_build_priority = min_build_priorities[0].priority
-
-    #if min_build_priority:
-    #  selectedBuildTasks = db.select('builds_status', where='priority=' + str(min_build_priority))
-    #  for selectBuildTask in selectedBuildTasks:
-    #    return {"task_id":selectBuildTask.task_id, "status": selectBuildTask.status}
-    #else:
-    #  return False
-
-  def update_task_status_as_lastBuild(self, task_id, jobName):
-    j = self.taskBuilder
-    job_status = j.get_build_status(jobName)
-
-    if job_status == False or job_status == 'Succcess':
-      job_status = 'Available'
-
-    db.update('builds', where="task_id=" + str(task_id), status=job_status)
-
-  def run_cron(self):
-    lowest_build = self.get_lowest_build()
-    job_list = []
-
-    if lowest_build:
-      if lowest_build["status"] == 'Running':
-        selectRepos = db.select('builds', where='task_id=' + str(lowest_build['task_id']), what="repos")
-        buildUtil = BuildUtil()
-        jobName = ""
-        for m in selectRepos:
-          jobName = buildUtil.get_job_name(repos=m["repos"])
-
-        if self.is_building_job(jobName):
-          pass
-        else:
-          #update build_status and remove the running flag
-          self.update_task_status_as_lastBuild(str(lowest_build['task_id']), jobName)
-          db.delete('builds_status', where='task_id=' + str(lowest_build["task_id"]))
-
-      elif lowest_build["status"] == 'InQueue':
-        #Assume Jenkins is avaliable for building
-        RunBuild().run(lowest_build["task_id"])
-        db.update('builds_status', where='task_id=' + str(lowest_build["task_id"]), status='Running')
-
-      else:
-        #print 'false with invalid status'
-        pass
-    else:
-      #print 'false from lowest build'
-      pass
-    
-    for x in db.select('builds_status', what='task_id, status'):
-      job_list.append(x)
-
-    return job_list
-      
-  
-  def GET(self):
-    job_list = []
-    new_builds_status = self.run_cron()
-    web.header('Content-type', 'application/json')
-    if new_builds_status:
-      for build_status in new_builds_status:
-        job_list.append({"task_id": build_status.task_id, "status": build_status.status})
-
-    return json.JSONEncoder().encode(job_list)
-
-class FullView:
-  def POST(self):
-    i = web.input()
-    builds = db.select('builds', where="task_id =" +  i.task_id)
-
-    return render.view(builds)
-
-
-  def GET(self):
-    i = web.input()
-    builds = db.select('builds', where="task_id =" +  i.task_id)
-
-    return render.view(builds)
-
-class Fixing:
-  def GET(self):
-    i = web.input()
-
-    return render.fixing(appconfig.site_url)
+        return json.JSONEncoder().encode(list(job_list))
 
 class SendMailToAdmin:
-  def POST(self):
-    i = web.input()
-    web.sendmail(i.from_address, 'oyang@sugarcrm.com', 'BranchBuilder - ' + i.subject, i.message)
+
+    def POST(self):
+        """
+        i = web.input()
+        web.sendmail(i.from_address, 'oyang@sugarcrm.com',
+                     'BranchBuilder - ' + i.subject, i.message)
+        """
+        pass
+
+class MappedVersion:
+	def GET(self):
+		i = web.input(version="")
+		web.header('Content-type', 'application/json')
+		branchbuilder = versionconfig.branchbuilder
+
+		if i.version in branchbuilder.keys():
+			return json.JSONEncoder().encode(branchbuilder[i.version])
+		else:
+			return '{}'
 
 class Logger:
-  def GET(self):
-    web.header('Content-type', 'text/plain')
-    f = open("logger", "r")
-    return f.read()
-    
+
+    def GET(self):
+        web.header('Content-type', 'text/plain')
+        f = open('logger', 'r')
+        return f.read()
+
+
 if __name__ == '__main__':
-  app.run()
+    app.run()
