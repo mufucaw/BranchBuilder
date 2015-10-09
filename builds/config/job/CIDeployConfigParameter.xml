@@ -59,19 +59,19 @@ php deploy_ci.php --version $version --flavor $flavor --username $username --dep
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
-    <buildWrappers>
-      <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.15">
-        <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
-          <timeoutMinutes>15</timeoutMinutes>
-        </strategy>
-        <operationList>
-          <hudson.plugins.build__timeout.operations.FailOperation/>
-          <hudson.plugins.build__timeout.operations.WriteDescriptionOperation>
-            <description>Jenkins aborted a stuck build: timed out after {0} minutes.</description>
-          </hudson.plugins.build__timeout.operations.WriteDescriptionOperation>
-        </operationList>
-      </hudson.plugins.build__timeout.BuildTimeoutWrapper>
-    </buildWrappers>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.15">
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>30</timeoutMinutes>
+      </strategy>
+      <operationList>
+        <hudson.plugins.build__timeout.operations.FailOperation/>
+        <hudson.plugins.build__timeout.operations.WriteDescriptionOperation>
+          <description>Honey-G Jenkins aborted a stuck build: timed out after {0} minutes.</description>
+        </hudson.plugins.build__timeout.operations.WriteDescriptionOperation>
+      </operationList>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+  </buildWrappers>
   <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
     <runSequentially>false</runSequentially>
   </executionStrategy>
